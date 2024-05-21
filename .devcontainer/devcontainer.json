@@ -3,6 +3,7 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    "postStartCommand": "sudo /etc/init.d/ssh start",
     "mounts": [
         {
           "source": "C:/Users/rvarg/.ssh",
