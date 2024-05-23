@@ -6,34 +6,45 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:16:19 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/22 13:21:06 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:46:45 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "ft_printf/inc/ft_printf.h"
-#include "libft/inc/libft.h"
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-typedef struct	s_d_llist
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include "ft_printf/inc/ft_printf.h"
+# include "libft/inc/libft.h"
+
+//buffer to store data
+typedef struct s_cbuffer
 {
-	struct s_d_llist	*prev;
-	int					content;
-	struct s_d_llist	*next;
-}						d_llist;
+	int	*head;
+	int	*tail;
+	int	*content;
+	int	max_size;
+}		t_cbuffer;
 
-typedef struct	s_stack
+//stack definition for clarity
+typedef struct s_stack
 {
-	d_llist	**top;
-	int		max_size;
-}			ps_stack;
+	t_cbuffer	*buffer;
+}				t_stack;
 
+//main structure that stores both stacks
 typedef struct s_stacks
 {
-	ps_stack	*a;
-	ps_stack	*b;
-}				stacks;
+	t_stack	a;
+	t_stack	b;
+}			t_stacks;
 
-void	*unordered_nums(int argn, char const *args);
-stacks	init_stacks(int *unordered);
+int			array_len(int *array);
+int			matrix_dim(char **mat);
+void		print_unordered(int	*nums);
+t_stacks	init_stacks(int *unordered, int max_size);
+int			*unordered_nums(int argn, char const *args);
+
+#endif
