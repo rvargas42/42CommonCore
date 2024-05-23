@@ -6,7 +6,7 @@
 #    By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 14:14:52 by ravargas          #+#    #+#              #
-#    Updated: 2024/05/17 13:28:44 by ravargas         ###   ########.fr        #
+#    Updated: 2024/05/23 13:28:56 by ravargas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,12 @@ INCLUDE = $(INC_DIR)push_swap.h
 
 test: fclean $(LIBFT)
 	@gcc $(SRCs) $(INCLUDE) $(LIBFT) -o $(NAME)
+	@make -s executeTests
+
+test_mem: fclean $(LIBFT)
+	@gcc $(SRCs) $(INCLUDE) $(LIBFT) -o $(NAME)
 	@make -s verifyCompilation
+	@valgrind --leak-check=yes ./$(NAME) "1 2 3"
 
 all: $(NAME) #Make files execute first rule by default
 
@@ -68,6 +73,10 @@ ifeq (, $(wildcard ./push_swap.out))
 else
 	@echo "$(NAME) not compiled :/ " 
 endif
+
+executeTests: verifyCompilation
+	@echo "${B}Executing basic test${B}"
+	@sh ./testing/tests.sh
 
 clean:
 	@make clean -sC $(LIBFT_DIR)
