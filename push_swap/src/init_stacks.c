@@ -6,42 +6,41 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:06:09 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/22 13:40:48 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:09:33 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-d_llist	**build_dllist(int n_nodes) // TODO: Terminar esta funcion y poblar lista enlazada 
+//TODO: check structures and test
+static void	init_buffer_a(t_stack *a, int *unordered, int max_size)
 {
-	
+	a->buffer->content = unordered;
+	a->buffer->head = &(unordered[0]);
+	a->buffer->tail = &(unordered[max_size - 1]);
+	a->buffer->max_size = max_size;
 }
- 
-void	init_stack(ps_stack *stack, int *unordered) // TODO: revisar
+static void init_buffer_b(t_stack *b, int max_size)
 {
-	int		i;
-	d_llist	**dllist;
+	int	*empty_array;
 
-	i = 0;
-	dllist = build_dllist(*unordered);
-	stack->top = dllist;
-	
+	empty_array = ft_calloc(max_size, sizeof(int));
+	b->buffer->content = empty_array;
+	b->buffer->head = &(empty_array[0]);
+	b->buffer->tail = &(empty_array[max_size - 1]);
+	b->buffer->max_size = max_size;
 }
 
-stacks	init_stacks(int *unordered) //TODO: revisar
+t_stacks	init_stacks(int *unordered, int max_size)
 {
-	stacks		st_stacks;
-	ps_stack	*a;
-	ps_stack	*b;
-
-	a = malloc(sizeof(ps_stack));
-	b = malloc(sizeof(ps_stack));
-
-	init_stack(a, unordered);
-	init_stack(b, NULL);
+	t_stacks	ab_stacks;
+	t_stack		b;
+	t_stack		a;
 	
-	st_stacks.a = a;
-	st_stacks.b = b;
-	
-	return (st_stacks);
+	init_buffer_a(&a, unordered, max_size);
+	init_buffer_b(&b, max_size);
+	ab_stacks.a = a;
+	ab_stacks.b = b;
+
+	return (ab_stacks);
 }

@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 14:10:17 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/23 14:10:24 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/23 11:36:09 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/23 11:52:52 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-int main(int argn, char const **argv)
+int	array_len(int *array)
 {
-	int			*unordered;
-	t_stacks	stacks;
+	int	i;
 
-	if (argn != 2)
-		exit(-1);
-	unordered = unordered_nums(argn, argv[1]);
-	free(unordered); //TODO provisional
-	stacks = init_stacks(unordered, array_len(unordered));
-	//push_swap(st_stacks)
-	//free_all(st_stacks); //TODO: function that frees all data
-	return (1);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }
+
+int	matrix_dim(char **mat)
+{
+	int	i;
+
+	i = 0;
+	while (mat[i])
+		i++;
+	return (i);
+}
+
