@@ -12,7 +12,23 @@
 
 #include "../inc/push_swap.h"
 
-void	free_stacks(t_stacks ab_stacks) //TODO: terminar
+void	free_stack(t_stack *s)
 {
-	return ;
+	if (s)
+	{
+		free(s->content);
+		free(s);
+	}
+	else
+		return ;
+}
+
+void	free_all(t_stacks *ab_stacks) //TODO: terminar
+{
+	if (ab_stacks)
+	{
+		free_stack(ab_stacks->a);
+		free_stack(ab_stacks->b);
+		free(ab_stacks);
+	}
 }
