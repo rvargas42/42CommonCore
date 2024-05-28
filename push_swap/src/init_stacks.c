@@ -12,11 +12,6 @@
 
 #include "../inc/push_swap.h"
 
-
-static void	copy_array(int *dest, int *src)
-{
-	int	i;
-}
 //TODO: check structures and test
 static void	*init_buffer_a(int **unordered, int max_size)
 {
@@ -24,11 +19,12 @@ static void	*init_buffer_a(int **unordered, int max_size)
 
 	a = malloc(sizeof(t_stack));
 	a->content = *unordered;
-	a->head = &(a->content[0]);
+	a->head = &(a->content[0]); //TODO: cambiar estructura
 	a->tail = &(a->content[max_size - 1]);
 	a->max_size = max_size;
 	return (a);
 }
+
 static void *init_buffer_b(int max_size)
 {
 	int		*empty_array;

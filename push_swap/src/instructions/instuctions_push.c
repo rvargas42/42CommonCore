@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   instuctions_push.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 11:36:09 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/23 11:52:52 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/28 17:25:30 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "../../inc/push_swap.h"
 
-int	array_len(int *array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
+void    push_stack(t_stack *src, t_stack *dst)
+{   
+    return ;
 }
-
-int	matrix_dim(char **mat)
-{
-	int	i;
-
-	i = 0;
-	while (mat[i])
-		i++;
-	return (i);
-}
-

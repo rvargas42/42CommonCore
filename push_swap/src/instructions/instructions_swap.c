@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_utils.c                                      :+:      :+:    :+:   */
+/*   instructions_swap.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 10:57:27 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/23 12:59:50 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/28 16:38:11 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/28 17:30:05 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "../../inc/push_swap.h"
 
-void	print_unordered(int	*nums)
+void    swap_stack(t_stack *s)
 {
-	int	i;
-	int	c;
+    int temp;
 
-	i = 0;
-	while (nums[i])
-	{
-		c = nums[i];
-		ft_putnbr_fd(nums[i], 1);
-		write(1, "\n", 2);
-		i++;
-	}
+    if (array_len(s->content) <= 1 || !s)
+        return ;
+    temp = s->content[1];
+    s->content[0] = temp;
+    
+    return ;
 }

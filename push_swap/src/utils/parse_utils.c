@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/27 18:55:36 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/15 13:13:11 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/23 11:36:09 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/23 11:52:52 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "../../inc/push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+int	array_len(int *array)
 {
-	t_list	*new;
+	int	i;
 
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new -> content = content;
-	new -> next = NULL;
-	return (new);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }
+
+int	matrix_dim(char **mat)
+{
+	int	i;
+
+	i = 0;
+	while (mat[i])
+		i++;
+	return (i);
+}
+
