@@ -15,14 +15,14 @@
 int main(int argn, char const **argv)
 {
 	int			*unordered;
-	t_stacks	stacks;
+	t_stacks	*stacks;
 
 	if (argn != 2)
 		exit(-1);
 	unordered = unordered_nums(argn, argv[1]);
-	free(unordered); //TODO provisional
-	stacks = init_stacks(unordered, array_len(unordered));
+	stacks = init_stacks(&unordered, array_len(unordered));
+	print_unordered(stacks->a->content);
 	//push_swap(st_stacks)
-	//free_all(st_stacks); //TODO: function that frees all data
+	free_all(stacks); //TODO: function that frees all data
 	return (1);
 }

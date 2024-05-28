@@ -12,35 +12,48 @@
 
 #include "../inc/push_swap.h"
 
+
+static void	copy_array(int *dest, int *src)
+{
+	int	i;
+}
 //TODO: check structures and test
-static void	init_buffer_a(t_stack *a, int *unordered, int max_size)
+static void	*init_buffer_a(int **unordered, int max_size)
 {
-	a->buffer->content = unordered;
-	a->buffer->head = &(unordered[0]);
-	a->buffer->tail = &(unordered[max_size - 1]);
-	a->buffer->max_size = max_size;
-}
-static void init_buffer_b(t_stack *b, int max_size)
-{
-	int	*empty_array;
+	t_stack	*a;
 
-	empty_array = ft_calloc(max_size, sizeof(int));
-	b->buffer->content = empty_array;
-	b->buffer->head = &(empty_array[0]);
-	b->buffer->tail = &(empty_array[max_size - 1]);
-	b->buffer->max_size = max_size;
+	a = malloc(sizeof(t_stack));
+	a->content = *unordered;
+	a->head = &(a->content[0]);
+	a->tail = &(a->content[max_size - 1]);
+	a->max_size = max_size;
+	return (a);
+}
+static void *init_buffer_b(int max_size)
+{
+	int		*empty_array;
+	t_stack	*b;
+
+	b = malloc(sizeof(t_stack));
+	empty_array = ft_calloc(max_size, sizeof(int *));
+	b->content = empty_array;
+	b->head = &(b->content[0]);
+	b->tail = &(b->content[max_size - 1]);
+	b->max_size = max_size;
+	return (b);
 }
 
-t_stacks	init_stacks(int *unordered, int max_size)
+t_stacks	*init_stacks(int **unordered, int max_size)
 {
-	t_stacks	ab_stacks;
-	t_stack		b;
-	t_stack		a;
+	t_stacks	*ab_stacks;
+	t_stack		*b;
+	t_stack		*a;
 	
-	init_buffer_a(&a, unordered, max_size);
-	init_buffer_b(&b, max_size);
-	ab_stacks.a = a;
-	ab_stacks.b = b;
+	ab_stacks = malloc(sizeof(ab_stacks));
+	a = init_buffer_a(unordered, max_size);
+	b = init_buffer_b(max_size);
+	ab_stacks->a = a;
+	ab_stacks->b = b;
 
 	return (ab_stacks);
 }

@@ -101,7 +101,6 @@ int	*unordered_nums(int argn, char const *args)
 		free(clean_arr);
 		exit(-1);
 	}
-	print_unordered(clean_arr);
 	free_split(nums);
 	return (clean_arr);
 }
