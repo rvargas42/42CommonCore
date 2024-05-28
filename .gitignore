@@ -1,3 +1,6 @@
 *.o
 testing
 test
+*.out
+*.bat
+*.ps1
