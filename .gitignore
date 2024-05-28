@@ -1,6 +1,6 @@
 *.o
-testing
-test
+testing/
+test/
 *.out
 *.bat
 *.ps1
