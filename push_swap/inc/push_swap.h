@@ -22,11 +22,13 @@
 //buffer to store data
 typedef struct s_cbuffer
 {
-	int	*head;
-	int	*tail;
-	int	*content;
-	int	max_size;
-}		t_stack;
+	char	id;
+	int		head;
+	int		tail;
+	int		*content;
+	int		entries;
+	int		max_size;
+}			t_stack;
 
 //main structure that stores both stacks
 typedef struct s_stacks
@@ -38,8 +40,17 @@ typedef struct s_stacks
 int			array_len(int *array);
 int			matrix_dim(char **mat);
 void		print_unordered(int	*nums);
+void		print_buffer(t_stack *s);
 t_stacks	*init_stacks(int **unordered, int max_size);
 int			*unordered_nums(int argn, char const *args);
 void		free_all(t_stacks *ab_stacks);
+void    	push_stack(t_stack *src, t_stack *dst);
+void    	swap_stack(t_stack *s);
+void    	rotate_stack(t_stack *s);
+void    	ss(t_stacks *stacks);
+void    	rr(t_stacks *stacks);
+int			is_full(t_stack *s);
+int			is_empty(t_stack *s);
+void		test_instructions(t_stacks *stacks);
 
 #endif

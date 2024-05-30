@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions_rotate.c                              :+:      :+:    :+:   */
+/*   test_instructions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 16:41:31 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/30 16:57:37 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/30 11:07:55 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/30 16:58:26 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void    rotate_stack(t_stack *s)
+void	test_instructions(t_stacks *stacks)
 {
 	int	i;
-	int	h;
 
-	if (s->entries < 2)
-		return ;	
-	i = 0;
-	h = s->content[s->head];
-	while (i < s->entries -  1)
+	i = 6;
+	while (i != 0)
 	{
-		s->content[s->head + i] = s->content[s->head + i + 1];
-		i++;
+		ft_printf("\n");
+		ft_printf("\n");
+		rr(stacks);
+		ft_printf("a_entries: %d, a_head: %d, a_tail: %d\n", stacks->a->entries, stacks->a->head, stacks->a->tail);
+		ft_printf("b_entries: %d, b_head: %d, b_tail: %d\n", stacks->b->entries, stacks->b->head, stacks->b->tail);
+		print_buffer(stacks->a);
+		print_buffer(stacks->b);
+		//ft_printf("a_entries: %d\n", stacks->a->entries);
+		i--;
 	}
-	s->content[s->head + i] = h;
 }

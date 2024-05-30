@@ -12,15 +12,16 @@
 
 #include "../inc/push_swap.h"
 
-//TODO: check structures and test
 static void	*init_buffer_a(int **unordered, int max_size)
 {
 	t_stack	*a;
 
 	a = malloc(sizeof(t_stack));
 	a->content = *unordered;
-	a->head = &(a->content[0]); //TODO: cambiar estructura
-	a->tail = &(a->content[max_size - 1]);
+	a->id = 'a';
+	a->head = 0;
+	a->tail = max_size;
+	a->entries = max_size;
 	a->max_size = max_size;
 	return (a);
 }
@@ -33,8 +34,10 @@ static void *init_buffer_b(int max_size)
 	b = malloc(sizeof(t_stack));
 	empty_array = ft_calloc(max_size, sizeof(int *));
 	b->content = empty_array;
-	b->head = &(b->content[0]);
-	b->tail = &(b->content[max_size - 1]);
+	b->id = 'b';
+	b->tail = max_size;
+	b->head = b->tail;
+	b->entries = 0;
 	b->max_size = max_size;
 	return (b);
 }

@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instuctions_push.c                                 :+:      :+:    :+:   */
+/*   stacks_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/30 12:00:24 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/30 09:44:56 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/30 15:42:10 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void    push_stack(t_stack *src, t_stack *dst)
+int	is_full(t_stack *s)
 {
-	int	temp;
-
-	if (is_full(dst) || is_empty(src))
-		return ;
+	if (s->head == 0 && s->entries == s->max_size)
+		return (1);
 	else
-	{
-		temp = src->content[src->head];
-		src->entries--;
-		dst->entries++;
-		src->head++;
-		dst->head--;
-		dst->content[dst->head] = temp;
-	}
+		return (0);	
+}
+
+int	is_empty(t_stack *s)
+{
+	if (s->head == s->tail)
+		return (1);
+	else
+		return (0);
 }

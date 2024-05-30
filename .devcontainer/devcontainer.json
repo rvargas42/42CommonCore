@@ -2,5 +2,16 @@
 	"name": "42CommonCore-Ubuntu",
     "build": {
         "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": ["ms-vscode.cpptools-extension-pack","kube.42header"],
+            "settings": {
+                "files.autoSave": "afterDelay",
+                "editor.detectIndentation": false,
+                "editor.tabSize": 4,
+                "editor.insertSpaces": false
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:09:57 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/28 17:14:45 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:58:12 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void    rr(t_stacks *stacks)
 {
-    return ;
+	rotate_stack(stacks->a);
+	rotate_stack(stacks->b);
 }

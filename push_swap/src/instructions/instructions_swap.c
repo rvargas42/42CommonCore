@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:38:11 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/28 17:30:05 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:56:44 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ void    swap_stack(t_stack *s)
 {
     int temp;
 
-    if (array_len(s->content) <= 1 || !s)
+    if (is_empty(s) || s->entries < 2)
         return ;
-    temp = s->content[1];
-    s->content[0] = temp;
-    
-    return ;
+	else
+	{
+		temp = s->content[s->head];
+		s->content[s->head] = s->content[s->head + 1];
+		s->content[s->head + 1] = temp;	
+	}
 }

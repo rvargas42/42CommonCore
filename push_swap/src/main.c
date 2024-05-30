@@ -21,7 +21,7 @@ int main(int argn, char const **argv)
 		exit(-1);
 	unordered = unordered_nums(argn, argv[1]);
 	stacks = init_stacks(&unordered, array_len(unordered));
-	print_unordered(stacks->a->content);
+	test_instructions(stacks);
 	//push_swap(st_stacks)
 	free_all(stacks); //TODO: function that frees all data
 	return (1);

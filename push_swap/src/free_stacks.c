@@ -16,7 +16,8 @@ void	free_stack(t_stack *s)
 {
 	if (s)
 	{
-		free(s->content);
+		if (s->content)
+			free(s->content);
 		free(s);
 	}
 	else

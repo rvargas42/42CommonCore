@@ -12,6 +12,21 @@
 
 #include "../../inc/push_swap.h"
 
+void	print_buffer(t_stack *s)
+{
+	int	i;
+
+	i = 0;
+	if (s->entries == 0)
+		return ;
+	while (i != s->entries)
+	{
+		ft_printf("%d", s->content[s->head + i]);
+		ft_printf("\n");
+		i++;
+	}
+}
+
 void	print_unordered(int	*nums)
 {
 	int	i;
