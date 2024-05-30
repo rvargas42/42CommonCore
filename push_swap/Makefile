@@ -31,9 +31,9 @@ FT_PRINTF_DIR = $(INC_DIR)ft_printf
 FT_PRINTF_OBJs = $(wildcard $(FT_PRINTF_DIR)/obj/*.o)
 MYLIB = $(INC_DIR)myLib.a
 #SOURCE
-SRCs = 	$(wildcard $(SRC_DIR)*.c) \
-		$(wildcard $(SRC_DIR)/utils/*c) \
-		$(wildcard $(SRC_DIR)/instructions/*c) \
+SRCs = 	$(wildcard $(SRC_DIR)/program/*.c) \
+		$(wildcard $(SRC_DIR)/utils/*.c) \
+		$(wildcard $(SRC_DIR)/instructions/*.c) \
 		$(wildcard $(SRC_DIR)/algorithm/*.c)
 
 OBJs = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCs)) # $(patsubst pattern,replacement,text)
