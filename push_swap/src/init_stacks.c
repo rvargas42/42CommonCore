@@ -35,8 +35,8 @@ static void *init_buffer_b(int max_size)
 	empty_array = ft_calloc(max_size, sizeof(int *));
 	b->content = empty_array;
 	b->id = 'b';
+	b->head = max_size;
 	b->tail = max_size;
-	b->head = b->tail;
 	b->entries = 0;
 	b->max_size = max_size;
 	return (b);

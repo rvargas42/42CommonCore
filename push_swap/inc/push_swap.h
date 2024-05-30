@@ -47,6 +47,7 @@ void		free_all(t_stacks *ab_stacks);
 void    	push_stack(t_stack *src, t_stack *dst);
 void    	swap_stack(t_stack *s);
 void    	rotate_stack(t_stack *s);
+void    	reverse_rotate(t_stack *s);
 void    	ss(t_stacks *stacks);
 void    	rr(t_stacks *stacks);
 int			is_full(t_stack *s);

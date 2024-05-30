@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 11:07:55 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/30 16:58:26 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:00:07 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@ void	test_instructions(t_stacks *stacks)
 {
 	int	i;
 
-	i = 6;
+	i = 12;
 	while (i != 0)
 	{
-		ft_printf("\n");
-		ft_printf("\n");
-		rr(stacks);
 		ft_printf("a_entries: %d, a_head: %d, a_tail: %d\n", stacks->a->entries, stacks->a->head, stacks->a->tail);
 		ft_printf("b_entries: %d, b_head: %d, b_tail: %d\n", stacks->b->entries, stacks->b->head, stacks->b->tail);
+		//push_stack(stacks->a, stacks->b);
 		print_buffer(stacks->a);
+		ft_printf("\n");
 		print_buffer(stacks->b);
+		ft_printf("\n");
+		reverse_rotate(stacks->a);
 		//ft_printf("a_entries: %d\n", stacks->a->entries);
 		i--;
 	}
