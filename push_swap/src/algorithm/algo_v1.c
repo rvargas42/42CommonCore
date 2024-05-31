@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 15:45:10 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/31 15:46:47 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:55:54 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	only_push(t_stacks *stacks)
 
 	a = stacks->a->content[stacks->a->head];
 	b = stacks->b->content[stacks->b->head];
-	if ()
+	if (is_empty(stacks->b) || a < b)
+		push_stack(stacks->a, stacks->b);
 }

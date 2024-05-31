@@ -53,6 +53,7 @@ void    	rr(t_stacks *stacks);
 void    	rrr(t_stacks *stacks);
 int			is_full(t_stack *s);
 int			is_empty(t_stack *s);
+int			keep_running(t_stack *s);
 void		test_instructions(t_stacks *stacks);
 
 #endif
