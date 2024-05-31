@@ -20,7 +20,7 @@ static void	*init_buffer_a(int **unordered, int max_size)
 	a->content = *unordered;
 	a->id = 'a';
 	a->head = 0;
-	a->tail = max_size;
+	a->tail = max_size - 1;
 	a->entries = max_size;
 	a->max_size = max_size;
 	return (a);
@@ -35,8 +35,8 @@ static void *init_buffer_b(int max_size)
 	empty_array = ft_calloc(max_size, sizeof(int *));
 	b->content = empty_array;
 	b->id = 'b';
-	b->head = max_size;
-	b->tail = max_size;
+	b->head = max_size - 1;
+	b->tail = max_size - 1;
 	b->entries = 0;
 	b->max_size = max_size;
 	return (b);

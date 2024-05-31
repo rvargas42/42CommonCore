@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:44:56 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/30 17:37:48 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:12:43 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	is_full(t_stack *s)
 {
-	if (s->head == 0 && s->entries == s->max_size)
+	if (s->entries == s->max_size)
 		return (1);
 	else
-		return (0);	
+		return (0);
 }
 
 int	is_empty(t_stack *s)
 {
-	if (s->head == s->tail)
+	if (s->head == s->tail && s->entries == 0)
 		return (1);
 	else
 		return (0);

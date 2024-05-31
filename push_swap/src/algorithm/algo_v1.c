@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instuctions_push.c                                 :+:      :+:    :+:   */
+/*   algo_v1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/31 12:14:09 by ravargas         ###   ########.fr       */
+/*   Created: 2024/05/31 15:45:10 by ravargas          #+#    #+#             */
+/*   Updated: 2024/05/31 15:46:47 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void    push_stack(t_stack *src, t_stack *dst)
+void	only_push(t_stacks *stacks)
 {
-	int	temp;
+	int	a;
+	int	b;
 
-	if (is_full(dst) || is_empty(src))
-		return ;
-	else
-	{
-		temp = src->content[src->head];
-		dst->entries++;
-		dst->head = (dst->max_size - dst->entries);
-		dst->content[dst->head] = temp;
-		src->entries--;
-		if (src->entries == 0)
-			src->head = src->tail;
-		else
-			src->head = (src->max_size - src->entries);
-	}
+	a = stacks->a->content[stacks->a->head];
+	b = stacks->b->content[stacks->b->head];
+	if ()
 }

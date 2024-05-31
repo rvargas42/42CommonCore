@@ -50,6 +50,7 @@ void    	rotate_stack(t_stack *s);
 void    	reverse_rotate(t_stack *s);
 void    	ss(t_stacks *stacks);
 void    	rr(t_stacks *stacks);
+void    	rrr(t_stacks *stacks);
 int			is_full(t_stack *s);
 int			is_empty(t_stack *s);
 void		test_instructions(t_stacks *stacks);

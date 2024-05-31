@@ -19,7 +19,7 @@ void	print_buffer(t_stack *s)
 	i = 0;
 	if (s->entries == 0)
 		return ;
-	while (i != s->entries)
+	while (i < s->entries)
 	{
 		ft_printf("%d", s->content[s->head + i]);
 		ft_printf("\n");
