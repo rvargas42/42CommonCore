@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 11:07:55 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/31 12:23:34 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/01 10:41:42 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	test_instructions(t_stacks *stacks)
 	{
 		//push_stack(stacks->a, stacks->b);
 		//swap_stack(stacks->a);
-		//rotate_stack(stacks->a);
-		reverse_rotate(stacks->a);
+		rotate_stack(stacks->a);
+		//reverse_rotate(stacks->a);
 		print_buffer(stacks->a);
 		ft_printf("\n");
 		print_buffer(stacks->b);
