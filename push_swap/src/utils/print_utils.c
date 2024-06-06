@@ -59,7 +59,8 @@ void	print_stacks(t_stacks *stacks)
 			a = 0;
 		if (stacks->b->head > i || stacks->b->entries == 0)
 			b = 0;
-		printf("|	%d	|	%d	|\n", a, b);
+		ft_printf("|	%d	|	%d	|\n", a, b);
 		i++;
 	}
+	ft_printf("\n");
 }

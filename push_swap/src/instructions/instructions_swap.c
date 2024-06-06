@@ -6,11 +6,18 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:38:11 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 19:03:56 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 20:48:16 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
+
+static void	print_swap(t_stack *s)
+{
+		write(1, "s", 1);
+		write(1, &s->id, 1);
+		write(1, "\n", 1);
+}
 
 void    swap_stack(t_stack *s)
 {
@@ -24,6 +31,7 @@ void    swap_stack(t_stack *s)
 		s->content[s->head] = s->content[s->head + 1];
 		s->content[s->head + 1] = temp;
 	}
+	print_swap(s);
 }
 
 void	repeat_swap(int n, t_stack *s)

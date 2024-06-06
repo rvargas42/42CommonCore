@@ -33,11 +33,17 @@ static int	keep_running(t_stack *s)
 
 static void	execute_sorting(t_stacks *ab_stacks)
 {
+	int	i;
+
+	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
+		i++;
+		if (i % 1000 == 0)
+			print_stacks(ab_stacks);
 		bubble_sort(ab_stacks);
-		return ;
 	}
+	ft_printf("-> Instructions done: %d\n",i);
 }
 
 int main(int argn, char const **argv)
@@ -50,8 +56,6 @@ int main(int argn, char const **argv)
 	unordered = unordered_nums(argn, argv);
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
 	execute_sorting(ab_stacks);
-	test_instructions(ab_stacks);
-	//push_swap(st_stacks)
 	free_all(ab_stacks); //TODO: function that frees all data
 	return (1);
 }

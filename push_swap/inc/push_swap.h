@@ -62,7 +62,7 @@ void    	ss(t_stacks *stacks);
 void    	rr(t_stacks *stacks);
 void    	rrr(t_stacks *stacks);
 void		repeat_rvrotate(int n, t_stack *s);
-void		repeat_rvrr(int n, t_stacks *ab_stacks);
+void		repeat_rvr(int n, t_stacks *ab_stacks);
 void		repeat_rotate(int n, t_stack *s);
 void		repeat_rr(int n, t_stacks *ab_stacks);
 void		repeat_ss(int n, t_stacks *ab_stacks);
