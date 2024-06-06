@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:38:11 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/31 12:08:26 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 18:55:25 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,9 @@ void    swap_stack(t_stack *s)
 		s->content[s->head] = s->content[s->head + 1];
 		s->content[s->head + 1] = temp;
 	}
+}
+
+void	repeat_swap(int n)
+{
+	return ;
 }

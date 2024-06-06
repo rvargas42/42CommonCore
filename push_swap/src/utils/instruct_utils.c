@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions_reverse_rotate.c                      :+:      :+:    :+:   */
+/*   instruct_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 17:15:15 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 18:56:54 by ravargas         ###   ########.fr       */
+/*   Created: 2024/06/06 18:43:48 by ravargas          #+#    #+#             */
+/*   Updated: 2024/06/06 18:54:59 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void    reverse_rotate(t_stack *s)
+void	repeat_instruct(int n, int instruct)
 {
-	int	t;
-	int	i;
-
-	if (s->entries < 2 || is_empty(s))
-		return ;
-	t = s->content[s->tail];
-	i = 0;
-	while (i < s->entries - 1)
-	{
-		s->content[s->tail - i] = s->content[s->tail - i - 1];
-		i++;
-	}
-	s->content[s->head] = t;
-    return ;
-}
-
-void	repeat_rvrotate(int n)
-{
-	return ;
+	if (instruct == 0)
+		repeat_swap(n);
+	if (instruct == 1)
+		repeat_ss(n);
+	if (instruct == 2)
+		repeat_push(n);
+	if (instruct == 3)
+		repeat_rotate(n);
+	if (instruct == 4)
+		repeat_rr(n);
+	if (instruct == 5)
+		repeat_rvrotate(n);
+	if (instruct == 6)
+		repeat_rvrr(n);
 }

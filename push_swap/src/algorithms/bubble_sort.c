@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions_reverse_rotate.c                      :+:      :+:    :+:   */
+/*   bubble_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 17:15:15 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 18:56:54 by ravargas         ###   ########.fr       */
+/*   Created: 2024/06/06 18:25:31 by ravargas          #+#    #+#             */
+/*   Updated: 2024/06/06 18:50:37 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void    reverse_rotate(t_stack *s)
+void	bubble_sort(t_stacks *ab_stacks)
 {
-	int	t;
-	int	i;
+	t_stack	*a;
+	t_stack	*b;
 
-	if (s->entries < 2 || is_empty(s))
-		return ;
-	t = s->content[s->tail];
-	i = 0;
-	while (i < s->entries - 1)
-	{
-		s->content[s->tail - i] = s->content[s->tail - i - 1];
-		i++;
-	}
-	s->content[s->head] = t;
-    return ;
-}
-
-void	repeat_rvrotate(int n)
-{
-	return ;
+	a = ab_stacks->a;
+	b = ab_stacks->b;
+	if (b->entries < 2)
+		repeat_instruct(2, INSTRUCT_PUSH);
+	if (a->content[a->head])
 }

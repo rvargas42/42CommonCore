@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/31 12:14:09 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 18:55:38 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,9 @@ void    push_stack(t_stack *src, t_stack *dst)
 		else
 			src->head = (src->max_size - src->entries);
 	}
+}
+
+void	repeat_push(int n)
+{
+	return ;
 }

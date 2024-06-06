@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:41:31 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/30 17:39:53 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 18:56:04 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,9 @@ void    rotate_stack(t_stack *s)
 		i++;
 	}
 	s->content[s->head + i] = h;
+}
+
+void	repeat_rotate(int n)
+{
+	return ;
 }

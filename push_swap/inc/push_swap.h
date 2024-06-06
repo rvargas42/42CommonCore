@@ -36,22 +36,24 @@ typedef struct s_stacks
 	t_stack	*b;
 }			t_stacks;
 
-# define INSTRUCT_SWAP "s"
-# define INSTRUCT_SS "ss"
-# define INSTRUCT_PUSH "p"
-# define INSTRUCT_ROTATE "r"
-# define INSTRUCT_RR "rr"
-# define INSTRUCT_RVR "rr"
-# define INSTRUCT_RVRR "rrr"
+# define INSTRUCT_SWAP 0
+# define INSTRUCT_SS 1
+# define INSTRUCT_PUSH 2
+# define INSTRUCT_ROTATE 3
+# define INSTRUCT_RR 4
+# define INSTRUCT_RVR 5
+# define INSTRUCT_RVRR 6
 
 int			array_len(int *array);
 int			matrix_dim(char **mat);
+int			is_full(t_stack *s);
+int			is_empty(t_stack *s);
+int			keep_running(t_stack *s);
+int			*unordered_nums(int argn, char const **args);
+int			contains_duplicates(int *nums);
 void		print_stacks(t_stacks *stacks);
 void		print_unordered(int	*nums);
 void		print_buffer(t_stack *s);
-t_stacks	*init_stacks(int **unordered, int max_size);
-int			*unordered_nums(int argn, char const **args);
-int			contains_duplicates(int *nums);
 void		free_all(t_stacks *ab_stacks);
 void    	push_stack(t_stack *src, t_stack *dst);
 void    	swap_stack(t_stack *s);
@@ -60,9 +62,15 @@ void    	reverse_rotate(t_stack *s);
 void    	ss(t_stacks *stacks);
 void    	rr(t_stacks *stacks);
 void    	rrr(t_stacks *stacks);
-int			is_full(t_stack *s);
-int			is_empty(t_stack *s);
-int			keep_running(t_stack *s);
+void		repeat_instruct(int n, int instruct);
+void		repeat_rvrotate(int n);
+void		repeat_rvrr(int n);
+void		repeat_rotate(int n);
+void		repeat_rr(int n);
+void		repeat_ss(int n);
+void		repeat_swap(int n);
+void		repeat_push(int n);
 void		test_instructions(t_stacks *stacks);
+t_stacks	*init_stacks(int **unordered, int max_size);
 
 #endif
