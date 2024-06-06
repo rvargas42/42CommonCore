@@ -12,10 +12,30 @@
 
 #include "../../inc/push_swap.h"
 
+static int	keep_running(t_stack *s)
+{
+	int	i;
+
+	i = 0;
+	if (is_full(s))
+	{
+		while (s->content[i + 1])
+		{
+			if (s->content[i] > s->content[i + 1])
+				return (1);
+			i++;
+		}
+	}
+	else
+		return (1);
+	return (0);
+}
+
 static void	execute_sorting(t_stacks *ab_stacks)
 {
 	while (keep_running(ab_stacks->a))
 	{
+		bubble_sort(ab_stacks);
 		return ;
 	}
 }
