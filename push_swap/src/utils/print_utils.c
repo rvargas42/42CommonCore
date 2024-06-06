@@ -41,3 +41,25 @@ void	print_unordered(int	*nums)
 		i++;
 	}
 }
+
+void	print_stacks(t_stacks *stacks)
+{
+	int	i;
+	int	a;
+	int	b;
+
+	i = 0;
+	while (i < stacks->a->max_size)
+	{
+		if (stacks->a->head <= i)
+			a = stacks->a->content[i];
+		if (stacks->b->head <= i)
+			b = stacks->b->content[i];
+		if (stacks->a->head > i || stacks->a->entries == 0)
+			a = 0;
+		if (stacks->b->head > i || stacks->b->entries == 0)
+			b = 0;
+		printf("%d | %d\n", a, b);
+		i++;
+	}
+}

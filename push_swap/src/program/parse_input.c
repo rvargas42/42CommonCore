@@ -38,20 +38,6 @@ static void	contains_digit(char	**arg)
 		i++;
 	}
 }
-static void	contains_dup(char **nums)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (nums[i+1] != NULL)
-	{
-		j = 0;
-		if (ft_atoi(nums[i]) == ft_atoi(nums[i+1]))
-			exit(-1);
-		i++;
-	}
-}
 
 static int	*build_array(char **nums)
 {
@@ -71,6 +57,9 @@ static int	*build_array(char **nums)
 		array[i] = d;
 		i++;
 	}
+	printf("%d\n", contains_duplicates(array));
+	if (contains_duplicates(array) == 1)
+		return (NULL);
 	return (array);
 }
 
@@ -93,10 +82,9 @@ int	*unordered_nums(int argn, char const *args)
 	int			*clean_arr;
 
 	nums = ft_split(args, ' ');
-	contains_dup(nums);
 	contains_digit(nums);
 	clean_arr = build_array(nums);
-	if (!clean_arr)
+	if (clean_arr == NULL)
 	{
 		free(clean_arr);
 		exit(-1);

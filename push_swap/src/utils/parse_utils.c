@@ -32,3 +32,22 @@ int	matrix_dim(char **mat)
 	return (i);
 }
 
+int	contains_duplicates(int *nums)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (nums[i])
+	{
+		j = 1;
+		while (nums[i + j])
+		{
+			if (nums[i] == nums[i + j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
