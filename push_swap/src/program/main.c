@@ -12,17 +12,26 @@
 
 #include "../../inc/push_swap.h"
 
+static void	execute_sorting(t_stacks *ab_stacks)
+{
+	while (keep_running(ab_stacks->a))
+	{
+		return ;
+	}
+}
+
 int main(int argn, char const **argv)
 {
 	int			*unordered;
-	t_stacks	*stacks;
+	t_stacks	*ab_stacks;
 
 	if (argn < 2)
 		exit(EXIT_SUCCESS);
 	unordered = unordered_nums(argn, argv);
-	stacks = init_stacks(&unordered, array_len(unordered));
-	test_instructions(stacks);
+	ab_stacks = init_stacks(&unordered, array_len(unordered));
+	execute_sorting(ab_stacks);
+	test_instructions(ab_stacks);
 	//push_swap(st_stacks)
-	free_all(stacks); //TODO: function that frees all data
+	free_all(ab_stacks); //TODO: function that frees all data
 	return (1);
 }

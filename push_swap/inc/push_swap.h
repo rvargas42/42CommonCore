@@ -19,7 +19,6 @@
 # include "ft_printf/inc/ft_printf.h"
 # include "libft/inc/libft.h"
 
-//buffer to store data
 typedef struct s_cbuffer
 {
 	char	id;
@@ -30,12 +29,20 @@ typedef struct s_cbuffer
 	int		max_size;
 }			t_stack;
 
-//main structure that stores both stacks
 typedef struct s_stacks
 {
+	int		instruction;
 	t_stack	*a;
 	t_stack	*b;
 }			t_stacks;
+
+# define INSTRUCT_SWAP "s"
+# define INSTRUCT_SS "ss"
+# define INSTRUCT_PUSH "p"
+# define INSTRUCT_ROTATE "r"
+# define INSTRUCT_RR "rr"
+# define INSTRUCT_RVR "rr"
+# define INSTRUCT_RVRR "rrr"
 
 int			array_len(int *array);
 int			matrix_dim(char **mat);
