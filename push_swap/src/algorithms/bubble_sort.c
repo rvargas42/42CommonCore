@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:25:31 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 18:50:37 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:09:02 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ void	bubble_sort(t_stacks *ab_stacks)
 	a = ab_stacks->a;
 	b = ab_stacks->b;
 	if (b->entries < 2)
-		repeat_instruct(2, INSTRUCT_PUSH);
-	if (a->content[a->head])
+		repeat_push(2, a, b);
 }

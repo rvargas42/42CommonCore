@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 18:55:38 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:03:14 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,16 @@ void    push_stack(t_stack *src, t_stack *dst)
 	}
 }
 
-void	repeat_push(int n)
+void	repeat_push(int n, t_stack *src, t_stack *dst)
 {
-	return ;
+	int	i;
+	
+	if (n <= 0 || !src || !dst)
+		return ;
+	i = 0;
+	while (i != n)
+	{
+		push_stack(src, dst);
+		i++;
+	}
 }

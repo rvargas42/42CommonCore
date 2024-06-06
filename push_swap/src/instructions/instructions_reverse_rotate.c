@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:15:15 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 18:56:54 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:07:47 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,16 @@ void    reverse_rotate(t_stack *s)
     return ;
 }
 
-void	repeat_rvrotate(int n)
+void	repeat_rvrotate(int n, t_stack *s)
 {
-	return ;
+	int	i;
+	
+	if (n <= 0 || !s)
+		return ;
+	i = 0;
+	while (i != n)
+	{
+		reverse_rotate(s);
+		i++;
+	}
 }

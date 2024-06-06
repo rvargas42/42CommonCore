@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:38:11 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 18:55:25 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:03:56 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,16 @@ void    swap_stack(t_stack *s)
 	}
 }
 
-void	repeat_swap(int n)
+void	repeat_swap(int n, t_stack *s)
 {
-	return ;
+	int	i;
+	
+	if (n <= 0 || !s)
+		return ;
+	i = 0;
+	while (i != n)
+	{
+		swap_stack(s);
+		i++;
+	}
 }
