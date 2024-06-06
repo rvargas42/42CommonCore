@@ -17,6 +17,8 @@ static void	*init_buffer_a(int **unordered, int max_size)
 	t_stack	*a;
 
 	a = malloc(sizeof(t_stack));
+	if (!a)
+		return (NULL);
 	a->content = *unordered;
 	a->id = 'a';
 	a->head = 0;
@@ -32,6 +34,8 @@ static void *init_buffer_b(int max_size)
 	t_stack	*b;
 
 	b = malloc(sizeof(t_stack));
+	if (!b)
+		return (NULL);
 	empty_array = ft_calloc(max_size, sizeof(int *));
 	b->content = empty_array;
 	b->id = 'b';
@@ -51,8 +55,12 @@ t_stacks	*init_stacks(int **unordered, int max_size)
 	ab_stacks = malloc(sizeof(ab_stacks));
 	a = init_buffer_a(unordered, max_size);
 	b = init_buffer_b(max_size);
+	if (!a || !b || !ab_stacks)
+	{
+		free_all(ab_stacks);
+		exit(EXIT_FAILURE);
+	}
 	ab_stacks->a = a;
 	ab_stacks->b = b;
-
 	return (ab_stacks);
 }

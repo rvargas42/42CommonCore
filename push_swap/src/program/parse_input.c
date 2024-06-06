@@ -12,34 +12,34 @@
 
 #include "../../inc/push_swap.h"
 
-static void	contains_digit(char	**arg)
+static int	contains_digit(const char **arg)
 {
 	int		i;
 	int		j;
 	char	c;
 
-	i = 0;
+	i = 1;
 	while (arg[i])
 	{
 		j = 0;
 		while ((c=arg[i][j]))
 		{
 			if (ft_isalpha(arg[i][j]))
-				exit(-1);
+				return (-1);
 			if (ft_isdigit(arg[i][j]))
 			{
 				if (arg[i][j+1] && (arg[i][j+1] == '+' || arg[i][j+1] == '-'))
-					exit(-1);
+					return (-1);
 			}
 			if (!ft_isdigit(c) && (c != '-' && c != '+'))
-				exit(-1);
+				return (-1);
 			j++;
 		}
 		i++;
 	}
 }
 
-static int	*build_array(char **nums)
+static int	*build_array(char const **nums)
 {
 	int	i;
 	int	d;
@@ -47,9 +47,9 @@ static int	*build_array(char **nums)
 	int	*array;
 
 	i = 0;
-	size = matrix_dim(nums);
-	array = malloc(size * sizeof(int));
-	if (!array)
+	size = matrix_dim((char **) ++nums);
+	array = malloc((size) * sizeof(int));
+	if (!array || contains_digit(nums) == -1)
 		return (NULL);
 	while (nums[i] != NULL)
 	{
@@ -57,38 +57,23 @@ static int	*build_array(char **nums)
 		array[i] = d;
 		i++;
 	}
-	printf("%d\n", contains_duplicates(array));
 	if (contains_duplicates(array) == 1)
 		return (NULL);
+	array[i] = '\0';
 	return (array);
 }
 
-void	free_split(char **nums)
-{
-	int	i;
-
-	i = 0;
-	while (*(nums + i))
-	{
-		free(*(nums + i));
-		i++;
-	}
-	free(nums);
-}
 //returns the array that will be inserted into cbuffer
-int	*unordered_nums(int argn, char const *args)
+int	*unordered_nums(int argn, char const **args)
 {
-	char		**nums;
 	int			*clean_arr;
 
-	nums = ft_split(args, ' ');
-	contains_digit(nums);
-	clean_arr = build_array(nums);
+	clean_arr = build_array(args);
 	if (clean_arr == NULL)
 	{
+		write(2, "Error\n", 7);
 		free(clean_arr);
 		exit(-1);
 	}
-	free_split(nums);
 	return (clean_arr);
 }

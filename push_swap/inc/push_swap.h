@@ -43,7 +43,7 @@ void		print_stacks(t_stacks *stacks);
 void		print_unordered(int	*nums);
 void		print_buffer(t_stack *s);
 t_stacks	*init_stacks(int **unordered, int max_size);
-int			*unordered_nums(int argn, char const *args);
+int			*unordered_nums(int argn, char const **args);
 int			contains_duplicates(int *nums);
 void		free_all(t_stacks *ab_stacks);
 void    	push_stack(t_stack *src, t_stack *dst);

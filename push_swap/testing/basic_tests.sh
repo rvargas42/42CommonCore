@@ -12,4 +12,4 @@
 
 # done < "$FILE"
 
-./push_swap "4 2 1 3"
+./push_swap 1 2 3 4 5 6 7

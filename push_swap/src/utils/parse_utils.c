@@ -27,7 +27,7 @@ int	matrix_dim(char **mat)
 	int	i;
 
 	i = 0;
-	while (mat[i])
+	while (mat[i] != NULL)
 		i++;
 	return (i);
 }

@@ -37,7 +37,7 @@ void	print_unordered(int	*nums)
 	{
 		c = nums[i];
 		ft_putnbr_fd(nums[i], 1);
-		write(1, "\n", 2);
+		write(1, "\n", 1);
 		i++;
 	}
 }
@@ -59,7 +59,7 @@ void	print_stacks(t_stacks *stacks)
 			a = 0;
 		if (stacks->b->head > i || stacks->b->entries == 0)
 			b = 0;
-		printf("%d | %d\n", a, b);
+		printf("|	%d	|	%d	|\n", a, b);
 		i++;
 	}
 }
