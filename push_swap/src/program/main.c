@@ -38,7 +38,11 @@ static void	execute_sorting(t_stacks *ab_stacks)
 	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
-		ft_printf("push_cost: %d\n", itarget_cost(1, 1, ab_stacks));
+		//print_stacks(ab_stacks); //TODO: borrar prints
+		//ft_printf("tail: %d | head: %d\n", ab_stacks->a->tail, ab_stacks->a->head);
+		//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
+		//ft_printf("a mid_point: %d\n", ab_stacks->a->content[mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries)]);
+		//ft_printf("push_cost: %d\n", push_cost(mid_point(ab_stacks->a->head, ab_stacks->a->tail, ab_stacks->a->entries),ab_stacks->a));
 		bubble_sort(ab_stacks);
 		i++;
 	}
@@ -55,7 +59,7 @@ int main(int argn, char const **argv)
 	unordered = unordered_nums(argn, argv);
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
 	execute_sorting(ab_stacks);
-	//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->content, ab_stacks->a->entries));
+	ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
 	free_all(ab_stacks);
 	return (1);
 }

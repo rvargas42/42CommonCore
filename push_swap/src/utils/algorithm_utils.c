@@ -27,11 +27,11 @@ int	smallest(int *s)
 	return (i);
 }
 
-int	mid_point(int *s, int entries)
+int	mid_point(int head, int tail, int entries)
 {
 	int	mid_point;
 
-	mid_point = entries / 2;
+	mid_point = head + ((tail + 1 - head) / 2);
 	return (mid_point);
 }
 
@@ -47,12 +47,14 @@ int	itarget_cost(int index_a, int index_b, t_stacks *ab_stacks)
 	return (icost);
 }
 
-int	push_cost(int i, t_stack *s)
+int	push_cost(int index, t_stack *s)
 {
 	int	cost;
+	int	midpoint;
 
-	if (s->entries == 0)
+	midpoint = mid_point(s->head,s->tail,s->entries);
+	if (s->entries == 0 || index < s->head)
 		return (0);
 	else
-		return (i - s->head);
+		return (index - s->head + 1);
 }
