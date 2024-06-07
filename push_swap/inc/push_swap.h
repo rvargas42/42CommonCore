@@ -44,12 +44,16 @@ typedef struct s_stacks
 # define INSTRUCT_RVR 5
 # define INSTRUCT_RVRR 6
 
-int			array_len(int *array);
-int			matrix_dim(char **mat);
+int			smallest(int *s);
 int			is_full(t_stack *s);
 int			is_empty(t_stack *s);
-int			*unordered_nums(int argn, char const **args);
+int			array_len(int *array);
+int			matrix_dim(char **mat);
+int			itarget_cost(int index_a, int index_b, t_stacks *ab_stacks);
+int			push_cost(int i, t_stack *s);
+int			mid_point(int *s, int entries);
 int			contains_duplicates(int *nums);
+int			*unordered_nums(int argn, char const **args);
 void		print_stacks(t_stacks *stacks);
 void		print_unordered(int	*nums);
 void		print_buffer(t_stack *s);
