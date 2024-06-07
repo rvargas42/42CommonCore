@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:10:17 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/23 14:10:24 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/07 09:29:49 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ static void	execute_sorting(t_stacks *ab_stacks)
 	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
-		i++;
-		if (i % 1000 == 0)
-			print_stacks(ab_stacks);
+		ft_printf("push_cost: %d\n", itarget_cost(1, 1, ab_stacks));
 		bubble_sort(ab_stacks);
+		i++;
 	}
-	ft_printf("-> Instructions done: %d\n",i);
+	ft_printf("-> Instructions done: %d\n",i); //TODO: borrar
 }
 
 int main(int argn, char const **argv)
@@ -56,6 +55,7 @@ int main(int argn, char const **argv)
 	unordered = unordered_nums(argn, argv);
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
 	execute_sorting(ab_stacks);
-	free_all(ab_stacks); //TODO: function that frees all data
+	//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->content, ab_stacks->a->entries));
+	free_all(ab_stacks);
 	return (1);
 }
