@@ -46,7 +46,7 @@ static void	execute_sorting(t_stacks *ab_stacks)
 		bubble_sort(ab_stacks);
 		i++;
 	}
-	ft_printf("-> Instructions done: %d\n",i); //TODO: borrar
+	//ft_printf("-> Instructions done: %d\n",i); //TODO: borrar
 }
 
 int main(int argn, char const **argv)
@@ -59,7 +59,7 @@ int main(int argn, char const **argv)
 	unordered = unordered_nums(argn, argv);
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
 	execute_sorting(ab_stacks);
-	ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
+	//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
 	free_all(ab_stacks);
 	return (1);
 }

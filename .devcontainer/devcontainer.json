@@ -13,5 +13,10 @@
                 "editor.insertSpaces": false
             }
         }
-    }
+    },
+    "runArgs": [
+        "--env", "DISPLAY=host.docker.internal:0",
+        "--env", "QT_X11_NO_MITSHM=1",
+        "--volume", "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    ],
 }

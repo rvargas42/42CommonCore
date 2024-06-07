@@ -3,3 +3,4 @@
 *.bat
 *.ps1
 .vscode
+*visualizer/
