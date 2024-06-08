@@ -80,8 +80,7 @@ endif
 
 executeTests: verifyCompilation
 	@echo "${B}Executing basic test${B}"
-	@chmod +x ./testing/basic_tests.sh
-	@sh ./testing/basic_tests.sh
+	@python3 ./testing/test_algo.py
 
 clean:
 	@make clean -sC $(LIBFT_DIR)

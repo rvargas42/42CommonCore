@@ -23,8 +23,14 @@ void	bubble_sort(t_stacks *ab_stacks)
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
-	smallest_to_top(a);
-	if (get_index(smallest(a), a) == a->head)
+	if (b_arr[b->head] < b_arr[b->head])
+		swap_stack(b);
+	if (get_index(smallest(a), a) != a->head)
+	{
+		smallest_to_top(a);
+		return ;
+	}
+	if (a_arr[a->head] > b_arr[b->head])
 		push_stack(a, b);
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);

@@ -22,7 +22,6 @@ void	smallest_to_top(t_stack *s)
 	arr = s->content;
 	small_index = get_index(smallest(s), s);
 	cost = push_cost(small_index, s);
-	ft_printf("cost_to_push: %d\n", cost);
 	midpoint = s->head + ((s->entries) / 2);
 	if (small_index == s->head)
 		return ;

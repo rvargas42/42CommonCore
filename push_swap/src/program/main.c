@@ -38,7 +38,6 @@ static void	execute_sorting(t_stacks *ab_stacks)
 	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
-		print_stacks(ab_stacks); //TODO: borrar prints
 		bubble_sort(ab_stacks);
 		//ft_printf("tail: %d | head: %d\n", ab_stacks->a->tail, ab_stacks->a->head);
 		//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
@@ -46,7 +45,6 @@ static void	execute_sorting(t_stacks *ab_stacks)
 		//ft_printf("push_cost: %d\n", push_cost(mid_point(ab_stacks->a->head, ab_stacks->a->tail, ab_stacks->a->entries),ab_stacks->a));
 		i++;
 	}
-	//ft_printf("-> Instructions done: %d\n",i); //TODO: borrar
 }
 
 int main(int argn, char const **argv)
