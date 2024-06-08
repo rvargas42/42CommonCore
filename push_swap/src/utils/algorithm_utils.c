@@ -12,49 +12,45 @@
 
 #include "../../inc/push_swap.h"
 
-int	smallest(int *s)
+void	smallest_to_top(t_stack *s)
 {
-	int	i;
-	int	temp;
-
-	i = 0;
-	temp = s[i];
-	while (s[i++])
-	{
-		if (temp > s[i])
-			temp = s[i];
-	}
-	return (i);
-}
-
-int	mid_point(int head, int tail, int entries)
-{
-	int	mid_point;
-
-	mid_point = head + ((tail + 1 - head) / 2);
-	return (mid_point);
-}
-
-int	itarget_cost(int index_a, int index_b, t_stacks *ab_stacks)
-{
-	int	icost;
-	int	a;
-	int	b;
-
-	a = push_cost(index_a, ab_stacks->a);
-	b = push_cost(index_b, ab_stacks->b);
-	icost = a + b;
-	return (icost);
-}
-
-int	push_cost(int index, t_stack *s)
-{
+	int	*arr;
+	int	small_index;
 	int	cost;
 	int	midpoint;
 
-	midpoint = mid_point(s->head,s->tail,s->entries);
-	if (s->entries == 0 || index < s->head)
-		return (0);
-	else
-		return (index - s->head + 1);
+	arr = s->content;
+	small_index = get_index(smallest(s), s);
+	cost = push_cost(small_index, s);
+	ft_printf("cost_to_push: %d\n", cost);
+	midpoint = s->head + ((s->entries) / 2);
+	if (small_index == s->head)
+		return ;
+	if (small_index < midpoint)
+	{
+		repeat_rotate(cost, s);
+		return ;
+	}
+	if (small_index >= midpoint)
+	{
+		repeat_rvrotate(cost, s);
+		return ;
+	}
+}
+
+int	get_index(int n, t_stack *s)
+{
+	int	i;
+	int	num;
+	int	*arr;
+
+	i = 0;
+	arr = s->content;
+	while ((num = arr[s->head + i]) != NULL)
+	{
+		if (num == n)
+			return (s->head + i);			
+		i++;
+	}
+	return (s->head);
 }
