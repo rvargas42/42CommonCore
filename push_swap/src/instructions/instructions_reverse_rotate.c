@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:15:15 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/06 20:47:55 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:52:25 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void    reverse_rotate(t_stack *s)
 		i++;
 	}
 	s->content[s->head] = t;
+	s->moves++;
 	print_rvr(s);
 }
 

@@ -45,6 +45,7 @@ static void	execute_sorting(t_stacks *ab_stacks)
 		//ft_printf("push_cost: %d\n", push_cost(mid_point(ab_stacks->a->head, ab_stacks->a->tail, ab_stacks->a->entries),ab_stacks->a));
 		i++;
 	}
+	ft_printf("number of operations: %d", ab_stacks->a->moves + ab_stacks->b->moves);
 }
 
 int main(int argn, char const **argv)

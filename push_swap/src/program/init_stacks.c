@@ -25,6 +25,7 @@ static void	*init_buffer_a(int **unordered, int max_size)
 	a->tail = max_size - 1;
 	a->entries = max_size;
 	a->max_size = max_size;
+	a->moves = 0;
 	return (a);
 }
 
@@ -43,6 +44,7 @@ static void *init_buffer_b(int max_size)
 	b->tail = max_size - 1;
 	b->entries = 0;
 	b->max_size = max_size;
+	b->moves = 0;
 	return (b);
 }
 

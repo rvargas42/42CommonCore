@@ -18,20 +18,19 @@ void	bubble_sort(t_stacks *ab_stacks)
 	t_stack	*b;
 	int		*a_arr;
 	int		*b_arr;
-	
+
 	a = ab_stacks->a;
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
-	if (b_arr[b->head] < b_arr[b->head])
-		swap_stack(b);
-	if (get_index(smallest(a), a) != a->head)
-	{
-		smallest_to_top(a);
-		return ;
-	}
-	if (a_arr[a->head] > b_arr[b->head])
+	if (get_index(smallest(a), a) == a->head)
 		push_stack(a, b);
+	else
+		smallest_to_top(a);
+	if (b_arr[b->head] < b_arr[b->tail])
+		rotate_stack(b);
+	if (b_arr[b->head] < b_arr[b->head + 1])
+		swap_stack(b);
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);
 }

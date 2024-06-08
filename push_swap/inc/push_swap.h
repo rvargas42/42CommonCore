@@ -27,11 +27,12 @@ typedef struct s_cbuffer
 	int		*content;
 	int		entries;
 	int		max_size;
+	int		moves;
 }			t_stack;
 
 typedef struct s_stacks
 {
-	int		instruction;
+	int		inst;
 	t_stack	*a;
 	t_stack	*b;
 }			t_stacks;

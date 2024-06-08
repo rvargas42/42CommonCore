@@ -37,6 +37,31 @@ void	smallest_to_top(t_stack *s)
 	}
 }
 
+void	biggest_to_top(t_stack *s) //TODO: generalizar funcion con smallest
+{
+	int	*arr;
+	int	small_index;
+	int	cost;
+	int	midpoint;
+
+	arr = s->content;
+	small_index = get_index(biggest(s), s);
+	cost = push_cost(small_index, s);
+	midpoint = s->head + ((s->entries) / 2);
+	if (small_index == s->head)
+		return ;
+	if (small_index < midpoint)
+	{
+		repeat_rotate(cost, s);
+		return ;
+	}
+	if (small_index >= midpoint)
+	{
+		repeat_rvrotate(cost, s);
+		return ;
+	}
+}
+
 int	get_index(int n, t_stack *s)
 {
 	int	i;
