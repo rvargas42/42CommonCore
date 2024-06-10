@@ -14,22 +14,22 @@
 
 void	free_stack(t_stack *s)
 {
-	if (s)
-	{
-		if (s->content)
-			free(s->content);
-		free(s);
-	}
-	else
-		return ;
+	if (s->content)
+		free(s->content);
+	free(s);
 }
 
 void	free_all(t_stacks *ab_stacks) //TODO: terminar
 {
-	if (ab_stacks)
-	{
-		free_stack(ab_stacks->a);
-		free_stack(ab_stacks->b);
-		free(ab_stacks);
-	}
+    if (ab_stacks) {
+        if (ab_stacks->a) {
+            free(ab_stacks->a->content);
+            free(ab_stacks->a);
+        }
+        if (ab_stacks->b) {
+            free(ab_stacks->b->content);
+            free(ab_stacks->b);
+        }
+        free(ab_stacks);
+    }
 }

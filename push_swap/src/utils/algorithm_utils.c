@@ -70,7 +70,7 @@ int	get_index(int n, t_stack *s)
 
 	i = 0;
 	arr = s->content;
-	while ((num = arr[s->head + i]) != NULL)
+	while ((num = arr[s->head + i]))
 	{
 		if (num == n)
 			return (s->head + i);			

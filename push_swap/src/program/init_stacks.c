@@ -31,14 +31,12 @@ static void	*init_buffer_a(int **unordered, int max_size)
 
 static void *init_buffer_b(int max_size)
 {
-	int		*empty_array;
 	t_stack	*b;
 
 	b = malloc(sizeof(t_stack));
 	if (!b)
 		return (NULL);
-	empty_array = ft_calloc(max_size, sizeof(int *));
-	b->content = empty_array;
+	b->content = (int *)calloc(max_size, sizeof(int));
 	b->id = 'b';
 	b->head = max_size - 1;
 	b->tail = max_size - 1;
@@ -54,10 +52,12 @@ t_stacks	*init_stacks(int **unordered, int max_size)
 	t_stack		*b;
 	t_stack		*a;
 	
-	ab_stacks = malloc(sizeof(ab_stacks));
+	ab_stacks = malloc(sizeof(t_stacks));
+	if (!ab_stacks)
+		return (NULL);
 	a = init_buffer_a(unordered, max_size);
 	b = init_buffer_b(max_size);
-	if (!a || !b || !ab_stacks)
+	if (!a || !b)
 	{
 		free_all(ab_stacks);
 		exit(EXIT_FAILURE);

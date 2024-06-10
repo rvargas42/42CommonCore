@@ -38,6 +38,9 @@ static void	execute_sorting(t_stacks *ab_stacks)
 	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
+		ft_printf("closest_up: %d", closest_up(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
+		ft_printf("closest_down: %d", closest_down(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
+		print_stacks(ab_stacks);
 		bubble_sort(ab_stacks);
 		//ft_printf("tail: %d | head: %d\n", ab_stacks->a->tail, ab_stacks->a->head);
 		//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
@@ -57,6 +60,7 @@ int main(int argn, char const **argv)
 		exit(EXIT_SUCCESS);
 	unordered = unordered_nums(argn, argv);
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
+	ft_printf("array_len: %d", array_len(unordered));
 	execute_sorting(ab_stacks);
 	//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
 	free_all(ab_stacks);

@@ -48,7 +48,7 @@ static int	*build_array(char const **nums)
 
 	i = 0;
 	size = matrix_dim((char **) ++nums);
-	array = malloc((size) * sizeof(int));
+	array = malloc((size + 1) * sizeof(int));
 	if (!array || contains_digit(nums) == -1)
 		return (NULL);
 	while (nums[i] != NULL)

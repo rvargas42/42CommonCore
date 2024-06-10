@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include <unistd.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include "ft_printf/inc/ft_printf.h"
@@ -46,6 +47,7 @@ typedef struct s_stacks
 # define INSTRUCT_RVRR 6
 
 int			is_full(t_stack *s);
+int			biggest(t_stack *s);
 int			smallest(t_stack *s);
 int			is_empty(t_stack *s);
 int			mid_point(t_stack *s);
@@ -53,6 +55,8 @@ int			array_len(int *array);
 int			matrix_dim(char **mat);
 int			get_index(int n, t_stack *s);
 int			contains_duplicates(int *nums);
+int			closest_up(t_stack *s, int ref);
+int			closest_down(t_stack *s, int ref);
 int			push_cost(int index, t_stack *s);
 int			*unordered_nums(int argn, char const **args);
 int			itarget_cost(int index_a, int index_b, t_stacks *ab_stacks);
