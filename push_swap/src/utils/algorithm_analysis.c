@@ -31,10 +31,26 @@ int	push_target_cost(int ref_index, int target_index, t_stacks *ab)
 	return (1);
 }
 
-int	optimum_cost_min(int target, t_stack *a)
+int	optimum_cost_min(t_stack *s, int ref)
 {
+	int	i;
 	int	*arr;
+	int	closest;
+	int	value;
 	int	cost;
 	
-	return (1);
+	i = 0;
+	arr = s->content;
+	closest = INT_MIN;
+	cost = push_cost(smallest(s), s);
+	ft_printf("ref : %d\n", ref);
+	while ((value = arr[s->head + i]))
+	{
+		if (value < ref && value > closest)
+			closest = value;
+		if (push_cost(value, s) < cost && value < ref)
+			return (value);
+		i++;
+	}
+	return (closest);
 }

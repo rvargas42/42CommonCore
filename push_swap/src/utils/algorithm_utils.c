@@ -12,7 +12,7 @@
 
 #include "../../inc/push_swap.h"
 
-void	index_to_top(t_stack *s, int number)
+void	number_to_top(t_stack *s, int number)
 {
 	int	*arr;
 	int	index;
@@ -23,11 +23,6 @@ void	index_to_top(t_stack *s, int number)
 	arr = s->content;
 	cost = push_cost(index, s);
 	midpoint = s->head + ((s->entries) / 2);
-	if (index == 1)
-	{
-		swap_stack(s);
-		return ;
-	}
 	if (index <= midpoint)
 	{
 		repeat_rotate(cost, s);

@@ -18,14 +18,21 @@ static void	push_range(t_stack *src, t_stack *dst)
 	int	*dst_arr;
 	int	*src_arr;
 	int	range;
+	int	ref;
 
 	dst_arr = dst->content;
 	src_arr = src->content;
-	range = 0;
-	while (src_arr[src->head + range] < dst_arr[dst->head])
+	range = 1;
+	ref = src_arr[src->head];
+	while (ref > src_arr[src->head + range])
+	{
+		ref = src_arr[src->head + range];
 		range++;
-	while (range-- > 0)
-		push_stack(src, dst);
+	}
+	if (range == 1)
+		return ;
+	else
+		repeat_push(range, src, dst);
 }
 
 void	insertion_sort(t_stacks *ab_stacks)
@@ -39,13 +46,16 @@ void	insertion_sort(t_stacks *ab_stacks)
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
-	push_range(a, b);
-	if (a_arr[a->head] > a_arr[a->head + 1])
-		swap_stack(a);
 	if (get_index(smallest(a), a) == a->head)
 		push_stack(a, b);
 	else
-		index_to_top(a, smallest(a));
+		number_to_top(a, smallest(a));
+	if (a_arr[a->head] > a_arr[a->head + 1])
+		swap_stack(a);
+	if (b_arr[b->head] < b_arr[b->tail])
+		rotate_stack(b);
+	if (b_arr[b->head] < b_arr[b->head + 1])
+		swap_stack(b);
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);
 }

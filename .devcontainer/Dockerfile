@@ -30,7 +30,13 @@ RUN apt-get install -y \
     libxtst-dev \
     libxi-dev \
     tigervnc-standalone-server \
-    xfce4
+    xfce4 \
+    g++ \
+    clang \
+    libgl1-mesa-dev libglu1-mesa-dev\
+    libx11-dev libxrandr-dev\
+    libudev-dev \
+    libfreetype-dev
 
 WORKDIR /workspaces/
 
