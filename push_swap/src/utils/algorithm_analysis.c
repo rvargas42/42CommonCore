@@ -6,45 +6,11 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:31:50 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/10 14:14:38 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:38:04 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
-
-int	biggest(t_stack *s)
-{
-	int	i;
-	int	comp;
-	int	temp;
-
-	i = 1;
-	temp = s->content[s->head];
-	while ((comp = s->content[s->head + i]))
-	{
-		if (temp < comp)
-			temp = comp;
-		i++;
-	}
-	return (temp);
-}
-
-int	smallest(t_stack *s)
-{
-	int	i;
-	int	comp;
-	int	temp;
-
-	i = 1;
-	temp = s->content[s->head];
-	while ((comp = s->content[s->head + i]))
-	{
-		if (temp > comp)
-			temp = comp;
-		i++;
-	}
-	return (temp);
-}
 
 int	push_cost(int index, t_stack *s)
 {
@@ -60,14 +26,15 @@ int	push_cost(int index, t_stack *s)
 		return (index - s->head);
 }
 
-int	itarget_cost(int index_a, int index_b, t_stacks *ab_stacks)
+int	push_target_cost(int ref_index, int target_index, t_stacks *ab)
 {
-	int	icost;
-	int	a;
-	int	b;
+	return (1);
+}
 
-	a = push_cost(index_a, ab_stacks->a);
-	b = push_cost(index_b, ab_stacks->b);
-	icost = a + b;
-	return (icost);
+int	optimum_cost_min(int target, t_stack *a)
+{
+	int	*arr;
+	int	cost;
+	
+	return (1);
 }

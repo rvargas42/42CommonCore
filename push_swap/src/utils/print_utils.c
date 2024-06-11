@@ -42,20 +42,26 @@ void	print_unordered(int	*nums)
 	}
 }
 
-void print_stacks(t_stacks *stacks) {
-    int i;
+void print_stacks(t_stacks *stacks)
+{
+	int i;
+	int	a;
+	int	b;
 
     i = 0;
-    while (i < stacks->a->max_size) {
+	a = 0;
+	b = 0;
+    while (i != stacks->a->max_size)
+	{
         if (stacks->a->head <= i)
-            ft_printf("	%d	|", stacks->a->content[i]);
+            a = stacks->a->content[i];
         if (stacks->b->head <= i)
-            ft_printf("	%d", stacks->b->content[i]);
+            b = stacks->b->content[i];
         if (stacks->a->head > i || stacks->a->entries == 0)
-            ft_printf("	%s	|", " ");
+            a = 0;
         if (stacks->b->head > i || stacks->b->entries == 0)
-            ft_printf("	%s", " ");
-		ft_printf("\n");
+            b = 0;
+		ft_printf("|	%d	|	%d	|\n", a, b);
         i++;
     }
     ft_printf("\n");

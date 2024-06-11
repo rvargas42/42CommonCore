@@ -6,56 +6,34 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 08:40:48 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/07 09:28:46 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:38:54 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void	smallest_to_top(t_stack *s)
+void	index_to_top(t_stack *s, int number)
 {
 	int	*arr;
-	int	small_index;
-	int	cost;
+	int	index;
 	int	midpoint;
+	int	cost;
 
+	index = get_index(number, s);
 	arr = s->content;
-	small_index = get_index(smallest(s), s);
-	cost = push_cost(small_index, s);
+	cost = push_cost(index, s);
 	midpoint = s->head + ((s->entries) / 2);
-	if (small_index == s->head)
+	if (index == 1)
+	{
+		swap_stack(s);
 		return ;
-	if (small_index < midpoint)
+	}
+	if (index <= midpoint)
 	{
 		repeat_rotate(cost, s);
 		return ;
 	}
-	if (small_index >= midpoint)
-	{
-		repeat_rvrotate(cost, s);
-		return ;
-	}
-}
-
-void	biggest_to_top(t_stack *s) //TODO: generalizar funcion con smallest
-{
-	int	*arr;
-	int	small_index;
-	int	cost;
-	int	midpoint;
-
-	arr = s->content;
-	small_index = get_index(biggest(s), s);
-	cost = push_cost(small_index, s);
-	midpoint = s->head + ((s->entries) / 2);
-	if (small_index == s->head)
-		return ;
-	if (small_index < midpoint)
-	{
-		repeat_rotate(cost, s);
-		return ;
-	}
-	if (small_index >= midpoint)
+	if (index > midpoint)
 	{
 		repeat_rvrotate(cost, s);
 		return ;

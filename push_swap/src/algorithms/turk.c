@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quicksort.c                                        :+:      :+:    :+:   */
+/*   turk.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/07 17:24:20 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/11 13:36:03 by ravargas         ###   ########.fr       */
+/*   Created: 2024/06/03 11:07:53 by ravargas          #+#    #+#             */
+/*   Updated: 2024/06/03 11:08:55 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void	quick_sort(t_stacks *ab_stacks)
+void	sort_turk(t_stacks *stacks)
 {
-	t_stack	*a;
-	t_stack	*b;
-	int		*a_arr;
-	int		*b_arr;
-	int		sub_arr_len;
-
-	a = ab_stacks->a;
-	a_arr = a->content;
-	b = ab_stacks->b;
-	b_arr = b->content;
-	ft_printf("%d\n", sub_arr_len);
+	return ;
 }

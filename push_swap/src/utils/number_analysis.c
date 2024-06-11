@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:15:00 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/10 16:19:37 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:46:04 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,12 @@ int	closest_up(t_stack *s, int ref)
 	
 	i = 0;
 	arr = s->content;
-	closest = arr[0];
+	closest = INT_MAX;
 	ft_printf("ref : %d\n", ref);
 	while ((value = arr[i]))
 	{
-		if ((value > ref || closest == -1) && (closest == -1 || abs(value - ref) < abs(closest - ref)))
-            closest = value;
-        i++;
-		if (value - ref == 1)
-			return value;
+		if (value > ref && value < closest)
+			closest = value;
 		i++;
 	}
 	return (closest);
@@ -52,16 +49,47 @@ int	closest_down(t_stack *s, int ref)
 	
 	i = 0;
 	arr = s->content;
-	closest = arr[0];
+	closest = INT_MIN;
 	ft_printf("ref : %d\n", ref);
 	while ((value = arr[i]))
 	{
-		if (value != ref)
-		{
-			if (abs(ref - value) < abs(ref - closest) && value < ref)
-				closest = arr[i];
-		}
+		if (value < ref && value > closest)
+			closest = value;
 		i++;
 	}
 	return (closest);
+}
+
+int	biggest(t_stack *s)
+{
+	int	i;
+	int	comp;
+	int	temp;
+
+	i = 1;
+	temp = s->content[s->head];
+	while ((comp = s->content[s->head + i]))
+	{
+		if (temp < comp)
+			temp = comp;
+		i++;
+	}
+	return (temp);
+}
+
+int	smallest(t_stack *s)
+{
+	int	i;
+	int	comp;
+	int	temp;
+
+	i = 1;
+	temp = s->content[s->head];
+	while ((comp = s->content[s->head + i]))
+	{
+		if (temp > comp)
+			temp = comp;
+		i++;
+	}
+	return (temp);
 }
