@@ -30,7 +30,6 @@ int	closest_up(t_stack *s, int ref)
 	i = 0;
 	arr = s->content;
 	closest = INT_MAX;
-	ft_printf("ref : %d\n", ref);
 	while ((value = arr[i]))
 	{
 		if (value > ref && value < closest)
@@ -50,7 +49,6 @@ int	closest_down(t_stack *s, int ref)
 	i = 0;
 	arr = s->content;
 	closest = INT_MIN;
-	ft_printf("ref : %d\n", ref);
 	while ((value = arr[i]))
 	{
 		if (value < ref && value > closest)

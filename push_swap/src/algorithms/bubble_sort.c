@@ -26,7 +26,10 @@ void	bubble_sort(t_stacks *ab_stacks)
 	if (get_index(smallest(a), a) == a->head)
 		push_stack(a, b);
 	else
+	{
+		
 		number_to_top(a, smallest(a));
+	}
 	if (b_arr[b->head] < b_arr[b->tail])
 		rotate_stack(b);
 	if (b_arr[b->head] < b_arr[b->head + 1])

@@ -24,7 +24,7 @@ static void	push_range(t_stack *src, t_stack *dst)
 	src_arr = src->content;
 	range = 1;
 	ref = src_arr[src->head];
-	while (ref > src_arr[src->head + range])
+	while (ref < src_arr[src->head + range])
 	{
 		ref = src_arr[src->head + range];
 		range++;
@@ -35,27 +35,35 @@ static void	push_range(t_stack *src, t_stack *dst)
 		repeat_push(range, src, dst);
 }
 
+static void	push_opt_min(t_stack *src, t_stack *dst, int min) //TODO: revisar
+{
+	if (min == INT_MIN)
+		min = smallest(src);
+	number_to_top(src, min);
+	push_stack(src, dst);
+}
+
 void	insertion_sort(t_stacks *ab_stacks)
 {
 	t_stack	*a;
 	t_stack	*b;
 	int		*a_arr;
 	int		*b_arr;
+	int		opt;
 
 	a = ab_stacks->a;
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
+	//ft_printf("min_cost: %d\n", optimum_cost_min(a));
 	if (get_index(smallest(a), a) == a->head)
 		push_stack(a, b);
 	else
 		number_to_top(a, smallest(a));
-	if (a_arr[a->head] > a_arr[a->head + 1])
-		swap_stack(a);
 	if (b_arr[b->head] < b_arr[b->tail])
 		rotate_stack(b);
-	if (b_arr[b->head] < b_arr[b->head + 1])
-		swap_stack(b);
+	if (a_arr[a->tail] < a_arr[a->head])
+		rotate_stack(a);
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);
 }

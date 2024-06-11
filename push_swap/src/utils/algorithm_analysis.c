@@ -26,30 +26,47 @@ int	push_cost(int index, t_stack *s)
 		return (index - s->head);
 }
 
-int	push_target_cost(int ref_index, int target_index, t_stacks *ab)
+int	push_target_cost(int ref, int target, t_stack *src, t_stack *dst)
 {
-	return (1);
+	int	cost;
+	int	midpoint;
+	int	ref_index;
+	int	tar_index;
+
+	ref_index = get_index(ref, src);
+	tar_index = get_index(target, src);
+	if (ref_index < src->head && tar_index < src->head)
+		return (push_cost(ref, dst) + push_cost(target, dst));
+	if (ref_index < src->head && tar_index >= src->head)
+		return (push_cost(ref, dst) + push_cost(target, src));
+	if (ref_index >= src->head && tar_index >= src->head)
+		return (push_cost(ref, src) + push_cost(target, src));
+	if (ref_index >= src->head && tar_index < src->head)
+		return (push_cost(ref, src) + push_cost(target, dst));
 }
 
-int	optimum_cost_min(t_stack *s, int ref)
+int	optimum_cost_min(t_stack *s)
 {
 	int	i;
 	int	*arr;
 	int	closest;
 	int	value;
 	int	cost;
+	int	ref;
 	
 	i = 0;
 	arr = s->content;
 	closest = INT_MIN;
 	cost = push_cost(smallest(s), s);
-	ft_printf("ref : %d\n", ref);
+	ref = smallest(s);
 	while ((value = arr[s->head + i]))
 	{
 		if (value < ref && value > closest)
+		{
 			closest = value;
-		if (push_cost(value, s) < cost && value < ref)
-			return (value);
+			if (push_cost(value, s) < cost && value < ref)
+				return (value);
+		}
 		i++;
 	}
 	return (closest);

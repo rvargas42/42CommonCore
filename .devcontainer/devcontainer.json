@@ -5,7 +5,7 @@
     },
     "customizations": {
         "vscode": {
-            "extensions": ["ms-vscode.cpptools-extension-pack","kube.42header"],
+            "extensions": ["ms-vscode.cpptools-extension-pack","kube.42header", "DoKca.42-ft-count-line"],
             "settings": {
                 "files.autoSave": "afterDelay",
                 "editor.detectIndentation": false,
