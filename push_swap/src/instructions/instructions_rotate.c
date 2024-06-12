@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:41:31 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/11 21:16:01 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:51:12 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	repeat_rotate(int n, t_stack *s)
 	i = 0;
 	while (i != n)
 	{
-		if (s->content[s->head] > s->content[s->head + 1])
-			swap_stack(s);
 		rotate_stack(s);
 		i++;
 	}

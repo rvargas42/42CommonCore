@@ -51,3 +51,43 @@ int	get_index(int n, t_stack *s)
 	}
 	return (s->head);
 }
+
+int	range_sorted_asc(t_stack *s, int start, int finish)
+{
+	int	i;
+	int	comp;
+	int	value;
+
+	i = 0;
+	comp = s->content[start];
+	while (i < finish)
+	{
+		value = s->content[start + i];
+		if (value < comp)
+			return (0);
+		else
+			comp = value;
+		i++;
+	}
+	return (1);
+}
+
+int	range_sorted_dec(t_stack *s, int start, int finish)
+{
+	int	i;
+	int	comp;
+	int	value;
+
+	i = 0;
+	comp = s->content[start];
+	while (i < finish)
+	{
+		value = s->content[start + i];
+		if (value > comp)
+			return (0);
+		else
+			comp = value;
+		i++;
+	}
+	return (1);
+}

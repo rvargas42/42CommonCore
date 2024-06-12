@@ -29,18 +29,15 @@ static void	push_range(t_stack *src, t_stack *dst)
 		ref = src_arr[src->head + range];
 		range++;
 	}
-	if (range == 1)
+	if (range <= 2)
 		return ;
 	else
-		repeat_push(range, src, dst);
+		repeat_push(range - 1, src, dst);
 }
 
-static void	push_opt_min(t_stack *src, t_stack *dst, int min) //TODO: revisar
+void cluster_arange(t_stack *src, t_stack *dst, int range) //TODO: takes range and sorts it to later push to b
 {
-	if (min == INT_MIN)
-		min = smallest(src);
-	number_to_top(src, min);
-	push_stack(src, dst);
+	return ;
 }
 
 void	insertion_sort(t_stacks *ab_stacks)
@@ -49,21 +46,17 @@ void	insertion_sort(t_stacks *ab_stacks)
 	t_stack	*b;
 	int		*a_arr;
 	int		*b_arr;
-	int		opt;
 
 	a = ab_stacks->a;
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
-	//ft_printf("min_cost: %d\n", optimum_cost_min(a));
 	if (get_index(smallest(a), a) == a->head)
 		push_stack(a, b);
 	else
 		number_to_top(a, smallest(a));
-	if (b_arr[b->head] < b_arr[b->tail])
-		rotate_stack(b);
-	if (a_arr[a->tail] < a_arr[a->head])
-		rotate_stack(a);
+	if (b_arr[b->head] < b_arr[b->head + 1])
+		swap_stack(b);
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);
 }

@@ -42,7 +42,7 @@ static void	execute_sorting(t_stacks *ab_stacks)
 		//ft_printf("closest_down: %d\n", closest_down(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
 		//bubble_sort(ab_stacks);
 		insertion_sort(ab_stacks);
-		//print_stacks(ab_stacks);
+		//quick_sort(ab_stacks);
 		//ft_printf("tail: %d | head: %d\n", ab_stacks->a->tail, ab_stacks->a->head);
 		//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
 		//ft_printf("a mid_point: %d\n", ab_stacks->a->content[mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries)]);

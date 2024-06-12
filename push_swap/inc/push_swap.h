@@ -53,6 +53,7 @@ int			is_empty(t_stack *s);
 int			mid_point(t_stack *s);
 int			array_len(int *array);
 int			matrix_dim(char **mat);
+int			stack_mean(t_stack *s);
 int			get_index(int n, t_stack *s);
 int			contains_duplicates(int *nums);
 int			closest_up(t_stack *s, int ref);
@@ -82,6 +83,7 @@ void		repeat_swap(int n, t_stack *s);
 void		repeat_push(int n, t_stack *src, t_stack *dst);
 void		bubble_sort(t_stacks *ab_stacks);
 void		insertion_sort(t_stacks *ab_stacks);
+void		quick_sort(t_stacks *ab_stacks);
 void		test_instructions(t_stacks *stacks);
 t_stacks	*init_stacks(int **unordered, int max_size);
 
