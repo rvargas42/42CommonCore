@@ -6,11 +6,16 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 08:40:48 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/13 19:48:34 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:09:04 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
+
+void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
+{
+	return ;
+}
 
 void	number_to_top(t_stack *s, int number)
 {
@@ -58,10 +63,6 @@ int	get_index(int n, t_stack *s)
 	return (s->head);
 }
 
-void insert_number(t_stack *s, int ref, int pos)
-{
-	return ;
-}
 
 int	is_in_a(t_stack *s, int num)
 {
