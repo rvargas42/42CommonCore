@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/08 16:50:45 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:37:38 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    push_stack(t_stack *src, t_stack *dst)
 {
 	int	temp;
 
-	if (is_full(dst) || is_empty(src))
+	if (is_full(dst) || is_empty(src) || src == dst)
 		return ;
 	else
 	{
