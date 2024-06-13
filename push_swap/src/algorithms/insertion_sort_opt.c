@@ -6,13 +6,13 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:25:31 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/13 19:43:54 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:05:35 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-static void mean_sep(t_stacks *ab)
+static void mean_sep(t_stacks *ab) //pushes to b numbers bellow mean
 {
 	int	mean;
 	int	i;
@@ -30,7 +30,6 @@ static void mean_sep(t_stacks *ab)
 	}
 	number_to_top(ab->a, smallest(ab->a));
 	number_to_top(ab->b, biggest(ab->b));
-	print_stacks(ab);
 }
 
 static int	best_fit(t_stack *src, t_stack *dst) //best number from src to push to closest
