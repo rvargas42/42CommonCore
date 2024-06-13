@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 08:40:48 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/11 13:38:54 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:48:34 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	number_to_top(t_stack *s, int number)
 	}
 }
 
+void	push_number(t_stack *src, t_stack *dst, int n)
+{
+	number_to_top(src, n);
+	push_stack(src, dst);	
+}
+
 int	get_index(int n, t_stack *s)
 {
 	int	i;
@@ -52,42 +58,15 @@ int	get_index(int n, t_stack *s)
 	return (s->head);
 }
 
-int	range_sorted_asc(t_stack *s, int start, int finish)
+void insert_number(t_stack *s, int ref, int pos)
 {
-	int	i;
-	int	comp;
-	int	value;
-
-	i = 0;
-	comp = s->content[start];
-	while (i < finish)
-	{
-		value = s->content[start + i];
-		if (value < comp)
-			return (0);
-		else
-			comp = value;
-		i++;
-	}
-	return (1);
+	return ;
 }
 
-int	range_sorted_dec(t_stack *s, int start, int finish)
+int	is_in_a(t_stack *s, int num)
 {
-	int	i;
-	int	comp;
-	int	value;
-
-	i = 0;
-	comp = s->content[start];
-	while (i < finish)
-	{
-		value = s->content[start + i];
-		if (value > comp)
-			return (0);
-		else
-			comp = value;
-		i++;
-	}
-	return (1);
+	if (get_index(num, s) < s->head)
+		return (0);
+	else
+		return (1);
 }
