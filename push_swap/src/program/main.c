@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:10:17 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/11 14:29:52 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:24:03 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	execute_sorting(t_stacks *ab_stacks)
 		//ft_printf("closest_up: %d\n", closest_up(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
 		//ft_printf("closest_down: %d\n", closest_down(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
 		//bubble_sort(ab_stacks);
-		insertion_sort(ab_stacks);
+		//insertion_sort(ab_stacks);
+		insertion_sort_opt(ab_stacks);
 		//quick_sort(ab_stacks);
 		//ft_printf("tail: %d | head: %d\n", ab_stacks->a->tail, ab_stacks->a->head);
 		//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
