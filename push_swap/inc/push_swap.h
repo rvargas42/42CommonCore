@@ -66,6 +66,7 @@ int			push_target_cost(int ref, int target, t_stack *src, t_stack *dst);
 int			push_smallest_bigger(t_stacks *ab);
 int			sorted_asc(t_stack *s, int start, int finish);
 void		push_number(t_stack *src, t_stack *dst, int n);
+void		insert_number(t_stack *src, t_stack *dst, int ref, int pos);
 void		number_to_top(t_stack *s, int number);
 void		print_stacks(t_stacks *stacks);
 void		print_unordered(int	*nums);
