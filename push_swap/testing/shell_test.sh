@@ -1,3 +1,4 @@
 #!bin/bash
 
-./push_swap 5 1 2 7 6 11 9 -1
+ARG=$(shuf -i 0-100 -n 10)
+./push_swap $ARG #| ./checker_linux $ARG

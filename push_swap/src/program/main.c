@@ -38,6 +38,8 @@ static void	execute_sorting(t_stacks *ab_stacks)
 	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
+		if (i == 15)
+			return ;
 		//ft_printf("closest_up: %d\n", closest_up(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
 		//ft_printf("closest_down: %d\n", closest_down(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
 		//bubble_sort(ab_stacks);

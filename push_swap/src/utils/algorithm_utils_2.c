@@ -31,6 +31,7 @@ int	sorted_asc(t_stack *s, int start, int finish)
 	}
 	return (1);
 }
+
 int	sorted_desc(t_stack *s, int start, int finish)
 {
 	int	i;

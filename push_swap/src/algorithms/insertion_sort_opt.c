@@ -20,9 +20,9 @@ static void mean_sep(t_stacks *ab) //pushes to b numbers bellow mean
 	i = 0;
 	mean = stack_mean(ab->a);
 	ft_printf("mean : %d\n", mean);
-	while (i < ab->a->entries)
+	while (i < ab->a->max_size)
 	{
-		if (ab->a->content[ab->a->head] <= mean)
+		if (ab->a->content[ab->a->head] < mean)
 			push_stack(ab->a, ab->b);
 		else
 			rotate_stack(ab->a);
@@ -32,45 +32,57 @@ static void mean_sep(t_stacks *ab) //pushes to b numbers bellow mean
 	number_to_top(ab->b, biggest(ab->b));
 }
 
-static int	best_fit(t_stack *src, t_stack *dst) //best number from src to push to closest
+static void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 {
-	int	best_cost;
-	int	cost;
-	int	best_ref;
-	int	tar;
-	int	i;
-
-	i = 0;
-	best_cost = INT_MAX;
-	best_ref = 0;
-	while (i++ < src->entries)
+	if (get_index(ref, src) == 0 && pos == 1)
+		swap_stack(src);
+	else
 	{
-		if (src->id == 'a')
-			tar = closest_down(dst, src->content[src->head + i]);
-		else
-			tar = closest_up(dst, src->content[src->head + i]);
-		cost = push_target_cost(src->content[src->head + i], tar, src, dst);
-		if (cost < best_cost)
-		{
-			best_ref = src->content[src->head + i];
-			best_cost = cost;
-		}
+		push_number(src, dst, ref);
+		number_to_top(src, src->content[pos]);
+		push_number(dst, src, ref);
 	}
-	return (best_ref);
 }
 
 
-static void	push_best_fit(t_stacks *ab)
+static void sort_stack_a(t_stacks *ab, t_stack *s)
 {
+	int	closest;
+	int	ref;
+	int	n;
 
-	int	best;
+	n = s->entries;
+	if (sorted_desc(s, s->head, s->tail))
+		return ;
+	ref = s->content[s->head];
+	closest = closest_up(s, ref);
+	if (closest == INT_MAX)
+		closest = biggest(s);
+	ft_printf("ref = %d | closest_up: %d\n", ref, closest);
+	if (ref != closest && get_index(closest, s) != 1 && get_index(ref, s) != 0)
+		insert_number(s, ab->b, get_index(closest, s), s->head + 1);
+	reverse_rotate(s);
+}
 
-	if (get_index(smallest(ab->a), ab->a) == ab->a->head)
-		rotate_stack(ab->a);
-	best = best_fit(ab->a, ab->b);
-	number_to_top(ab->b, closest_down(ab->b, best));
-	push_number(ab->a, ab->b, best);
-	return ;
+
+static void sort_stack_b(t_stacks *ab, t_stack *s)
+{
+	int	closest;
+	int	ref;
+	int	n;
+
+	n = s->entries;
+	if (sorted_desc(s, s->head, s->tail))
+		return ;
+	ref = s->content[s->head];
+	closest = closest_down(s, ref);
+	if (closest == INT_MIN)
+		closest = smallest(s);
+	ft_printf("ref = %d | closest_down: %d\n", ref, closest);
+	if (ref != closest)
+		insert_number(s, ab->a, get_index(closest, s), s->head + 1);
+	reverse_rotate(s);
+	print_stacks(ab);
 }
 
 void	insertion_sort_opt(t_stacks *ab)
@@ -86,7 +98,10 @@ void	insertion_sort_opt(t_stacks *ab)
 	b_arr = b->content;
 	if (b->entries == 0)
 		mean_sep(ab);
-	push_best_fit(ab);
-	if (a->entries == 1 || !sorted_asc(b, b->head, b->tail))
+	
+	while (!sorted_desc(b, b->head, b->tail))
+		sort_stack_a(ab, ab->a);
+	sort_stack_b(ab, ab->b);
+	if (a->entries == 1 || sorted_desc(b, b->head, b->tail))
 		repeat_push(b->entries, b, a);
 }

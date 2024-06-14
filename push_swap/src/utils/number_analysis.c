@@ -23,14 +23,12 @@ int	abs(int n)
 int	closest_up(t_stack *s, int ref)
 {
 	int	i;
-	int	*arr;
 	int	closest;
 	int	value;
 	
 	i = 0;
-	arr = s->content;
 	closest = INT_MAX;
-	while ((value = arr[i]))
+	while ((value = s->content[s->head + i]))
 	{
 		if (value > ref && value < closest)
 			closest = value;
@@ -42,14 +40,12 @@ int	closest_up(t_stack *s, int ref)
 int	closest_down(t_stack *s, int ref)
 {
 	int	i;
-	int	*arr;
 	int	closest;
 	int	value;
 	
 	i = 0;
-	arr = s->content;
 	closest = INT_MIN;
-	while ((value = arr[i]))
+	while ((value = s->content[s->head + i]))
 	{
 		if (value < ref && value > closest)
 			closest = value;
