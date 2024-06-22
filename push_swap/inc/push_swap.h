@@ -46,6 +46,7 @@ typedef struct s_stacks
 # define INSTRUCT_RVR 5
 # define INSTRUCT_RVRR 6
 
+int			absol(int n);
 int			is_full(t_stack *s);
 int			biggest(t_stack *s);
 int			smallest(t_stack *s);
@@ -57,8 +58,9 @@ int			stack_mean(t_stack *s);
 int			is_in_a(t_stack *s, int num);
 int			get_index(int n, t_stack *s);
 int			contains_duplicates(int *nums);
-int			closest_up(t_stack *s, int ref);
-int			closest_down(t_stack *s, int ref);
+int			closest_up(t_stack *s, int ref, int start, int end);
+int			closest_down(t_stack *s, int ref, int start, int end);
+int			push_distance(int a, int b, t_stack *src, t_stack *dst);
 int			push_cost(int index, t_stack *s);
 int			optimum_cost_min(t_stack *s);
 int			*unordered_nums(int argn, char const **args);
@@ -67,7 +69,7 @@ int			push_smallest_bigger(t_stacks *ab);
 int			sorted_asc(t_stack *s, int start, int finish);
 int			sorted_desc(t_stack *s, int start, int finish);
 void		push_number(t_stack *src, t_stack *dst, int n);
-//void		insert_number(t_stack *src, t_stack *dst, int ref, int pos);
+void 		insert_number(t_stack *src, t_stack *dst, int ref, int pos);
 void		number_to_top(t_stack *s, int number);
 void		print_stacks(t_stacks *stacks);
 void		print_unordered(int	*nums);

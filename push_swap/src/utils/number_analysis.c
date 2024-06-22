@@ -12,7 +12,7 @@
 
 #include "../../inc/push_swap.h"
 
-int	abs(int n)
+int	absol(int n)
 {
 	if (n > 0)
 		return (n);
@@ -20,7 +20,7 @@ int	abs(int n)
 		return (n * -1);
 }
 
-int	closest_up(t_stack *s, int ref)
+int	closest_up(t_stack *s, int ref, int start, int end)
 {
 	int	i;
 	int	closest;
@@ -28,16 +28,18 @@ int	closest_up(t_stack *s, int ref)
 	
 	i = 0;
 	closest = INT_MAX;
-	while ((value = s->content[s->head + i]))
+	while ((value = s->content[start + i]) && i < end)
 	{
 		if (value > ref && value < closest)
 			closest = value;
 		i++;
 	}
+	if (closest == INT_MAX)
+		closest = biggest(s);
 	return (closest);
 }
 
-int	closest_down(t_stack *s, int ref)
+int	closest_down(t_stack *s, int ref, int start, int end)
 {
 	int	i;
 	int	closest;
@@ -45,12 +47,14 @@ int	closest_down(t_stack *s, int ref)
 	
 	i = 0;
 	closest = INT_MIN;
-	while ((value = s->content[s->head + i]))
+	while ((value = s->content[start + i]) && i < end)
 	{
 		if (value < ref && value > closest)
 			closest = value;
 		i++;
 	}
+	if (closest == INT_MIN)
+		closest = smallest(s);
 	return (closest);
 }
 

@@ -51,3 +51,15 @@ int	sorted_desc(t_stack *s, int start, int finish)
 	}
 	return (1);
 }
+
+int	push_distance(int a, int b, t_stack *src, t_stack *dst)
+{
+	int	i;
+	int	j;
+	int	distance;
+
+	i = push_cost(get_index(a, src), src);
+	j = push_cost(get_index(b, dst), dst);
+	distance = i + j;
+	return (distance - 1);
+}

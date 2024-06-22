@@ -14,7 +14,7 @@
 
 void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 {
-	if (get_index(ref, src) == 0 && pos == 1)
+	if (get_index(ref, src) == 0 && pos == 0)
 		swap_stack(src);
 	else
 	{

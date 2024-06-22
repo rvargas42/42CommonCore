@@ -12,32 +12,44 @@
 
 #include "../../inc/push_swap.h"
 
-
-static void	push_range(t_stack *src, t_stack *dst)
+static int	optimum_insert(t_stack *src, t_stack *dst)
 {
-	int	*dst_arr;
-	int	*src_arr;
-	int	range;
-	int	ref;
+	int	i;
+	int	best;
+	int	closest;
+	int	distance;
+	int	current;
 
-	dst_arr = dst->content;
-	src_arr = src->content;
-	range = 1;
-	ref = src_arr[src->head];
-	while (ref < src_arr[src->head + range])
+	i = 0;
+	best = src->content[src->head];
+	distance = INT_MAX;
+	while (src->head + i < src->tail)
 	{
-		ref = src_arr[src->head + range];
-		range++;
+		current = src->content[src->head + i];
+		closest = closest_down(dst, current, dst->head, dst->tail);
+		if ((push_distance(current, closest, src, dst)) < distance)
+		{
+			distance = push_distance(current, closest, src, dst);
+			best = current;
+			ft_printf("current = %d | closest_Down: %d | distance = %d\n", current, closest, distance);
+		}
+		i++;
 	}
-	if (range <= 2)
-		return ;
-	else
-		repeat_push(range - 1, src, dst);
+	ft_printf("best = %d\n", best);
+	return (best);
 }
 
-void cluster_arange(t_stack *src, t_stack *dst, int range) //TODO: takes range and sorts it to later push to b
+static void	insert_best(t_stacks *ab, t_stack *src, t_stack *dst)
 {
-	return ;
+	int	best;
+	int index;
+
+	best = optimum_insert(src, dst);
+	index = get_index((closest_down(src, best, dst->head, dst->tail)), dst);
+	if (get_index(best, src) == index - 1)
+		repeat_rotate(2, src);
+	insert_number(src, dst, best, index);
+	repeat_rotate(2, src);
 }
 
 void	insertion_sort(t_stacks *ab_stacks)
@@ -51,10 +63,8 @@ void	insertion_sort(t_stacks *ab_stacks)
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
-	if (get_index(smallest(a), a) == a->head)
-		push_stack(a, b);
-	else
-		number_to_top(a, smallest(a));
+	insert_best(ab_stacks, a, a);
+	print_stacks(ab_stacks);
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);
 }
