@@ -38,14 +38,6 @@ typedef struct s_stacks
 	t_stack	*b;
 }			t_stacks;
 
-# define INSTRUCT_SWAP 0
-# define INSTRUCT_SS 1
-# define INSTRUCT_PUSH 2
-# define INSTRUCT_ROTATE 3
-# define INSTRUCT_RR 4
-# define INSTRUCT_RVR 5
-# define INSTRUCT_RVRR 6
-
 int			absol(int n);
 int			is_full(t_stack *s);
 int			biggest(t_stack *s);

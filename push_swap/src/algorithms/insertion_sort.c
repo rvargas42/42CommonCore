@@ -31,11 +31,11 @@ static int	optimum_insert(t_stack *src, t_stack *dst)
 		{
 			distance = push_distance(current, closest, src, dst);
 			best = current;
-			ft_printf("current = %d | closest_Down: %d | distance = %d\n", current, closest, distance);
+			//ft_printf("current = %d | closest_Down: %d | distance = %d\n", current, closest, distance);
 		}
 		i++;
 	}
-	ft_printf("best = %d\n", best);
+	//ft_printf("best = %d\n", best);
 	return (best);
 }
 
@@ -49,7 +49,6 @@ static void	insert_best(t_stacks *ab, t_stack *src, t_stack *dst)
 	if (get_index(best, src) == index - 1)
 		repeat_rotate(2, src);
 	insert_number(src, dst, best, index);
-	repeat_rotate(2, src);
 }
 
 void	insertion_sort(t_stacks *ab_stacks)
@@ -63,8 +62,11 @@ void	insertion_sort(t_stacks *ab_stacks)
 	a_arr = a->content;
 	b = ab_stacks->b;
 	b_arr = b->content;
-	insert_best(ab_stacks, a, a);
-	print_stacks(ab_stacks);
+	if (b->moves == 0)
+		repeat_push(2, a, b);
+	else
+		insert_best(ab_stacks, a, b);
+	number_to_top(b, biggest(b));
 	if (a->entries == 1)
 		repeat_push(b->entries, b, a);
 }

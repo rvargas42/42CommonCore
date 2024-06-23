@@ -14,7 +14,7 @@ def generate_numbers_with_gap(count, min_gap):
     return numbers
 
 # Genera 500 números aleatorios
-random_numbers = generate_numbers_with_gap(15, 10)
+random_numbers = generate_numbers_with_gap(100, 10)
 
 # Desordena los números
 random.shuffle(random_numbers)
