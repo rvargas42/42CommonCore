@@ -14,14 +14,17 @@
 
 void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 {
-	if (get_index(ref, src) == 0 && pos == 0)
-		swap_stack(src);
-	else
+	if (src->id == dst->id)
 	{
 		number_to_top(src, ref);
 		push_stack(src, dst);
 		number_to_top(src, src->content[pos]);
 		push_stack(dst, src);
+	}
+	else
+	{
+		number_to_top(dst, dst->content[pos]);
+		push_number(src, dst, ref);
 	}
 	return ;
 }

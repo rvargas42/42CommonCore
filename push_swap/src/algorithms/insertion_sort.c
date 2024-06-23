@@ -35,38 +35,52 @@ static int	optimum_insert(t_stack *src, t_stack *dst)
 		}
 		i++;
 	}
-	//ft_printf("best = %d\n", best);
 	return (best);
 }
 
-static void	insert_best(t_stacks *ab, t_stack *src, t_stack *dst)
+static void	push_optimum(t_stack *src, t_stack *dst)
 {
 	int	best;
-	int index;
+	int	index;
 
 	best = optimum_insert(src, dst);
-	index = get_index((closest_down(src, best, dst->head, dst->tail)), dst);
-	if (get_index(best, src) == index - 1)
-		repeat_rotate(2, src);
+	index = get_index(closest_up(dst, best, dst->head, dst->tail), dst);
 	insert_number(src, dst, best, index);
 }
 
-void	insertion_sort(t_stacks *ab_stacks)
+static void	mean_sep(t_stacks *ab, int n)
+{
+	int	mean;
+	int	i;
+
+	i = 0;	
+	mean = stack_mean(ab->a);
+	while (i++ < n)
+	{
+		if (ab->a->content[ab->a->head + i] <= mean)
+			push_stack(ab->a, ab->b);
+	}
+}
+
+
+void	insertion_sort(t_stacks *ab)
 {
 	t_stack	*a;
 	t_stack	*b;
 	int		*a_arr;
 	int		*b_arr;
 
-	a = ab_stacks->a;
+	a = ab->a;
 	a_arr = a->content;
-	b = ab_stacks->b;
+	b = ab->b;
 	b_arr = b->content;
 	if (b->moves == 0)
 		repeat_push(2, a, b);
 	else
-		insert_best(ab_stacks, a, b);
-	number_to_top(b, biggest(b));
-	if (a->entries == 1)
+		push_optimum(a, b);
+	if (a->entries == 0)
 		repeat_push(b->entries, b, a);
+		number_to_top(a, smallest(a));
+	//print_stacks(ab);
+	return ;
 }
