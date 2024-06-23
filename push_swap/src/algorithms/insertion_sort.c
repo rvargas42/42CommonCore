@@ -26,7 +26,7 @@ static int	optimum_insert(t_stack *src, t_stack *dst)
 	while (src->head + i < src->tail)
 	{
 		current = src->content[src->head + i];
-		closest = closest_down(dst, current, dst->head, dst->tail);
+		closest = closest_up(dst, current, dst->head, dst->tail);
 		if ((push_distance(current, closest, src, dst)) < distance)
 		{
 			distance = push_distance(current, closest, src, dst);
@@ -78,9 +78,15 @@ void	insertion_sort(t_stacks *ab)
 		repeat_push(2, a, b);
 	else
 		push_optimum(a, b);
+	if (a->entries == 3)
+	{
+		ft_printf("movements to b: %d\n", a->moves);
+		print_stacks(ab);
+		exit(EXIT_SUCCESS) ;
+	}
 	if (a->entries == 0)
 		repeat_push(b->entries, b, a);
 		number_to_top(a, smallest(a));
-	//print_stacks(ab);
+	print_stacks(ab);
 	return ;
 }
