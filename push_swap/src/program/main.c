@@ -65,7 +65,7 @@ int main(int argn, char const **argv)
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
 	//ft_printf("array_len: %d", array_len(unordered));
 	execute_sorting(ab_stacks);
-	ft_printf("Total Moves: %d", ab_stacks->a->moves);
+	ft_printf("Total Moves: %d", ab_stacks->a->moves + ab_stacks->b->moves);
 	free_all(ab_stacks);
 	return (1);
 }

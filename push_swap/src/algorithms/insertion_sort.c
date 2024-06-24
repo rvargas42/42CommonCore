@@ -34,7 +34,6 @@ static int	optimum_insert(t_stack *src, t_stack *dst)
 		}
 		i++;
 	}
-	ft_printf("current = %d | closest_Down: %d | distance = %d\n", current, closest, distance);
 	return (best);
 }
 
@@ -47,8 +46,26 @@ static void	push_opt_b(t_stack *src, t_stack *dst)
 	best = optimum_insert(src, dst);
 	closest = closest_down(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
-	ft_printf("closest : %d | index %d | number at index: %d\n", closest, index, dst->content[index]);
-	insert_number(src, dst, best, index);
+	if (best < closest)
+		push_number(src, dst, best);
+	else
+		insert_number(src, dst, best, index);
+}
+
+static void	push_back(t_stack *src, t_stack *dst)
+{
+	int	closest;
+	
+	if (dst->entries == 0)
+		push_stack(src, dst);
+	while (dst->entries < dst->max_size)
+	{
+		closest = closest_down(src, dst->content[dst->head], src->head, src->tail);
+		if (closest == src->content[src->head])
+			push_stack(src, dst);
+		else
+			number_to_top(src, closest);
+	}
 }
 
 static void mini_sort(t_stack *s)
@@ -67,7 +84,6 @@ static void mini_sort(t_stack *s)
 	}
 }
 
-
 void	insertion_sort(t_stacks *ab)
 {
 	t_stack	*a;
@@ -79,17 +95,14 @@ void	insertion_sort(t_stacks *ab)
 	a_arr = a->content;
 	b = ab->b;
 	b_arr = b->content;
-	print_stacks(ab);
 	if (b->entries == 0)
 		repeat_push(2, a, b);
 	else
 		push_opt_b(a, b);
-	if (a->entries == 3)
+	if (a->entries == 0)
 	{
-		mini_sort(a);
-		ft_printf("movements to b: %d\n", a->moves);
-		print_stacks(ab);
-		exit(EXIT_SUCCESS) ;
+		number_to_top(b, biggest(b));
+		push_back(b, a);
 	}
 	if (a->entries == 0)
 		repeat_push(b->entries, b, a);
