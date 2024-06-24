@@ -46,13 +46,7 @@ static void	push_opt_b(t_stack *src, t_stack *dst)
 	best = optimum_insert(src, dst);
 	closest = closest_down(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
-	if (best < closest)
-	{
-		push_number(src, dst, best);
-		rotate_stack(dst);
-	}
-	else
-		insert_number(src, dst, best, index);
+	insert_number(src, dst, best, index);
 }
 
 static void	push_back(t_stack *src, t_stack *dst)
@@ -108,7 +102,6 @@ void	insertion_sort(t_stacks *ab)
 		number_to_top(b, biggest(b));
 		push_back(b, a);
 		//print_stacks(ab);
-
 	}
 	if (a->entries == 0)
 		repeat_push(b->entries, b, a);
