@@ -36,7 +36,7 @@ static void *init_buffer_b(int max_size)
 	b = malloc(sizeof(t_stack));
 	if (!b)
 		return (NULL);
-	b->content = (int *)calloc(max_size, sizeof(int));
+	b->content = (int *)calloc(max_size + 1, sizeof(int));
 	b->id = 'b';
 	b->head = max_size - 1;
 	b->tail = max_size - 1;

@@ -67,15 +67,10 @@ static void	push_opt_a(t_stack *src, t_stack *dst)
 	int	best;
 	int	closest;
 	int	index;
-
+	number_to_top(dst, smallest(dst));
 	best = optimum_insert_b(src, dst);
-	closest = closest_up(dst, best, dst->head, dst->tail);
+	closest = closest_down(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
-	if (best > closest)
-	{
-		push_number(src, dst, best);
-		return ;
-	}
 	insert_number(src, dst, best, index);
 }
 
@@ -83,17 +78,16 @@ static void	push_opt_b(t_stack *src, t_stack *dst)
 {
 	int	best;
 	int	closest;
+	int	big;
 	int	index;
 
 	best = optimum_insert_a(src, dst);
 	closest = closest_down(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
 	if (best < closest)
-	{
 		push_number(src, dst, best);
-		return ;
-	}
-	insert_number(src, dst, best, index);
+	else
+		insert_number(src, dst, best, index);
 }
 
 static void	push_back(t_stack *src, t_stack *dst)
@@ -108,7 +102,7 @@ static void	push_back(t_stack *src, t_stack *dst)
 		if (closest == src->content[src->head])
 			push_stack(src, dst);
 		else
-			number_to_top(src, closest);
+			rotate_stack(src);
 	}
 }
 
@@ -139,17 +133,16 @@ void	insertion_sort(t_stacks *ab)
 	a_arr = a->content;
 	b = ab->b;
 	b_arr = b->content;
-	if (b->entries == 0)
-		repeat_push(2, a, b);
-	else
-		push_opt_b(a, b);
-	if (a->entries == 2) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
+	// if (b->entries == 0)
+	// 	repeat_push(2, a, b);	
+	// else
+	push_opt_b(a, b);
+	if (a->entries == 0) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
 	{
-		ft_printf("a_moves: %d", a->moves);
 		number_to_top(b, biggest(b));
-		push_number(b, a, biggest(b));
-		push_opt_a(b, a);
+		push_back(b, a);
+		//ft_printf("a_moves: %d\n", a->moves);
+		//ft_printf("b_moves: %d\n", b->moves);
 		//print_stacks(ab);
-		exit(EXIT_SUCCESS);
 	}
 }
