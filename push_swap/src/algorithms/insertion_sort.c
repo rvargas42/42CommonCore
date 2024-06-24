@@ -12,7 +12,7 @@
 
 #include "../../inc/push_swap.h"
 
-static int	optimum_insert(t_stack *src, t_stack *dst)
+static int	optimum_insert_b(t_stack *src, t_stack *dst)
 {
 	int	i;
 	int	best;
@@ -37,15 +37,62 @@ static int	optimum_insert(t_stack *src, t_stack *dst)
 	return (best);
 }
 
+static int	optimum_insert_a(t_stack *src, t_stack *dst)
+{
+	int	i;
+	int	best;
+	int	closest;
+	int	distance;
+	int	current;
+
+	i = 1;
+	best = src->content[src->head];
+	distance = INT_MAX;
+	while (src->head + i < src->tail)
+	{
+		current = src->content[src->head + i];
+		closest = closest_up(dst, current, dst->head, dst->tail);
+		if ((push_distance(current, closest, src, dst)) < distance)
+		{
+			distance = push_distance(current, closest, src, dst);
+			best = current;
+		}
+		i++;
+	}
+	return (best);
+}
+
+static void	push_opt_a(t_stack *src, t_stack *dst)
+{
+	int	best;
+	int	closest;
+	int	index;
+
+	best = optimum_insert_b(src, dst);
+	closest = closest_up(dst, best, dst->head, dst->tail);
+	index = get_index(closest, dst);
+	if (best > closest)
+	{
+		push_number(src, dst, best);
+		return ;
+	}
+	insert_number(src, dst, best, index);
+}
+
 static void	push_opt_b(t_stack *src, t_stack *dst)
 {
 	int	best;
 	int	closest;
 	int	index;
 
-	best = optimum_insert(src, dst);
+	best = optimum_insert_a(src, dst);
 	closest = closest_down(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
+	if (best < closest)
+	{
+		push_number(src, dst, best);
+		return ;
+	}
 	insert_number(src, dst, best, index);
 }
 
@@ -96,15 +143,13 @@ void	insertion_sort(t_stacks *ab)
 		repeat_push(2, a, b);
 	else
 		push_opt_b(a, b);
-	if (a->entries == 0)
+	if (a->entries == 2) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
 	{
-		//print_stacks(ab);
+		ft_printf("a_moves: %d", a->moves);
 		number_to_top(b, biggest(b));
-		push_back(b, a);
+		push_number(b, a, biggest(b));
+		push_opt_a(b, a);
 		//print_stacks(ab);
+		exit(EXIT_SUCCESS);
 	}
-	if (a->entries == 0)
-		repeat_push(b->entries, b, a);
-		number_to_top(a, smallest(a));
-	return ;
 }

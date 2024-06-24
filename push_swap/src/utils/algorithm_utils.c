@@ -25,7 +25,7 @@ void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 	{
 		number_to_top(dst, dst->content[pos]);
 		push_number(src, dst, ref);
-		rotate_stack(dst);
+		reverse_rotate(dst);
 	}
 	return ;
 }
