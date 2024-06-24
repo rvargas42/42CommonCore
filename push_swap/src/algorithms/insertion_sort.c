@@ -133,16 +133,17 @@ void	insertion_sort(t_stacks *ab)
 	a_arr = a->content;
 	b = ab->b;
 	b_arr = b->content;
-	// if (b->entries == 0)
-	// 	repeat_push(2, a, b);	
-	// else
-	push_opt_b(a, b);
+	if (b->entries == 0)
+		repeat_push(2, a, b);	
+	else
+		push_opt_b(a, b);
 	if (a->entries == 0) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
 	{
 		number_to_top(b, biggest(b));
-		push_back(b, a);
-		//ft_printf("a_moves: %d\n", a->moves);
-		//ft_printf("b_moves: %d\n", b->moves);
+		//push_back(b, a);
+		ft_printf("a_moves: %d\n", a->moves);
+		ft_printf("b_moves: %d\n", b->moves);
 		//print_stacks(ab);
+		exit(EXIT_FAILURE);
 	}
 }
