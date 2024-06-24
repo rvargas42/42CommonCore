@@ -61,5 +61,5 @@ int	push_distance(int a, int b, t_stack *src, t_stack *dst)
 	i = push_cost(get_index(a, src), src);
 	j = push_cost(get_index(b, dst), dst);
 	distance = i + j;
-	return (distance + 1);
+	return (distance);
 }
