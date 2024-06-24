@@ -20,45 +20,50 @@ static int	optimum_insert(t_stack *src, t_stack *dst)
 	int	distance;
 	int	current;
 
-	i = 0;
+	i = 1;
 	best = src->content[src->head];
 	distance = INT_MAX;
 	while (src->head + i < src->tail)
 	{
 		current = src->content[src->head + i];
-		closest = closest_up(dst, current, dst->head, dst->tail);
+		closest = closest_down(dst, current, dst->head, dst->tail);
 		if ((push_distance(current, closest, src, dst)) < distance)
 		{
 			distance = push_distance(current, closest, src, dst);
 			best = current;
-			//ft_printf("current = %d | closest_Down: %d | distance = %d\n", current, closest, distance);
 		}
 		i++;
 	}
+	ft_printf("current = %d | closest_Down: %d | distance = %d\n", current, closest, distance);
 	return (best);
 }
 
-static void	push_optimum(t_stack *src, t_stack *dst)
+static void	push_opt_b(t_stack *src, t_stack *dst)
 {
 	int	best;
+	int	closest;
 	int	index;
 
 	best = optimum_insert(src, dst);
-	index = get_index(closest_up(dst, best, dst->head, dst->tail), dst);
+	closest = closest_down(dst, best, dst->head, dst->tail);
+	index = get_index(closest, dst);
+	ft_printf("closest : %d | index %d | number at index: %d\n", closest, index, dst->content[index]);
 	insert_number(src, dst, best, index);
 }
 
-static void	mean_sep(t_stacks *ab, int n)
+static void mini_sort(t_stack *s)
 {
-	int	mean;
-	int	i;
-
-	i = 0;	
-	mean = stack_mean(ab->a);
-	while (i++ < n)
+	if (!sorted_asc(s, s->head, s->tail))
 	{
-		if (ab->a->content[ab->a->head + i] <= mean)
-			push_stack(ab->a, ab->b);
+		number_to_top(s, smallest(s));
+		if (s->content[s->head + 1] > s->content[s->tail])
+		{
+			number_to_top(s, biggest(s));
+			swap_stack(s);
+			reverse_rotate(s);
+		}
+		if (s->content[s->head] > s->content[s->head + 1])
+			swap_stack(s);
 	}
 }
 
@@ -74,12 +79,14 @@ void	insertion_sort(t_stacks *ab)
 	a_arr = a->content;
 	b = ab->b;
 	b_arr = b->content;
-	if (b->moves == 0)
+	print_stacks(ab);
+	if (b->entries == 0)
 		repeat_push(2, a, b);
 	else
-		push_optimum(a, b);
+		push_opt_b(a, b);
 	if (a->entries == 3)
 	{
+		mini_sort(a);
 		ft_printf("movements to b: %d\n", a->moves);
 		print_stacks(ab);
 		exit(EXIT_SUCCESS) ;
@@ -87,6 +94,5 @@ void	insertion_sort(t_stacks *ab)
 	if (a->entries == 0)
 		repeat_push(b->entries, b, a);
 		number_to_top(a, smallest(a));
-	print_stacks(ab);
 	return ;
 }

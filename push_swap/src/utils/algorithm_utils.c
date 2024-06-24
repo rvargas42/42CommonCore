@@ -25,6 +25,7 @@ void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 	{
 		number_to_top(dst, dst->content[pos]);
 		push_number(src, dst, ref);
+		reverse_rotate(dst);
 	}
 	return ;
 }
@@ -55,7 +56,7 @@ void	number_to_top(t_stack *s, int number)
 void	push_number(t_stack *src, t_stack *dst, int n)
 {
 	number_to_top(src, n);
-	push_stack(src, dst);	
+	push_stack(src, dst);
 }
 
 int	get_index(int n, t_stack *s)
@@ -69,10 +70,10 @@ int	get_index(int n, t_stack *s)
 	while ((num = arr[s->head + i]))
 	{
 		if (num == n)
-			return (s->head + i);			
+			return (s->head + i);
 		i++;
 	}
-	return (s->head);
+	return (s->head + i);
 }
 
 
