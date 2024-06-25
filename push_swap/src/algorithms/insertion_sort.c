@@ -67,42 +67,50 @@ static void	push_opt_a(t_stack *src, t_stack *dst)
 	int	best;
 	int	closest;
 	int	index;
-	number_to_top(dst, smallest(dst));
-	best = optimum_insert_b(src, dst);
-	closest = closest_down(dst, best, dst->head, dst->tail);
+
+	best = optimum_insert_a(src, dst);
+	closest = closest_up(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
-	insert_number(src, dst, best, index);
+	if (best > closest)
+	{
+		number_to_top(dst, biggest(dst));
+		push_number(src, dst, best);
+	}
+	else
+		insert_number(src, dst, best, index + 1);
 }
 
 static void	push_opt_b(t_stack *src, t_stack *dst)
 {
 	int	best;
 	int	closest;
-	int	big;
 	int	index;
 
 	best = optimum_insert_a(src, dst);
-	closest = closest_down(dst, best, dst->head, dst->tail);
+	closest = closest_up(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
-	if (best < closest)
+	if (best > closest)
+	{
+		number_to_top(dst, biggest(dst));
 		push_number(src, dst, best);
+	}
 	else
-		insert_number(src, dst, best, index);
+		insert_number(src, dst, best, index + 1);
 }
 
 static void	push_back(t_stack *src, t_stack *dst)
 {
 	int	closest;
-	
+
 	if (dst->entries == 0)
-		push_stack(src, dst);
+		push_number(src, dst, biggest(src));
 	while (dst->entries < dst->max_size)
 	{
 		closest = closest_down(src, dst->content[dst->head], src->head, src->tail);
-		if (closest == src->content[src->head])
-			push_stack(src, dst);
+		if (src->content[src->head] == closest)
+			push_number(src, dst, src->content[src->head]);
 		else
-			rotate_stack(src);
+			reverse_rotate(src);
 	}
 }
 
@@ -134,16 +142,17 @@ void	insertion_sort(t_stacks *ab)
 	b = ab->b;
 	b_arr = b->content;
 	if (b->entries == 0)
-		repeat_push(2, a, b);	
+		repeat_push(2, a, b);
 	else
 		push_opt_b(a, b);
 	if (a->entries == 0) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
 	{
 		number_to_top(b, biggest(b));
-		//push_back(b, a);
-		ft_printf("a_moves: %d\n", a->moves);
-		ft_printf("b_moves: %d\n", b->moves);
+		//ft_printf("a_moves: %d\n", a->moves);
+		//ft_printf("b_moves: %d\n", b->moves);
 		//print_stacks(ab);
-		exit(EXIT_FAILURE);
+		push_back(b, a);
+		//exit(EXIT_FAILURE);
+		//number_to_top(a, smallest(a));
 	}
 }
