@@ -12,31 +12,6 @@
 
 #include "../../inc/push_swap.h"
 
-static int	optimum_insert_b(t_stack *src, t_stack *dst)
-{
-	int	i;
-	int	best;
-	int	closest;
-	int	distance;
-	int	current;
-
-	i = 1;
-	best = src->content[src->head];
-	distance = INT_MAX;
-	while (src->head + i < src->tail)
-	{
-		current = src->content[src->head + i];
-		closest = closest_down(dst, current, dst->head, dst->tail);
-		if ((push_distance(current, closest, src, dst)) < distance)
-		{
-			distance = push_distance(current, closest, src, dst);
-			best = current;
-		}
-		i++;
-	}
-	return (best);
-}
-
 static int	optimum_insert_a(t_stack *src, t_stack *dst)
 {
 	int	i;
@@ -62,22 +37,24 @@ static int	optimum_insert_a(t_stack *src, t_stack *dst)
 	return (best);
 }
 
-static void	push_opt_a(t_stack *src, t_stack *dst)
-{
-	int	best;
-	int	closest;
-	int	index;
 
-	best = optimum_insert_a(src, dst);
-	closest = closest_up(dst, best, dst->head, dst->tail);
-	index = get_index(closest, dst);
-	if (best > closest)
+static void	push_two(t_stack *src, t_stack *dst)
+{
+	int	min;
+	int	max;
+	int	n;
+
+	max = biggest(src);
+	min = smallest(src);
+	//ft_printf("smallest: %d | biggest %d\n", min, max);
+	while (dst->entries != 2)
 	{
-		number_to_top(dst, biggest(dst));
-		push_number(src, dst, best);
+		n = src->content[src->head];
+		if (n == max || n == min)
+			rotate_stack(src);
+		else
+			push_stack(src, dst);
 	}
-	else
-		insert_number(src, dst, best, index + 1);
 }
 
 static void	push_opt_b(t_stack *src, t_stack *dst)
@@ -89,6 +66,11 @@ static void	push_opt_b(t_stack *src, t_stack *dst)
 	best = optimum_insert_a(src, dst);
 	closest = closest_up(dst, best, dst->head, dst->tail);
 	index = get_index(closest, dst);
+	if (best >= (biggest(src)) && best >= biggest(dst))
+	{
+		reverse_rotate(src);
+		return ;
+	}
 	if (best > closest)
 	{
 		number_to_top(dst, biggest(dst));
@@ -96,22 +78,6 @@ static void	push_opt_b(t_stack *src, t_stack *dst)
 	}
 	else
 		insert_number(src, dst, best, index + 1);
-}
-
-static void	push_back(t_stack *src, t_stack *dst)
-{
-	int	closest;
-
-	if (dst->entries == 0)
-		push_number(src, dst, biggest(src));
-	while (dst->entries < dst->max_size)
-	{
-		closest = closest_down(src, dst->content[dst->head], src->head, src->tail);
-		if (src->content[src->head] == closest)
-			push_number(src, dst, src->content[src->head]);
-		else
-			reverse_rotate(src);
-	}
 }
 
 static void mini_sort(t_stack *s)
@@ -130,6 +96,29 @@ static void mini_sort(t_stack *s)
 	}
 }
 
+static void	push_back(t_stack *src, t_stack *dst)
+{
+	int	close;
+	int	index;
+	int	n;
+	
+	mini_sort(dst);
+	while (dst->entries < dst->max_size)
+	{
+		n = src->content[src->head];
+		close = closest_up(dst, src->content[src->head], dst->head, dst->tail);
+		index = get_index(close, dst);
+		if (n < close)
+		{
+			number_to_top(dst, close);
+			push_stack(src, dst);
+		}
+		else
+			insert_number(src, dst, n, index + 1);
+	}
+}
+
+
 void	insertion_sort(t_stacks *ab)
 {
 	t_stack	*a;
@@ -142,17 +131,17 @@ void	insertion_sort(t_stacks *ab)
 	b = ab->b;
 	b_arr = b->content;
 	if (b->entries == 0)
-		repeat_push(2, a, b);
+		push_two(a, b);
 	else
 		push_opt_b(a, b);
-	if (a->entries == 0) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
+	if (a->entries == 3) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
 	{
 		number_to_top(b, biggest(b));
-		//ft_printf("a_moves: %d\n", a->moves);
-		//ft_printf("b_moves: %d\n", b->moves);
 		//print_stacks(ab);
 		push_back(b, a);
-		//exit(EXIT_FAILURE);
+		//ft_printf("a_moves: %d\n", a->moves);
+		//ft_printf("b_moves: %d\n", b->moves);
+		exit(EXIT_FAILURE);
 		//number_to_top(a, smallest(a));
 	}
 }
