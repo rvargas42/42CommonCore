@@ -119,7 +119,7 @@ static void	push_back(t_stack *src, t_stack *dst)
 }
 
 
-void	insertion_sort(t_stacks *ab)
+void	insertion_sort(t_stacks *ab) //TODO: separar por tamaños de stack (5, 10 y big)-> para 5 y 10 usar solo insert para no pasar de un lado a otro mas de una vez
 {
 	t_stack	*a;
 	t_stack	*b;
@@ -130,6 +130,7 @@ void	insertion_sort(t_stacks *ab)
 	a_arr = a->content;
 	b = ab->b;
 	b_arr = b->content;
+	//TODO: de aqui hasta el final es parte de la funcion para big stacks
 	if (b->entries == 0)
 		push_two(a, b);
 	else
@@ -137,8 +138,8 @@ void	insertion_sort(t_stacks *ab)
 	if (a->entries == 3) //TODO: Funcion que inserta a a los mas optimos de vuelta cuando a->entries == 3
 	{
 		number_to_top(b, biggest(b));
-		//print_stacks(ab);
 		push_back(b, a);
+		number_to_top(a, smallest(a));
 		//ft_printf("a_moves: %d\n", a->moves);
 		//ft_printf("b_moves: %d\n", b->moves);
 		exit(EXIT_FAILURE);
