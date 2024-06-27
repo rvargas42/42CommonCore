@@ -31,16 +31,19 @@ FT_PRINTF_DIR = $(INC_DIR)ft_printf
 FT_PRINTF_OBJs = $(wildcard $(FT_PRINTF_DIR)/obj/*.o)
 MYLIB = $(INC_DIR)myLib.a
 #SOURCE
-SRCs = 	$(wildcard $(SRC_DIR)/program/*.c) \
-		$(wildcard $(SRC_DIR)/utils/*.c) \
-		$(wildcard $(SRC_DIR)/instructions/*.c) \
-		$(wildcard $(SRC_DIR)/algorithms/*.c)
+SRCs = 	$(wildcard $(SRC_DIR)program/*.c) \
+		$(wildcard $(SRC_DIR)utils/*.c) \
+		$(wildcard $(SRC_DIR)instructions/*.c) \
+		$(wildcard $(SRC_DIR)algorithms/basic/*.c) \
+		$(wildcard $(SRC_DIR)algorithms/advanced/*.c)
 
 OBJs = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCs)) # $(patsubst pattern,replacement,text)
 
 # Target
 NAME = push_swap
 INCLUDE = $(INC_DIR)push_swap.h
+
+all: $(NAME) #Make files execute first rule by default
 
 test: fclean $(LIBFT)
 	@gcc $(SRCs) $(INCLUDE) $(LIBFT) -o $(NAME)
@@ -49,19 +52,19 @@ test: fclean $(LIBFT)
 test_mem: fclean $(LIBFT)
 	@gcc $(SRCs) $(INCLUDE) $(LIBFT) -o $(NAME)
 	@make -s verifyCompilation
-	@valgrind --leak-check=yes ./$(NAME) "1 2 3"
+	@valgrind --leak-check=yes --track-origins=yes -s ./$(NAME) "1 2 3"
 
-all: $(NAME) #Make files execute first rule by default
 
 $(NAME): $(LIBFT) $(OBJs)
-	@gcc $(FLAGS) $(OBJs) $(INCLUDE) $(LIBFT) -o $(NAME) 
+	@gcc $(OBJs) $(INCLUDE) $(LIBFT) -o $(NAME) 
 	@make -s verifyCompilation
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
-	@$(COMPILER) $(FLAGS) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF) #TODO: Incluir $(FLAGS)
+	$(COMPILER) -c $< -o $@
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)program $(OBJ_DIR)utils $(OBJ_DIR)instructions $(OBJ_DIR)algorithms/basic $(OBJ_DIR)algorithms/advanced
 
 $(LIBFT): $(FT_PRINTF_OBJs)
 	@echo "${B}Building needed libraries..."
