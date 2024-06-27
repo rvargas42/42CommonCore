@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:10:17 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/13 18:24:03 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/27 12:35:09 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,16 @@ static void	execute_sorting(t_stacks *ab_stacks)
 	i = 0;
 	while (keep_running(ab_stacks->a))
 	{
-		// if (i == 5)
-		// 	return ;
-		//ft_printf("closest_up: %d\n", closest_up(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
-		//ft_printf("closest_down: %d\n", closest_down(ab_stacks->a, ab_stacks->a->content[ab_stacks->a->head]));
-		//bubble_sort(ab_stacks);
-		insertion_sort(ab_stacks);
-		//quick_sort(ab_stacks);
-		//ft_printf("tail: %d | head: %d\n", ab_stacks->a->tail, ab_stacks->a->head);
-		//ft_printf("midpoint: %d\n", mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries));
-		//ft_printf("a mid_point: %d\n", ab_stacks->a->content[mid_point(ab_stacks->a->head, ab_stacks->a->tail,ab_stacks->a->entries)]);
-		//ft_printf("push_cost: %d\n", push_cost(mid_point(ab_stacks->a->head, ab_stacks->a->tail, ab_stacks->a->entries),ab_stacks->a));
+		if (ab_stacks->a->max_size < 3)
+			swap_stack(ab_stacks->a);
+		if (ab_stacks->a->max_size == 3)
+			sort_three(ab_stacks);
+		if (ab_stacks->a->max_size <= 5)
+			sort_five(ab_stacks);
+		if (ab_stacks->a->max_size > 5)
+			insertion_sort(ab_stacks);
 		i++;
 	}
-	//ft_printf("\nnumber of operations: %d\n", ab_stacks->a->moves + ab_stacks->b->moves);
 }
 
 int main(int argn, char const **argv)
@@ -60,12 +56,14 @@ int main(int argn, char const **argv)
 	t_stacks	*ab_stacks;
 
 	if (argn < 2)
-		exit(EXIT_SUCCESS);
+		return (-1);
 	unordered = unordered_nums(argn, argv);
+	if (! unordered)
+		exit(EXIT_FAILURE);
 	ab_stacks = init_stacks(&unordered, array_len(unordered));
-	//ft_printf("array_len: %d", array_len(unordered));
+	if (!ab_stacks)
+		exit(EXIT_FAILURE);
 	execute_sorting(ab_stacks);
-	ft_printf("Total Moves: %d", ab_stacks->a->moves + ab_stacks->b->moves);
 	free_all(ab_stacks);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:13:55 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/03 11:45:40 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:47:08 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,12 @@ static void	check_dups(int	**arr, int **set)
 		}
 	}
 }
+
 void	check_array(int **clean_arr)
 {
 	int	*set;
 	int	*arr;
-	int	i;
-	int	j;
 
-	i = 0;
 	arr = *(clean_arr);
 	set = number_set(array_len(arr));
 	if (!set)

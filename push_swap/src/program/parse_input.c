@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:53:44 by ravargas          #+#    #+#             */
-/*   Updated: 2024/05/23 12:47:08 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:17:20 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static int	*build_array(char const **nums)
 		array[i] = d;
 		i++;
 	}
+	array[i] = '\0';
 	if (contains_duplicates(array) == 1)
 		return (NULL);
-	array[i] = '\0';
 	return (array);
 }
 
