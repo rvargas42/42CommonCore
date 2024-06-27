@@ -81,11 +81,14 @@ void		repeat_rr(int n, t_stacks *ab_stacks);
 void		repeat_ss(int n, t_stacks *ab_stacks);
 void		repeat_swap(int n, t_stack *s);
 void		repeat_push(int n, t_stack *src, t_stack *dst);
-void		bubble_sort(t_stacks *ab_stacks);
 void		insertion_sort(t_stacks *ab);
-void		insertion_sort_opt(t_stacks *ab);
-void		quick_sort(t_stacks *ab_stacks);
-void		test_instructions(t_stacks *stacks);
+int			optimum_insert_a(t_stack *src, t_stack *dst);
+void		push_two(t_stack *src, t_stack *dst);
+void		push_opt_b(t_stack *src, t_stack *dst);
+void		push_back(t_stack *src, t_stack *dst);
+void 		mini_sort(t_stack *s);
+void		sort_three(t_stacks *ab);
+void		sort_five(t_stacks *ab);
 t_stacks	*init_stacks(int **unordered, int max_size);
 
 #endif
