@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:25:31 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/26 12:13:33 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/03 09:55:43 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	optimum_insert_a(t_stack *src, t_stack *dst)
 	}
 	return (best);
 }
-
 
 void	push_two(t_stack *src, t_stack *dst)
 {
@@ -78,12 +77,13 @@ void	push_opt_b(t_stack *src, t_stack *dst)
 	else
 		insert_number(src, dst, best, index + 1);
 }
+
 void	push_back(t_stack *src, t_stack *dst)
 {
 	int	close;
 	int	index;
 	int	n;
-	
+
 	mini_sort(dst);
 	while (dst->entries < dst->max_size)
 	{
@@ -100,18 +100,15 @@ void	push_back(t_stack *src, t_stack *dst)
 	}
 }
 
-
 void	insertion_sort(t_stacks *ab)
 {
 	t_stack	*a;
 	t_stack	*b;
-	int		*a_arr;
-	int		*b_arr;
 
 	a = ab->a;
-	a_arr = a->content;
 	b = ab->b;
-	b_arr = b->content;
+	if (sorted_asc(a, a->head, a->tail))
+		return ;
 	if (b->entries == 0)
 		push_two(a, b);
 	else
