@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:40:42 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/13 18:37:38 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:15:23 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_push(t_stack *dst)
 	write(1, "\n", 1);
 }
 
-void    push_stack(t_stack *src, t_stack *dst)
+void	push_stack(t_stack *src, t_stack *dst)
 {
 	int	temp;
 
@@ -44,7 +44,7 @@ void    push_stack(t_stack *src, t_stack *dst)
 void	repeat_push(int n, t_stack *src, t_stack *dst)
 {
 	int	i;
-	
+
 	if (n <= 0 || !src || !dst)
 		return ;
 	i = 0;

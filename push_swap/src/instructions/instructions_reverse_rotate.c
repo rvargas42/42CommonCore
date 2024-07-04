@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:15:15 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/12 15:42:58 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/06/28 12:04:39 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_rvr(t_stack *s)
 	write(1, "\n", 1);
 }
 
-void    reverse_rotate(t_stack *s)
+void	reverse_rotate(t_stack *s)
 {
 	int	t;
 	int	i;
@@ -41,7 +41,7 @@ void    reverse_rotate(t_stack *s)
 void	repeat_rvrotate(int n, t_stack *s)
 {
 	int	i;
-	
+
 	if (n <= 0 || !s)
 		return ;
 	i = 0;
