@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:15:00 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/11 12:46:04 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:50:53 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ int	closest_up(t_stack *s, int ref, int start, int end)
 	int	i;
 	int	closest;
 	int	value;
-	
+
 	i = 0;
 	closest = INT_MAX;
-	while ((value = s->content[start + i]) && i < end)
+	while (start + i <= end)
 	{
+		value = s->content[start + i];
 		if (value > ref && value < closest)
 			closest = value;
 		i++;
@@ -44,11 +45,12 @@ int	closest_down(t_stack *s, int ref, int start, int end)
 	int	i;
 	int	closest;
 	int	value;
-	
+
 	i = 0;
 	closest = INT_MIN;
-	while ((value = s->content[start + i]) && i < end)
+	while (start + i <= end)
 	{
+		value = s->content[start + i];
 		if (value < ref && value > closest)
 			closest = value;
 		i++;
@@ -66,8 +68,9 @@ int	biggest(t_stack *s)
 
 	i = 1;
 	temp = s->content[s->head];
-	while ((comp = s->content[s->head + i]))
+	while (s->head + i <= s->tail)
 	{
+		comp = s->content[s->head + i];
 		if (temp < comp)
 			temp = comp;
 		i++;
@@ -83,8 +86,9 @@ int	smallest(t_stack *s)
 
 	i = 1;
 	temp = s->content[s->head];
-	while ((comp = s->content[s->head + i]))
+	while (s->head + i <= s->tail)
 	{
+		comp = s->content[s->head + i];
 		if (temp > comp)
 			temp = comp;
 		i++;

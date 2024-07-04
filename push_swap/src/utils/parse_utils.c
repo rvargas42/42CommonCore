@@ -32,16 +32,18 @@ int	matrix_dim(char **mat)
 	return (i);
 }
 
-int	contains_duplicates(int *nums)
+int	contains_duplicates(int *nums, int len)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (nums[i])
+	if (!nums)
+		return (1);
+	while (i < len)
 	{
 		j = 1;
-		while (nums[i + j])
+		while (i + j < len)
 		{
 			if (nums[i] == nums[i + j])
 				return (1);
@@ -50,4 +52,39 @@ int	contains_duplicates(int *nums)
 		i++;
 	}
 	return (0);
+}
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+void	*copy_numbers(char **nums, int **array, int len)
+{
+	long int	d;
+	int			i;
+
+	i = 0;
+	while (i < len)
+	{
+		d = ft_atoi(nums[i]);
+		if (d < INT_MIN || d > INT_MAX)
+		{
+			free(*array);
+			*array = NULL;
+			return (NULL);
+		}
+		(*array)[i] = (int) d;
+		i++;
+	}
+	(*array)[i] = '\0';
+	return (array);
 }

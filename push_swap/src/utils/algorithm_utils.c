@@ -6,13 +6,13 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 08:40:48 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/13 20:09:04 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:48:24 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/push_swap.h"
 
-void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
+void	insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 {
 	if (src->id == dst->id)
 	{
@@ -32,13 +32,11 @@ void insert_number(t_stack *src, t_stack *dst, int ref, int pos)
 
 void	number_to_top(t_stack *s, int number)
 {
-	int	*arr;
 	int	index;
 	int	midpoint;
 	int	cost;
 
 	index = get_index(number, s);
-	arr = s->content;
 	cost = push_cost(index, s);
 	midpoint = s->head + ((s->entries) / 2);
 	if (index <= midpoint)
@@ -67,15 +65,15 @@ int	get_index(int n, t_stack *s)
 
 	i = 0;
 	arr = s->content;
-	while ((num = arr[s->head + i]))
+	while (s->head + i <= s->tail)
 	{
+		num = arr[s->head + i];
 		if (num == n)
 			return (s->head + i);
 		i++;
 	}
 	return (s->head + i);
 }
-
 
 int	is_in_a(t_stack *s, int num)
 {

@@ -27,43 +27,40 @@ void	print_buffer(t_stack *s)
 	}
 }
 
-void	print_unordered(int	*nums)
+void	print_unordered(int	*nums, int len)
 {
 	int	i;
-	int	c;
 
 	i = 0;
-	while (nums[i])
+	while (i < len)
 	{
-		c = nums[i];
 		ft_putnbr_fd(nums[i], 1);
 		write(1, "\n", 1);
 		i++;
 	}
 }
 
-void print_stacks(t_stacks *stacks)
+void	print_stacks(t_stacks *stacks)
 {
-	int i;
+	int	i;
 	int	a;
 	int	b;
 
-    i = 0;
+	i = 0;
 	a = 0;
 	b = 0;
-    while (i != stacks->a->max_size)
+	while (i != stacks->a->max_size)
 	{
-        if (stacks->a->head <= i)
-            a = stacks->a->content[i];
-        if (stacks->b->head <= i)
-            b = stacks->b->content[i];
-        if (stacks->a->head > i || stacks->a->entries == 0)
-            a = 0;
-        if (stacks->b->head > i || stacks->b->entries == 0)
-            b = 0;
+		if (stacks->a->head <= i)
+			a = stacks->a->content[i];
+		if (stacks->b->head <= i)
+			b = stacks->b->content[i];
+		if (stacks->a->head > i || stacks->a->entries == 0)
+			a = 0;
+		if (stacks->b->head > i || stacks->b->entries == 0)
+			b = 0;
 		ft_printf("|	%d	|	%d	|\n", a, b);
-        i++;
-    }
-    ft_printf("\n");
+		i++;
+	}
+	ft_printf("\n");
 }
-

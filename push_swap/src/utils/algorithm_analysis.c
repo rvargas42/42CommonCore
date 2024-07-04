@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:31:50 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/11 13:38:04 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/02 10:56:40 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	push_cost(int index, t_stack *s)
 {
-	int	cost;
 	int	midpoint;
 
 	midpoint = s->head + ((s->entries) / 2);
@@ -28,8 +27,6 @@ int	push_cost(int index, t_stack *s)
 
 int	push_target_cost(int ref, int target, t_stack *src, t_stack *dst)
 {
-	int	cost;
-	int	midpoint;
 	int	ref_index;
 	int	tar_index;
 
@@ -43,31 +40,5 @@ int	push_target_cost(int ref, int target, t_stack *src, t_stack *dst)
 		return (push_cost(ref, src) + push_cost(target, src));
 	if (ref_index >= src->head && tar_index < src->head)
 		return (push_cost(ref, src) + push_cost(target, dst));
-}
-
-int	optimum_cost_min(t_stack *s)
-{
-	int	i;
-	int	*arr;
-	int	closest;
-	int	value;
-	int	cost;
-	int	ref;
-	
-	i = 0;
-	arr = s->content;
-	closest = INT_MIN;
-	cost = push_cost(smallest(s), s);
-	ref = smallest(s);
-	while ((value = arr[s->head + i]))
-	{
-		if (value < ref && value > closest)
-		{
-			closest = value;
-			if (push_cost(value, s) < cost && value < ref)
-				return (value);
-		}
-		i++;
-	}
-	return (closest);
+	return (0);
 }

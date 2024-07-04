@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:45:33 by ravargas          #+#    #+#             */
-/*   Updated: 2024/06/26 11:50:33 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:47:30 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	sorted_desc(t_stack *s, int start, int finish)
 
 	i = 0;
 	comp = s->content[start];
-	while (i < finish)
+	while (i <= finish)
 	{
 		value = s->content[start + i];
 		if (value > comp)
