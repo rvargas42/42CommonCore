@@ -80,6 +80,8 @@ int	main(int argn, char const **argv)
 	int			stack_size;
 
 	stack_size = get_stack_size(argv, argn);
+	if (stack_size == 1)
+		exit(EXIT_SUCCESS);
 	if (argn < 2)
 		return (-1);
 	unordered = unordered_nums(argn, argv, stack_size);
@@ -90,5 +92,5 @@ int	main(int argn, char const **argv)
 		exit(EXIT_FAILURE);
 	execute_sorting(ab_stacks);
 	free_all(ab_stacks);
-	return (1);
+	return (0);
 }

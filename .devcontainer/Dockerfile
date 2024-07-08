@@ -40,7 +40,6 @@ RUN apt-get install -y \
 
 WORKDIR /workspaces/
 
-# Copia el archivo requirements.txt al contenedor
 COPY requirements.txt /workspaces/
 
 RUN pip install -r /workspaces/requirements.txt
