@@ -1,25 +1,38 @@
-import random
 import subprocess
 
-def generate_numbers_with_gap(start, finish):
-	numbers = [i for i in range(start, finish)]
-	random.shuffle(numbers)
-	return numbers
+def run_push_swap(test_case):
+    try:
+        result = subprocess.run(['./push_swap'] + test_case, capture_output=True, text=True)
+        return result.stdout, result.stderr
+    except Exception as e:
+        return "", str(e)
 
-# Genera 500 números aleatorios
-random_numbers = generate_numbers_with_gap(1, 100)
+# Valores de INT_MAX y INT_MIN en Python
+INT_MAX = 2147483647
+INT_MIN = -2147483648
+LLMAX = 18446744073709551615
 
-# Desordena los números
-random.shuffle(random_numbers)
+# Casos de prueba
+test_cases = [
+    [str(INT_MAX + 1)],
+    [str(INT_MIN - 1)],
+	[str(LLMAX)],
+    [str(INT_MAX), str(INT_MAX + 1)],
+    [str(INT_MIN), str(INT_MIN - 1)],
+    [str(INT_MAX), "0", str(INT_MAX + 1)],
+    [str(INT_MIN), "0", str(INT_MIN - 1)],
+    ["0", "1", "-1", str(INT_MAX + 1)],
+    ["0", "1", "-1", str(INT_MIN - 1)],
+    [str(INT_MAX), str(INT_MIN), "42"],
+    [str(INT_MAX), str(INT_MIN), str(INT_MAX + 1), str(INT_MIN - 1)],
+]
 
-# Escribe los números en un archivo de texto
-with open('numbers.txt', 'w') as file:
-	file.write(' '.join(map(str, random_numbers)))
+for i, test_case in enumerate(test_cases):
+    stdout, stderr = run_push_swap(test_case)
+    print(f"Test case {i + 1}: {' '.join(test_case)}")
+    print("Output:")
+    print(stdout)
+    print("Error:")
+    print(stderr)
+    print("-" * 40)
 
-# Ejecuta el programa ./push_swap con los números generados como argumento
-try:
-	result = subprocess.run(['./push_swap'] + list(map(str, random_numbers)), capture_output=True, text=True)
-	print(result.stdout)
-	print(result.stderr)
-except Exception as e:
-	print(f"Error ejecutando ./push_swap: {e}")
