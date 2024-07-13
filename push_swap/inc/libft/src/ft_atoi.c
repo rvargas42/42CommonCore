@@ -12,11 +12,18 @@
 
 #include "../inc/libft.h"
 
-int	ft_atoi(const char	*str)
+static int	is_bigger(long long int n)
 {
-	int					i;
-	int					neg;
-	unsigned long int	num;
+	if (n > INT_MAX || n < INT_MIN)
+		return (-1);
+	return (0);
+}
+
+long int	ft_atoi(const char	*str)
+{
+	int						i;
+	int						neg;
+	unsigned long long int	num;
 
 	i = 0;
 	neg = 1;
@@ -32,9 +39,10 @@ int	ft_atoi(const char	*str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		num *= 10;
-		num += str[i] - 48;
+		num = (num * 10) + (str[i] - 48);
 		i++;
+		if (is_bigger(num * neg) == -1)
+			return (-1);
 	}
 	return (num * neg);
 }
