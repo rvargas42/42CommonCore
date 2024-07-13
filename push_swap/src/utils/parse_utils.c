@@ -76,7 +76,7 @@ void	*copy_numbers(char **nums, int **array, int len)
 	while (i < len)
 	{
 		d = ft_atoi(nums[i]);
-		if (d < INT_MIN || d > INT_MAX)
+		if (ft_atoi(nums[i]) == -1 && ft_strncmp(nums[i], "-1", 3))
 		{
 			free(*array);
 			*array = NULL;
