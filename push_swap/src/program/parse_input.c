@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:53:44 by ravargas          #+#    #+#             */
-/*   Updated: 2024/07/04 10:54:22 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/13 10:50:35 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	contains_digit(const char **arg, int len)
 	int		j;
 
 	i = 0;
-	if (len <= 1)
-		return (-1);
 	while (i < len)
 	{
 		if (arg[i] == NULL)
@@ -67,7 +65,7 @@ static int	*build_array(char const **nums, int len)
 		return (NULL);
 	while (i < len)
 	{
-		if (ft_atoi(nums[i]) < INT_MIN || ft_atoi(nums[i]) > INT_MAX)
+		if (ft_atoi(nums[i]) == -1 && ft_strncmp(nums[i], "-1", 3))
 		{
 			free(array);
 			return (NULL);

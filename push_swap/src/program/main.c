@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:10:17 by ravargas          #+#    #+#             */
-/*   Updated: 2024/07/04 12:39:49 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:24:19 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static int	get_stack_size(char const **args, int argn)
 		return (argn - 1);
 	if (argn == 2)
 	{
-		while (args[1][i])
+		while (args[1][i + 1])
 		{
-			if (args[1][i] == ' ')
+			if (args[1][i] == ' ' && args[1][i + 1] != ' ')
 				++len;
 			i++;
 		}
@@ -80,10 +80,8 @@ int	main(int argn, char const **argv)
 	int			stack_size;
 
 	stack_size = get_stack_size(argv, argn);
-	if (stack_size == 1)
-		exit(EXIT_SUCCESS);
 	if (argn < 2)
-		return (-1);
+		return (0);
 	unordered = unordered_nums(argn, argv, stack_size);
 	if (!unordered)
 		exit(EXIT_FAILURE);
