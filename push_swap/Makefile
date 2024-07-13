@@ -27,8 +27,10 @@ INC_DIR = inc/
 # Libraries
 LIBFT_DIR = $(INC_DIR)libft
 LIBFT = $(LIBFT_DIR)/libft.a
+LIBFT_OBJS = $(wildcard $(LIBFT_DIR)/obj/*.o)
 FT_PRINTF_DIR = $(INC_DIR)ft_printf
-FT_PRINTF_OBJs = $(wildcard $(FT_PRINTF_DIR)/obj/*.o)
+FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
+FT_PRINTF_OBJS = $(wildcard $(FT_PRINTF_DIR)/obj/*.o)
 MYLIB = $(INC_DIR)myLib.a
 #SOURCE
 SRCs = 	$(wildcard $(SRC_DIR)program/*.c) \
@@ -43,36 +45,36 @@ OBJs = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCs)) # $(patsubst pattern,re
 NAME = push_swap
 INCLUDE = $(INC_DIR)push_swap.h
 
-all: $(NAME) #Make files execute first rule by default
+all: $(NAME)
 
-test: fclean $(LIBFT)
-	@gcc $(SRCs) $(INCLUDE) $(LIBFT) -o $(NAME)
+test: fclean $(MYLIB)
+	@$(COMPILER) $(SRCs) $(INCLUDE) $(MYLIB) -o $(NAME)
 	@make -s executeTests
 
-test_mem: fclean $(LIBFT)
-	@gcc $(SRCs) $(INCLUDE) $(LIBFT) -o $(NAME)
+test_mem: fclean $(MYLIB)
+	@$(COMPILER) $(SRCs) $(INCLUDE) $(MYLIB) -o $(NAME)
 	@make -s verifyCompilation
-	@valgrind --leak-check=yes --track-origins=yes -s ./$(NAME) "1 2 3"
+	@echo testing: "4 4 6"
+	@valgrind --leak-check=yes --track-origins=yes -s ./$(NAME) "42"
 
-
-$(NAME): $(LIBFT) $(OBJs)
-	@gcc $(OBJs) $(INCLUDE) $(LIBFT) -o $(NAME) 
+$(NAME): $(MYLIB) $(OBJs)
+	@gcc $(OBJs) $(INCLUDE) $(MYLIB) -o $(NAME) 
 	@make -s verifyCompilation
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF) #TODO: Incluir $(FLAGS)
-	$(COMPILER) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+	$(COMPILER) $(FLAGS) -c $< -o $@
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)program $(OBJ_DIR)utils $(OBJ_DIR)instructions $(OBJ_DIR)algorithms/basic $(OBJ_DIR)algorithms/advanced
 
-$(LIBFT): $(FT_PRINTF_OBJs)
-	@echo "${B}Building needed libraries..."
-	@make -sC $(LIBFT_DIR)
-	@echo "${B}Linking libft.a and ft_printf objects"
-	@make -sC $(FT_PRINTF_DIR)
-	@ar rcs $(LIBFT) $(FT_PRINTF_OBJs)
+$(MYLIB): $(LIBFT) $(FT_PRINTF)
+	@ar rcs $(MYLIB) $(LIBFT_OBJS) $(FT_PRINTF_OBJS)
 
+$(LIBFT):
+	@make -sC $(LIBFT_DIR)
+$(FT_PRINTF):
+	@make -sC $(FT_PRINTF_DIR)
 
 verifyCompilation:
 ifeq (, $(wildcard ./push_swap.out))
@@ -90,10 +92,11 @@ clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@echo "${R}Cleaning objects and programs..."
+	@echo "Cleaning objects, libs and programs..."
 	@make fclean -sC $(LIBFT_DIR)
 	@rm -f $(NAME)
 	@rm -f *.o
+	@rm -f inc/*.a
 
 re: fclean all
 
