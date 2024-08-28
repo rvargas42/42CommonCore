@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 10:36:21 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/18 17:03:31 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:11:05 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	make_llist(t_llist **llist, int fd)
 		if (!buffer)
 			return ;
 		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (!bytes || check_null(buffer))
+		if (!bytes)
 		{
 			while (*llist)
 			{

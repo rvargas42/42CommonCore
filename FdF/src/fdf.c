@@ -6,20 +6,11 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:33 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/18 20:43:57 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/08/28 11:32:43 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
-void	read_file(char *file_path)
-{
-	int		fd;
-
-	fd = open(file_path, O_RDONLY);
-	close(fd);
-	return ;
-}
 
 int	valid_file(char **args)
 {
@@ -44,7 +35,7 @@ void	set_title(t_map *map, char **args)
 	map->title = title;
 }
 
-void	process_line(char **line)
+int check_line_chars(char **line)
 {
 	int		i;
 	char	c;
@@ -62,23 +53,78 @@ void	process_line(char **line)
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	check_file_data(char **args)
+char	*write_data(char **line)
 {
-	int		fd;
-	char	*line;
+	char 	*slot;
+	int		len;
+	int		i;
 
-	fd = open(args[1], O_RDONLY);
-	if (fd == -1)
-		throw_error(errno, "cannot open this file");
-	while ((line = get_next_line(fd)))
+	i = 0;
+	len = 0;
+	while ((*line)[i] == ' ')
+		i++;
+	*line += i;
+	while ((*line)[len] && (*line)[len] != ' ')
+		len++;
+	slot = malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (i < len)
 	{
-		if (line == NULL && errno != 0)
+		slot[i] = (*line)[i];
+		i++;
+	}
+	slot[i] = '\0';
+	*line += len;
+	return (slot);
+}
+
+char	**write_line(char **line, t_map *m)
+{
+	char	**new_line;
+	int		i;
+
+	i = 0;
+	new_line = malloc(sizeof(char *) * (m->cols + 1));
+	if (!new_line)
+		return (NULL);
+	while (i < m->cols)
+	{
+		new_line[i] = write_data(line);
+		ft_printf("new_line: %s\n", new_line[i]);
+		i++;
+	}
+	return (new_line);
+}
+
+void	set_file_data(char **args, t_map	*m)
+{
+	char	*line;
+	char	***data;
+	int		i;
+
+	data = malloc(sizeof(char **) * (m->rows + 1));
+	i = 0;
+	if (m->file_desc == -1)
+		throw_error(errno, "cannot open this file");
+	line = get_next_line(m->file_desc);
+	while (line)
+	{
+		if (line == NULL)
 			throw_error(errno, "Error reading file");
 		else
-			process_line(&line);
+		{
+			data[i] = write_line(&line, m); //REMINDER: liberar cada linea despues al liberar la estructura
+			for (int j = 0; j < 10; j++)
+				ft_printf("line: %s\n", data[i][j]);
+			i++;
+		}
+		line = get_next_line(m->file_desc);
 	}
+	free(line);
+	m->file_data = data;
 }
 
 t_map	*init_map(int argn, char **args)
@@ -89,11 +135,12 @@ t_map	*init_map(int argn, char **args)
 	if (!m)
 		return (NULL);
 	m->file_path = args[1];
-	m->file_desc = open(m->file_path, O_RDONLY);
+	m->file_desc = open(args[1], O_RDONLY); //REMINDER: Close()
 	m->mlx = mlx_init();
 	m->title = ft_strtrim(args[1], ".fdf");
 	set_rows_cols(m);
 	set_matrix(m);
+	set_file_data(args, m);
 	ft_printf("rows = %d\n", m->rows);
 	ft_printf("cols = %d\n", m->cols);
 	return (m);
@@ -107,7 +154,8 @@ int	main(int argn, char **args)
 	map = init_map(argn, args);
 	if (!map)
 		return (-1);
-	//ft_printf("rows = %d", map->rows);
+	// for (int i = 0; i < map->rows; i++)
+	// 	ft_printf("%s", map->file_data[i]);
 	
 	return (0);
 }

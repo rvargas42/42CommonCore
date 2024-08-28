@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:26 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/18 20:44:41 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:33:08 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,18 @@ typedef struct s_point
 
 typedef struct s_map
 {
-	char	*file_path;
-	int		file_desc;
-	void	*mlx;
-	void	*window;
-	char	*title;
-	int		size_x;
-	int		size_y;
-	void	*img;
-	int		rows;
-	int		cols;
-	t_point	***map;
+	const char	*file_path;
+	int			file_desc;
+	char		***file_data;
+	void		*mlx;
+	void		*window;
+	char		*title;
+	int			size_x;
+	int			size_y;
+	void		*img;
+	int			rows;
+	int			cols;
+	t_point		***map;
 }			t_map;
 
 void	set_matrix(t_map *map);

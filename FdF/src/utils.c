@@ -6,13 +6,14 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:59:23 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/18 20:30:57 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:17:14 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
 /* ------------------------- Get max number of cols ------------------------- */
+
 void	set_cols(char *line, t_map *map)
 {
 	int	i;
@@ -49,5 +50,6 @@ void	set_rows_cols(t_map *map)
 		line = get_next_line(map->file_desc);
 	}
 	close(map->file_desc);
+	map->file_desc = open(map->file_path, O_RDONLY);
 	map->rows = rows;
 }
