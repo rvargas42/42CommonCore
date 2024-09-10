@@ -80,6 +80,8 @@ clean:
 	@make clean -sC $(MLX_DIR)
 	@make clean -sC $(GNL_DIR)
 	@rm -rf $(OBJ_DIR)
+	@rm -f inc/*.a inc/*.gch
+	@rm -f *.o *.tgz *.gen
 
 fclean: clean
 	@echo "Cleaning objects, libs and programs..."
@@ -87,8 +89,6 @@ fclean: clean
 	@make fclean -sC $(FT_PRINTF_DIR)
 	@make fclean -sC $(GNL_DIR)
 	@rm -f $(NAME)
-	@rm -f *.o *.tgz
-	@rm -f inc/*.a inc/*.gch 
 
 re: fclean all
 

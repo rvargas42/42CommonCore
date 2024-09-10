@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:26 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/28 10:33:08 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:02:49 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,20 @@
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int	color;
-}		t_point;
+	float		x;
+	float		y;
+	float		z;
+	char	*color;
+}			t_point;
+
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bit_per_pix;
+	int		len;
+	int		endian;
+}			t_data;
 
 typedef struct s_map
 {
@@ -44,14 +53,19 @@ typedef struct s_map
 	char		*title;
 	int			size_x;
 	int			size_y;
-	void		*img;
+	t_data		*img;
 	int			rows;
 	int			cols;
+	float		scale_x;
+	float		scale_y;
+	double_t	zoom;
 	t_point		***map;
-}			t_map;
+}				t_map;
 
-void	set_matrix(t_map *map);
 void	set_rows_cols(t_map *map);
 void	throw_error(int code, const char *message);
+void	bresenham_draw(t_map *m, float x1, float y1, float x2, float y2);
+void	pixel_to_image(t_data *img, float x, float y, int color);
+void	draw_map(t_map *m);
 
 #endif
