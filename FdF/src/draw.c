@@ -6,65 +6,72 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:02:35 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/09 12:27:05 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:23:24 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	digital_diff(t_map *m, float x1, float y1, float x2, float y2)
+void	digital_diff(t_map *m, t_point *p1, t_point *p2)
 {
-	float	px;
-	float	py;
-	float	delta_x;
-	float	delta_y;
-	int		pixels;
+	int	px;
+	int	py;
+	int	delta_x;
+	int	delta_y;
+	int	pixels;
 
-	delta_x = x2 - x1;
-	delta_y = y2 - y1;
+	delta_x = p2->x - p1->x;
+	delta_y = p2->y - p1->y;
 	pixels = sqrt((pow(delta_x, 2)) + pow(delta_y, 2));
 	delta_x /= pixels;
 	delta_y /= pixels;
-	px = x1;
-	py = y1;
+	px = p1->isox;
+	py = p1->isoy;
 	while (pixels)
 	{
-		pixel_to_image(m->img, px, py, 0x00ff0000);
+		pixel_to_image(m->img, px, py, 0xfefffc);
 		px += delta_x;
 		py += delta_y;
 		--pixels;
 	}
 }
 
-void	pixel_to_image(t_data *img, float x, float y, int color)
+void	pixel_to_image(t_data *img, int x, int y, int color)
 {
 	int		offset;
 	char	*dest;
 
 	offset = y * img->len + x * (img->bit_per_pix / 8);
 	dest = img->addr + offset;
-	*(unsigned *) dest = color;
+	*(unsigned *) dest = create_trgb(3, 125, 100, 0);
 }
 
-void	bresenham_draw(t_map *m, float x1, float y1, float x2, float y2)
+void	get_line_pixels(t_map *m, t_point *p1, t_point *p2)
+{
+	m->pix_x = p2->x - p1->x;
+	m->pix_y = p2->y - p1->y;
+}
+
+void	bresenham_draw(t_map *m, t_point *p1, t_point *p2)
 {
 	int	m_new;
 	int	e_new;
 	int	x;
 	int	y;
 
-	x = x1;
-	y = y1;
-	m_new = 2 * (y2 - y1);
-	e_new = m_new - (x2 - x1);
-	while (x <= x2)
+	x = p1->isox;
+	y = p1->isoy;
+	m_new = 2 * (p2->isoy - p1->isoy);
+	e_new = m_new - (p2->isox - p1->isox);
+	get_line_pixels(m, p1, p2);
+	while (x <= m->pix_x || (m->pix_x == 0 && y <= m->pix_y))
 	{
-		pixel_to_image(m->img, x, y, 0x00ff0000);
+		pixel_to_image(m->img, x, y, 0xfefffc);
 		e_new += m_new;
 		if (e_new >= 0)
 		{
 			y++;
-			e_new -= 2 * (x2 - x1);
+			e_new -= 2 * (p2->isox - p1->isox);
 		}
 		x++;
 	}
@@ -81,17 +88,15 @@ void	draw_bg(t_map *m)
 	p2 = m->map[0][m->cols - 1];
 	p3 = m->map[m->rows - 1][0];
 	p4 = m->map[m->rows - 1][m->cols - 1];
-	digital_diff(m, p1->x, p1->y, p2->x, p2->y);
-	digital_diff(m, p1->x, p1->y, p3->x, p3->y);
-	digital_diff(m, p2->x, p2->y, p4->x, p4->y);
-	digital_diff(m, p3->x, p3->y, p4->x, p4->y);
+	digital_diff(m, p1, p2);
+	digital_diff(m, p1, p3);
+	digital_diff(m, p2, p4);
+	digital_diff(m, p3, p4);
 }
 
-void draw_point(t_map *m, t_point *p1, t_point *p2,  t_point *p3)
+void draw_line(t_map *m, t_point *p1, t_point *p2)
 {
-	
-	digital_diff(m, p1->x, p1->y, p2->x, p2->y);
-	digital_diff(m, p1->x, p1->y, p3->x, p3->y);
+	digital_diff(m, p1, p2);
 }
 
 void	draw_map(t_map *m)
@@ -113,10 +118,10 @@ void	draw_map(t_map *m)
 			p1 = m->map[i][j];
 			p2 = m->map[i][j + 1];
 			p3 = m->map[i + 1][j];
-			draw_point(m, p1, p2, p3);
+			draw_line(m, p1, p2);
+			draw_line(m, p1, p3);
 			j += 1;
 		}
-		draw_point(m, p1, p2, p3);
 		i += 1;
 	}
 }

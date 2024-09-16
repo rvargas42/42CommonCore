@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:33 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/09 12:47:47 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:20:25 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,6 @@ void	set_file_data(char **args, t_map	*m)
 	m->file_data = data;
 }
 
-void	compute_projection(t_map *m, t_point *p)
-{
-	float	iso_x;
-	float	iso_y;
-
-	iso_x = p->x * cos(0.523599) - p->y * cos(0.523599);
-    iso_y = p->z + p->x * sin(0.523599) + p->y * sin(0.523599);
-	p->x = iso_x;
-	p->y = iso_y;
-}
-
 void	perspective_devide(t_point *p)
 {
 	if (p->z != 0)
@@ -150,23 +139,12 @@ void	perspective_devide(t_point *p)
 
 void	compute_x(t_map *m, t_point *p, int initial_x)
 {
-	int	x;
-	int	extra_space;
-
-	extra_space = m->size_x - (m->cols * m->scale_x);
-	x = (initial_x * m->scale_x) + (extra_space / 2);
-	p->x = x;
+	p->x = initial_x;// + m->size_x / (m->cols / 2);
 }
 
 void	compute_y(t_map *m, t_point *p, int initial_y)
 {
-	int		y;
-	float	extra_space;
-
-	extra_space = (float) m->size_y - (m->rows * m->scale_y);
-	printf("extra space %f\n", extra_space);
-	y = (initial_y * (m->scale_y)) + (extra_space / 2);
-	p->y = y;
+	p->y = initial_y;//+ m->size_y / 2;
 }
 
 void	add_point(t_map *m, int y, int x)
@@ -187,11 +165,14 @@ void	add_point(t_map *m, int y, int x)
 		point->color = data + sep + 1;
 	}
 	point->z = (float) ft_atoi(ft_split(data, ',')[0]);
-	compute_x(m, point, x);//(x * m->scale_x);
+	compute_x(m, point, x);
 	compute_y(m, point, y);
-	compute_projection(m, point);
+	isometric(m, point, 0.5);
 	//perspective_devide(point);
-	printf("x: %f y: %f z: %f\n", point->x, point->y, point->z);
+	printf("normal coords");
+	printf("x: %d y: %d z: %d\n", point->x, point->y, point->z);
+	printf("iso coords");
+	printf("x: %d y: %d z: %d\n", point->isox, point->isoy, point->z);
 	m->map[y][x] = point;
 }
 
@@ -246,17 +227,11 @@ t_map	*init_map(int argn, char **args)
 	m->mlx = mlx_init();
 	m->window = mlx_new_window(m->mlx, m->size_x, m->size_y,"Fil de Fer");
 	set_file_data(args, m);
-	m->zoom = 0.5;
-	m->scale_x = (m->size_x / (m->cols)) * m->zoom;
-	m->scale_y = (m->size_y / (m->rows)) * m->zoom;
+	m->scale_x = (m->size_x / (m->cols));
+	m->scale_y = (m->size_y / (m->rows));
 	set_image(m);
 	set_point_data(m);
 	return (m);
-}
-
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
 }
 
 int	main(int argn, char **args)

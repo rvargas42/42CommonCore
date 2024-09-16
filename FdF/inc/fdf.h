@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:26 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/09 11:02:49 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:22:32 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-	int		z;
 	int		isox;
 	int		isoy;
+	int		z;
+	int		x;
+	int		y;
 	char	*color;
 }			t_point;
 
@@ -58,16 +58,19 @@ typedef struct s_map
 	t_data		*img;
 	int			rows;
 	int			cols;
-	float		scale_x;
-	float		scale_y;
-	double_t	zoom;
+	int			scale_x;
+	int			scale_y;
+	int			pix_x;
+	int			pix_y;
 	t_point		***map;
 }				t_map;
 
 void	set_rows_cols(t_map *map);
 void	throw_error(int code, const char *message);
-void	bresenham_draw(t_map *m, float x1, float y1, float x2, float y2);
-void	pixel_to_image(t_data *img, float x, float y, int color);
+void	draw_line(t_map *m, t_point *p1, t_point *p2);
+void	pixel_to_image(t_data *img, int x, int y, int color);
+int		create_trgb(int t, int r, int g, int b);
+void	isometric(t_map *m, t_point *p, double deg);
 void	draw_map(t_map *m);
 
 #endif
