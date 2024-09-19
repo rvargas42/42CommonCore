@@ -26,31 +26,32 @@ t_minitalk	*create_client()
 
 void	send_signal(t_minitalk *client, char c)
 {
-
 	int		i;
 	char	temp;
 
 	i = 8;
-	temp = c;
 	while (i > 0)
 	{
 		i--;
-		temp = c >> i;
-		if (temp % 2 == 0)
+		if (c & (1 << i))
 			kill(client->server_pid, SIGUSR1);
 		else
 			kill(client->server_pid, SIGUSR2);
+		usleep(100);
 	}
 }
 
 void	send_message(t_minitalk *client, char *message)
 {
 	int		i;
-	char	c;
 
+	i = 0;
 	while (message[i])
-		send_signal(client, message[i++]);
-	return ;
+	{
+		send_signal(client, message[i]);
+		i++;
+	}
+	send_signal(client, '\0');
 }
 
 int	main(int argn, char **argv)
@@ -60,14 +61,14 @@ int	main(int argn, char **argv)
 
 	if (argn != 3)
 	{
-		printf("Incorrect Arguments, should be: pid and message");
+		printf("Incorrect Arguments, should be: pid of the server and message");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		client = create_client();
 		client->server_pid = atoi(argv[1]);
-		send_message(client, argv[1]);
+		send_message(client, argv[2]);
 	}
-	return (1);
+	return (0);
 }

@@ -19,59 +19,46 @@ t_minitalk	*create_server(void)
 	server = malloc(sizeof(t_minitalk));
 	if (!server)
 		return (NULL);
-	server->server_pid = 0;
+	server->server_pid = getpid();;
 	server->client_pid = 0;
 	return (server);
 }
 
 void	receive_handler(int sig)
 {
-	static char	current;
 	static int	bits;
+	static char	content;
 
-	current |= (sig == SIGUSR1);
 	bits++;
+	content |= (sig == SIGUSR1);
 	if (bits == 8)
 	{
-		if (current == '\0')
-			write(1, "\n", 2);
+		if (content == '\0')
+			write(1, "\n", 1);
 		else
-			write(1, &current, 1);
+			write(1, &content, 1);
 		bits = 0;
-		current = 0;
+		content = 0;
 	}
 	else
-		current <<= 1;
-	printf("executing handler\n");
-	return ;
-}
-
-void	server_receive(t_minitalk *server)
-{
-	while (1)
-	{
-		signal(SIGUSR1, receive_handler);
-		signal(SIGUSR2, receive_handler);
-		sleep(10);
-	}
-	return ;
+		content <<= 1;
 }
 
 int	main(int argn, char **argv)
 {
-	t_minitalk	*server;
+	t_minitalk			*server;
 
 	server = NULL;
 	if (argn != 1)
-	{
 		exit(EXIT_FAILURE);
-	}
 	else
 	{
 		server = create_server();
-		server->server_pid = getpid();
 		printf("server PID: %d\n", server->server_pid);
-		server_receive(server);
+		signal(SIGUSR1, receive_handler);
+		signal(SIGUSR2, receive_handler);
+		while (1)
+			pause();
 	}
 	free(server);
 	return (EXIT_SUCCESS);
