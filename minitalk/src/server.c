@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:56:28 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/17 11:49:51 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:03:53 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ t_minitalk	*create_server(void)
 	return (server);
 }
 
-void	receive_handler(int sig)
+void	receive_handler(int sig, siginfo_t *info, void *context)
 {
 	static int	bits;
 	static char	content;
 
 	bits++;
 	content |= (sig == SIGUSR1);
+	(void)context;
 	if (bits == 8)
 	{
 		if (content == '\0')
@@ -42,11 +43,27 @@ void	receive_handler(int sig)
 	}
 	else
 		content <<= 1;
+	kill(info->si_pid, SIGUSR1);
+}
+
+void	init_handlers(void)
+{
+	struct sigaction	act;
+
+	ft_bzero(&act, sizeof(act));
+	act.sa_sigaction = &receive_handler;
+	act.sa_flags = SA_SIGINFO;
+	sigemptyset(&act.sa_mask);
+	sigaddset(&act.sa_mask, SIGUSR1);
+	sigaddset(&act.sa_mask, SIGUSR2);
+	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
 }
 
 int	main(int argn, char **argv)
 {
 	t_minitalk			*server;
+	struct sigaction	*sa;
 
 	server = NULL;
 	if (argn != 1)
@@ -55,8 +72,7 @@ int	main(int argn, char **argv)
 	{
 		server = create_server();
 		printf("server PID: %d\n", server->server_pid);
-		signal(SIGUSR1, receive_handler);
-		signal(SIGUSR2, receive_handler);
+		init_handlers();
 		while (1)
 			pause();
 	}

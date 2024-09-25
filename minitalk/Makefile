@@ -5,23 +5,29 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 INC_DIR = inc/
 
+SERVER_SRCs = $(SRC_DIR)server.c $(SRC_DIR)utils.c
+CLIENT_SRCs = $(SRC_DIR)client.c $(SRC_DIR)utils.c
+
 GCC = gcc
 FLAGS = -Wall -Wextra -Werror
 
-
 all: $(SERVER) $(CLIENT)
 
-clean:
-	rm -f server client
 
 NAME = .minitalk
 
 $(NAME): $(SERVER) $(CLIENT)
 
 $(SERVER):
-	$(GCC) $(SRC_DIR)server.c $(SRC_DIR)utils.c -o server #TODO: add flags
+	$(GCC) $(SERVER_SRCs) -o server #TODO: add flags
 	echo "server compiled!"
 
 $(CLIENT):
-	$(GCC) $(SRC_DIR)client.c $(SRC_DIR)utils.c -o client #TODO: add flags
+	$(GCC) $(CLIENT_SRCs) -o client #TODO: add flags
 	echo "client compiled!\n"
+
+
+clean:
+	rm -f server client
+
+re: clean all

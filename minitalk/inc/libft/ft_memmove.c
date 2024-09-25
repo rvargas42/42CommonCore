@@ -1,0 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ravargas <ravargas@student.42madrid>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/26 14:32:29 by ravargas          #+#    #+#             */
+/*   Updated: 2023/09/26 14:32:48 by ravargas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memmove(void *dst, const void *src, size_t n)
+{
+	unsigned char		*p_dst;
+	unsigned const char	*p_src;
+
+	if (dst < src)
+		return (ft_memcpy(dst, src, n));
+	p_dst = (unsigned char *)dst;
+	p_src = (unsigned const char *)src;
+	if (!n || dst == src)
+		return (dst);
+	while (n--)
+		p_dst[n] = p_src[n];
+	return (dst);
+}
