@@ -6,20 +6,20 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:56:32 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/25 10:59:48 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:21:42 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minitalk.h"
 
-int	ack = 0;
+int	g_ack = 0;
 
 void	ack_handle(int sig)
 {
-	ack = 1;
+	g_ack = 1;
 }
 
-t_minitalk	*create_client()
+t_minitalk	*create_client(void)
 {
 	t_minitalk	*client;
 
@@ -40,13 +40,13 @@ void	send_signal(t_minitalk *client, char c)
 	while (i > 0)
 	{
 		i--;
-		ack = 0;
+		g_ack = 0;
 		if (c & (1 << i))
 			kill(client->server_pid, SIGUSR1);
 		else
 			kill(client->server_pid, SIGUSR2);
 		usleep(50);
-		while (!ack)
+		while (!g_ack)
 			pause();
 	}
 }

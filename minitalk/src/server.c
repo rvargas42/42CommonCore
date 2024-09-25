@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:56:28 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/25 11:03:53 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:22:24 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ t_minitalk	*create_server(void)
 	server = malloc(sizeof(t_minitalk));
 	if (!server)
 		return (NULL);
-	server->server_pid = getpid();;
+	server->server_pid = getpid();
 	server->client_pid = 0;
 	return (server);
 }
 
-void	receive_handler(int sig, siginfo_t *info, void *context)
+void	receive_handler(int sig, siginfo_t *info, void *other)
 {
 	static int	bits;
 	static char	content;
 
 	bits++;
 	content |= (sig == SIGUSR1);
-	(void)context;
+	(void)other;
 	if (bits == 8)
 	{
 		if (content == '\0')
