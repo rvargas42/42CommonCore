@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:56:28 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/25 11:22:24 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:51:30 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,26 @@ t_minitalk	*create_server(void)
 
 void	receive_handler(int sig, siginfo_t *info, void *other)
 {
-	static int	bits;
-	static char	content;
+	static t_server_handle	serv_info;	
 
-	bits++;
-	content |= (sig == SIGUSR1);
 	(void)other;
-	if (bits == 8)
+	serv_info.bits++;
+	serv_info.content |= (sig == SIGUSR1);
+	if (serv_info.current_client == 0)
+		serv_info.current_client = info->si_pid;
+	if (serv_info.bits == 8 && serv_info.current_client == info->si_pid)
 	{
-		if (content == '\0')
+		if (serv_info.content == '\0')
 			write(1, "\n", 1);
 		else
-			write(1, &content, 1);
-		bits = 0;
-		content = 0;
+			write(1, &serv_info.content, 1);
+		serv_info.bits = 0;
+		serv_info.content = 0;
+		serv_info.current_client = 0;
+		serv_info.receiving = 1;
 	}
 	else
-		content <<= 1;
+		serv_info.content <<= 1;
 	kill(info->si_pid, SIGUSR1);
 }
 
@@ -63,15 +66,17 @@ void	init_handlers(void)
 int	main(int argn, char **argv)
 {
 	t_minitalk			*server;
-	struct sigaction	*sa;
 
 	server = NULL;
 	if (argn != 1)
+	{
+		ft_printf("No other args than ./%s are allowed", argv[0]);
 		exit(EXIT_FAILURE);
+	}
 	else
 	{
 		server = create_server();
-		printf("server PID: %d\n", server->server_pid);
+		ft_printf("server PID: %d\n", server->server_pid);
 		init_handlers();
 		while (1)
 			pause();

@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 11:56:32 by ravargas          #+#    #+#             */
-/*   Updated: 2024/09/25 11:21:42 by ravargas         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:37:27 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	g_ack = 0;
 
 void	ack_handle(int sig)
 {
-	g_ack = 1;
+	if (sig)
+		g_ack = 1;
 }
 
 t_minitalk	*create_client(void)
@@ -34,7 +35,6 @@ t_minitalk	*create_client(void)
 void	send_signal(t_minitalk *client, char c)
 {
 	int		i;
-	char	temp;
 
 	i = 8;
 	while (i > 0)
@@ -45,7 +45,7 @@ void	send_signal(t_minitalk *client, char c)
 			kill(client->server_pid, SIGUSR1);
 		else
 			kill(client->server_pid, SIGUSR2);
-		usleep(50);
+		usleep(42);
 		while (!g_ack)
 			pause();
 	}
@@ -67,19 +67,24 @@ void	send_message(t_minitalk *client, char *message)
 int	main(int argn, char **argv)
 {
 	t_minitalk	*client;
-	int			server_pid;
 
 	if (argn != 3)
 	{
-		printf("Incorrect Arguments, should be: pid of the server and message");
+		ft_printf("Incorrect Arguments, should be: server and message");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
+		if (check_pid(argv[1]) == 0 || !pid_exists(ft_atoi(argv[1])))
+		{
+			ft_printf("Check pid, invalid PID or format");
+			return (EXIT_FAILURE);
+		}
 		client = create_client();
-		client->server_pid = atoi(argv[1]);
+		client->server_pid = ft_atoi(argv[1]);
 		signal(SIGUSR1, ack_handle);
 		send_message(client, argv[2]);
 	}
-	return (0);
+	free(client);
+	return (EXIT_SUCCESS);
 }
