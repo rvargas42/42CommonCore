@@ -12,42 +12,43 @@
 
 #include "../inc/fdf.h"
 
-void pixel_to_image(t_data *img, int x, int y, int color)
+void	digital_diff(t_map *m, t_point *p1, t_point *p2)
 {
-    int     offset;
-    char    *dest;
-
-    offset = y * img->len + x * (img->bit_per_pix / 8);
-    dest = img->addr + offset;
-    *(unsigned *) dest = color;
-}
-
-int calculate_color(int x, int y, t_point *p1, t_point *p2)
-{
-	double	t;
+	int		px;
+	int		py;
 	int		delta_x;
 	int		delta_y;
-	t_color	color;
-	int		new_color;
+	double	pixels;
 
-	delta_x = p2->isox - p1->isox;
-	delta_y = p2->isoy - p1->isoy;
-	t = point_weight(x, y, p1, p2);
-	printf("the t values is : %f\n", t);
-	color.r = p1->color.r + (p2->color.r - p1->color.r) * t;
-	color.g = p1->color.g + (p2->color.g - p1->color.g) * t;
-	color.b = p1->color.b + (p2->color.b - p1->color.b) * t;
-	printf("%d | %d | %d |\n", color.r, color.g, color.b);
-	new_color = (color.r << 16) | (color.g << 8) | color.b;
-	return (new_color);
+	delta_x = abs(p2->sx - p1->sx);
+	delta_y = abs(p2->sy - p1->sy);
+	pixels = sqrt((pow(delta_x, 2)) + pow(delta_y, 2));
+	delta_x /= pixels;
+	delta_y /= pixels;
+	px = p1->isox;
+	py = p1->isoy;
+	while (pixels)
+	{
+		pixel_to_image(m->img, px, py, 0xfefffc);
+		px += delta_x;
+		py += delta_y;
+		--pixels;
+	}
 }
 
-void plot_pixel(t_map *m, int x, int y, t_point *p1, t_point *p2)
+void	pixel_to_image(t_data *img, int x, int y, int color)
 {
-	int	new_color;
+	int		offset;
+	char	*dest;
 
-	new_color = calculate_color(x, y, p1, p2);
-    pixel_to_image(m->img, x, y, new_color);
+	offset = y * img->len + x * (img->bit_per_pix / 8);
+	dest = img->addr + offset;
+	*(unsigned *) dest = create_trgb(3, 125, 100, 0);
+}
+
+void plot_pixel(t_map *m, int x, int y)
+{
+    pixel_to_image(m->img, x, y, 0xfefffc);
 }
 
 int calculate_step(int start, int end)
@@ -60,9 +61,8 @@ int calculate_step(int start, int end)
 
 void update_error(int *err, int *x, int *y, int dx, int dy, int sx, int sy)
 {
-    int e2;
+    int e2 = 2 * (*err);
 
-	e2 = 2 * (*err);
     if (e2 > -dy)
     {
         *err -= dy;
@@ -76,22 +76,34 @@ void update_error(int *err, int *x, int *y, int dx, int dy, int sx, int sy)
     }
 }
 
-void bresenham(t_map *m, t_point *p1, t_point *p2)
+void draw_line(t_map *m, int x0, int y0, int x1, int y1)
 {
-    int dx = abs(p2->isox - p1->isox);
-    int dy = abs(p2->isoy - p1->isoy);
-    int sx = calculate_step(p1->isox, p2->isox);
-    int sy = calculate_step(p1->isoy, p2->isoy);
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = calculate_step(x0, x1);
+    int sy = calculate_step(y0, y1);
     int err = dx - dy;
 
-    int x = p1->isox;
-    int y = p1->isoy;
-
-    while (x != p2->isox && y != p2->isoy)
+    while (1)
     {
-        plot_pixel(m, x, y, p1, p2);
-        update_error(&err, &x, &y, dx, dy, sx, sy);
+        plot_pixel(m, x0, y0);
+
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        update_error(&err, &x0, &y0, dx, dy, sx, sy);
     }
+}
+
+void bresenham(t_map *m, t_point *p1, t_point *p2)
+{
+    draw_line(m, p1->isox, p1->isoy, p2->isox, p2->isoy);
+}
+
+void	get_line_pixels(t_map *m, t_point *p1, t_point *p2)
+{
+	m->pix_x = p2->x - p1->x;
+	m->pix_y = p2->y - p1->y;
 }
 
 void	draw_bg(t_map *m)

@@ -53,8 +53,3 @@ void	set_rows_cols(t_map *map)
 	map->file_desc = open(map->file_path, O_RDONLY);
 	map->rows = rows;
 }
-
-void	min_max_z(t_map *m)
-{
-	return ;
-}

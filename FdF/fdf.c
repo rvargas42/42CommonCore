@@ -135,40 +135,23 @@ void	compute_y(t_map *m, t_point *p, int initial_y)
 	p->y = initial_y;
 }
 
-void	add_color_channels(t_point **point, char *color_data)
-{
-	int	r;
-	int	g;
-	int	b;
-	int	color;
-
-	if (point == NULL) return;
-	if (color_data == NULL) return;
-	color = ft_atoi_hex(color_data);
-	(*point)->color.r = (color >> 16) & 0xFF;
-	(*point)->color.g = (color >> 8) & 0xFF;
-	(*point)->color.b = color & 0xFF;
-	printf("add_color_channel: %d | %d | %d |\n", (*point)->color.r, (*point)->color.g, (*point)->color.b);
-}
-
 void	add_point(t_map *m, int y, int x)
 {
-	char	*data;
-	char	*tmp;
-	char	*color;
-	t_point	*point;
-	int		sep;
-	int		z;
+	char			*data;
+	char			*tmp;
+	char			*color;
+	t_point			*point;
+	int				sep;
+	int				z;
 
 	sep = 0;
 	data = m->file_data[y][x];
 	point = malloc(sizeof(t_point));
 	if (ft_strchr(data, ','))
-	{
+	{	
 		sep = ft_strchr(data, ',') - data;
-		if (data + sep + 1)	add_color_channels(&point, data + sep + 1);
+		point->color = data + sep + 1;
 	}
-	else add_color_channels(&point, "0x00FF04");
 	point->z = (int) ft_atoi(ft_split(data, ',')[0]);
 	compute_x(m, point, x);
 	compute_y(m, point, y);
@@ -180,14 +163,13 @@ void	normalize_point(t_map *m, int x, int y)
 	t_point	*p;
 	float	x_new;
 	float	y_new;
-	float	z_scale;
 
 	p = m->map[y][x];
 	x_new = (float)x / (float)m->cols;
 	y_new = (float)y / (float)m->rows;
 	p->sx = (x_new * (m->size_x) * 0.30) + m->size_x / 2;
-	p->sy = y_new * (m->size_y) * 0.50;
-	p->sz = p->z;
+	p->sy = y_new * (m->size_y) * 0.30;
+	p->sz = p->z * (m->size_x / m->size_y);
 }
 
 void	set_point_data(t_map *m)

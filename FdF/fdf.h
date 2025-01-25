@@ -26,13 +26,6 @@
 # include "libft/inc/libft.h"
 # include "get_next_line/get_next_line.h"
 
-typedef struct s_color
-{
-	int	r;
-	int	g;
-	int	b;
-}		t_color;
-
 typedef struct s_point
 {
 	int		sx;
@@ -43,7 +36,7 @@ typedef struct s_point
 	int		z;
 	int		x;
 	int		y;
-	t_color	color;
+	char	*color;
 }			t_point;
 
 typedef struct s_line
@@ -88,17 +81,11 @@ typedef struct s_map
 
 void	set_rows_cols(t_map *map);
 void	throw_error(int code, const char *message);
-void	draw_line(t_map *m, t_point *p1, t_point *p2);
+void 	draw_line(t_map *m, int x0, int y0, int x1, int y1);
 void	pixel_to_image(t_data *img, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	isometric(t_map *m, t_point *p, double deg);
 void	draw_map(t_map *m);
-void	rotate_y(t_map *m, t_point *p, double deg);
-void	rotate_z(t_map *m, t_point *p, double deg);
-void	rotate_x(t_map *m, t_point *p, double deg);
-int		ft_atoi_hex(char *num);
 void	digital_diff(t_map *m, t_point *p1, t_point *p2);
-double	euclidean_distance(int x1, int x2, int y1, int y2);
-double	point_weight(int x, int y, t_point *p1, t_point *p2);
 
 #endif
