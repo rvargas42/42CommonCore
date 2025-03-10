@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyhooks.c                                         :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 09:59:21 by ravargas          #+#    #+#             */
-/*   Updated: 2024/10/03 10:00:48 by ravargas         ###   ########.fr       */
+/*   Created: 2024/08/18 12:09:13 by ravargas          #+#    #+#             */
+/*   Updated: 2024/08/18 14:31:51 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int close_window(int code, t_map *m)
+void	throw_error(int code, const char *message)
 {
-	mlx_destroy_window(m->mlx, m->window);
-	clean_program(m);
-	return (0);
+	errno = code;
+	perror(message);
+	exit(EXIT_FAILURE);
 }
 
-void	register_hooks(t_map *m)
+//free all data from the map and exit the program no error
+void	exit_program_wo_error(t_map **map)
 {
-	mlx_hook(m->window, DestroyNotify, ButtonPressMask, close_window, m);
 	return ;
 }
 
-void	hooks(int code, t_map *m)
+void	exit_program_w_error(t_map **map)
 {
 	return ;
+}
+
+void	throw_exit_error(int code, const char *message)
+{
+	errno = code;
+	perror(message);
+	exit(EXIT_FAILURE);
 }

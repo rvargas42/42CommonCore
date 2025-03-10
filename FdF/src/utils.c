@@ -14,7 +14,7 @@
 
 /* ------------------------- Get max number of cols ------------------------- */
 
-void	set_cols(char *line, t_map *map)
+int	set_cols(char *line, t_map *map)
 {
 	int	i;
 	int	n;
@@ -29,32 +29,31 @@ void	set_cols(char *line, t_map *map)
 			n++;
 		i++;
 	}
+	if (map->cols != 0 && (map->cols != n))
+		return (-1);
 	if (map->cols < n)
 		map->cols = n;
+	return (n);
 }
 
-void	set_rows_cols(t_map *map)
+int	set_rows_cols(t_map *map)
 {
 	char	*line;
 	int		fd;
-	int		rows;
+	int		cols;
 
-	rows = 0;
 	map->cols = 0;
+	map->rows = 0;
 	line = get_next_line(map->file_desc);
 	while (line != NULL)
 	{
-		rows++;
-		set_cols(line, map);
+		map->rows++;
+		cols = set_cols(line, map);
+		if (cols == -1) return (-1);
 		free(line);
 		line = get_next_line(map->file_desc);
 	}
 	close(map->file_desc);
 	map->file_desc = open(map->file_path, O_RDONLY);
-	map->rows = rows;
-}
-
-void	min_max_z(t_map *m)
-{
-	return ;
+	return (0);
 }

@@ -33,11 +33,9 @@ int calculate_color(int x, int y, t_point *p1, t_point *p2)
 	delta_x = p2->isox - p1->isox;
 	delta_y = p2->isoy - p1->isoy;
 	t = point_weight(x, y, p1, p2);
-	printf("the t values is : %f\n", t);
 	color.r = p1->color.r + (p2->color.r - p1->color.r) * t;
 	color.g = p1->color.g + (p2->color.g - p1->color.g) * t;
 	color.b = p1->color.b + (p2->color.b - p1->color.b) * t;
-	printf("%d | %d | %d |\n", color.r, color.g, color.b);
 	new_color = (color.r << 16) | (color.g << 8) | color.b;
 	return (new_color);
 }
