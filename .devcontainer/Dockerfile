@@ -17,6 +17,7 @@ RUN apt-get install -y \
     python3-tk
 
 RUN apt-get install -y \
+	vim \
     build-essential \
     pkg-config \
     libcairo2-dev \
