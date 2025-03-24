@@ -13,6 +13,12 @@
 #ifndef FDF_H
 # define FDF_H
 
+# define CORRECT 0
+# define EMPTY 1
+# define INVALID 2
+
+# define KEY_ESC 65307
+
 # include <math.h>
 # include <stdlib.h>
 # include <limits.h>
@@ -65,6 +71,7 @@ typedef struct s_data
 typedef struct s_map
 {
 	const char	*file_path;
+	int			status;
 	int			file_desc;
 	char		***file_data;
 	void		*mlx;
@@ -81,17 +88,19 @@ typedef struct s_map
 	int			cols;
 	int			scale_x;
 	int			scale_y;
-	int			pix_x;
-	int			pix_y;
 	t_point		***map;
 }				t_map;
 
-void	set_rows_cols(t_map *map);
+void	register_hooks(t_map *m);
+void	clean_program(t_map *map);
+int		set_rows_cols(t_map *map);
+void	check_map(t_map *m);
+void	isometric(t_map *m, t_point *p, double deg);
 void	throw_error(int code, const char *message);
 void	draw_line(t_map *m, t_point *p1, t_point *p2);
 void	pixel_to_image(t_data *img, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
-void	isometric(t_map *m, t_point *p, double deg);
+void	project_map(t_map *m, double deg);
 void	draw_map(t_map *m);
 void	rotate_y(t_map *m, t_point *p, double deg);
 void	rotate_z(t_map *m, t_point *p, double deg);

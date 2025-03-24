@@ -148,7 +148,6 @@ void	add_color_channels(t_point **point, char *color_data)
 	(*point)->color.r = (color >> 16) & 0xFF;
 	(*point)->color.g = (color >> 8) & 0xFF;
 	(*point)->color.b = color & 0xFF;
-	printf("add_color_channel: %d | %d | %d |\n", (*point)->color.r, (*point)->color.g, (*point)->color.b);
 }
 
 void	add_point(t_map *m, int y, int x)
@@ -209,7 +208,7 @@ void	set_point_data(t_map *m)
 		{
 			add_point(m, y, x);
 			normalize_point(m, x, y);
-			isometric(m, m->map[y][x], 0.50);
+			isometric(m, m->map[y][x], 0.9);
 			x++;
 		}
 		y++;
@@ -226,6 +225,15 @@ void	set_image(t_map *m)
 									&data->endian);
 	m->img = data;
 }
+void	check_map(t_map *m)
+{
+	int	set_dims;
+
+	set_dims = set_rows_cols(m);
+	if (set_dims == -1) m->status = INVALID;
+	if (m->cols == 0 && m->rows == 0) m->status = EMPTY;
+	else m->status = CORRECT;
+}
 
 t_map	*init_map(int argn, char **args)
 {
@@ -237,9 +245,9 @@ t_map	*init_map(int argn, char **args)
 	m->file_path = args[1];
 	m->file_desc = open(args[1], O_RDONLY);
 	m->title = ft_strtrim(args[1], ".fdf");
-	set_rows_cols(m);
-	m->size_x = 1920;
-	m->size_y = 1080;
+	check_map(m);
+	m->size_x = 960;
+	m->size_y = 540;
 	m->scale_x = m->size_x / m->cols;
 	m->scale_y = m->size_y / m->rows;
 	m->mlx = mlx_init();
@@ -259,9 +267,12 @@ int	main(int argn, char **args)
 	if (!map)
 	{
 		ft_printf("Failed to allocate map\n");
-		return (EXIT_FAILURE);
+		return (1);
 	}
 	draw_map(map);
 	mlx_put_image_to_window(map->mlx, map->window, map->img->img, 0, 0);
+	register_hooks(map);
 	mlx_loop(map->mlx);
+	clean_program(map);
+	return (0);
 }

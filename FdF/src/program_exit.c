@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 12:23:53 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/18 20:44:32 by ravargas         ###   ########.fr       */
+/*   Created: 2024/08/18 12:09:13 by ravargas          #+#    #+#             */
+/*   Updated: 2024/08/18 14:31:51 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	set_matrix(t_map *map)
+void	throw_error(int code, const char *message)
 {
-	t_point ***matrix;
+	errno = code;
+	perror(message);
+	exit(EXIT_FAILURE);
+}
 
-	matrix = (t_point ***)malloc(map->rows * sizeof(t_point **));
-	
+//free all data from the map and exit the program no error
+void	exit_program_wo_error(t_map **map)
+{
+	return ;
+}
+
+void	exit_program_w_error(t_map **map)
+{
+	return ;
+}
+
+void	throw_exit_error(int code, const char *message)
+{
+	errno = code;
+	perror(message);
+	exit(EXIT_FAILURE);
 }

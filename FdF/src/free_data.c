@@ -12,7 +12,11 @@
 
 #include "../inc/fdf.h"
 
-void	free_map(t_map *map)
+void	clean_program(t_map *map)
 {
+	free(map->window);
+	free(map->img->img);
+	free(map->img);
+	free(map);
 	return ;
 }

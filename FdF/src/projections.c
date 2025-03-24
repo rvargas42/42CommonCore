@@ -25,11 +25,8 @@ int	get_max_z(t_map *m)
 		j = 0;
 		while (j + 1 < m->cols)
 		{
-			printf("z");
-			// if (m->map[i][j]->sz > max)
-			// {
-			// 	max = m->map[i][j]->sz;
-			// }
+			if (m->map[i][j]->z > max)
+				max = m->map[i][j]->z;
 			j += 1;
 		}
 		i += 1;
@@ -40,13 +37,12 @@ int	get_max_z(t_map *m)
 void	scale_z(t_point *p, t_map *m)
 {
 	int		max_z;
-	double	min_z;
 	double	scale_factor;
+	double	min_z;
 	double	scaled_z;
 
 	max_z = get_max_z(m);
-	
-	//scale_factor = (double)((double)(p->sz) / get_max_z(m));
+	scale_factor = ((double)m->size_y / (double)max_z);
 	//printf("scale factor :: %f\n", scale_factor);
 	// scaled_z = scale_factor * (double)p->sz;
 	// printf("scale factor :: %d\n", get_max_z(m));
@@ -59,7 +55,6 @@ void	isometric(t_map *m, t_point *p, double deg)
 	// p->isoy = ((p->sx + p->sy) * sin(deg) - p->z);
 	p->isox = p->sx * cos(0.50) + p->sy * cos(0.5 + 2) + p->sz * cos(0.50 - 2);
 	p->isoy = p->sx * sin(0.50) + p->sy * sin(0.5 + 2) + p->sz * sin(0.50 - 2);
-	scale_z(p, m);
 
 }
 

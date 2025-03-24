@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   keyhooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 12:23:53 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/18 20:44:32 by ravargas         ###   ########.fr       */
+/*   Created: 2024/10/03 09:59:21 by ravargas          #+#    #+#             */
+/*   Updated: 2024/10/03 10:00:48 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	set_matrix(t_map *map)
+int delete_image(long int code, t_map *m)
 {
-	t_point ***matrix;
+	if (code == KEY_ESC)
+	{
+		mlx_destroy_image(m->mlx, m->img->img);
+		return (0);
+	}
+	return (0);
+}
 
-	matrix = (t_point ***)malloc(map->rows * sizeof(t_point **));
-	
+void	register_hooks(t_map *m)
+{
+	mlx_key_hook(m->window, delete_image, m);
+	return ;
+}
+
+void	hooks(int code, t_map *m)
+{
+	return ;
 }
