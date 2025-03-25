@@ -12,23 +12,27 @@
 
 #include "../inc/fdf.h"
 
-int delete_image(long int code, t_map *m)
+int	close_display(long int code, t_map *m)
+{
+	mlx_destroy_window(m->mlx, m->win);
+	exit(0);
+}
+
+int	mouse_hooks(long int code, t_map *m)
+{
+	return (0);
+}
+
+int	key_hooks(long int code, t_map *m)
 {
 	if (code == KEY_ESC)
-	{
-		mlx_destroy_image(m->mlx, m->img->img);
-		return (0);
-	}
+		close_display(code, m);
 	return (0);
 }
 
 void	register_hooks(t_map *m)
 {
-	mlx_key_hook(m->window, delete_image, m);
-	return ;
-}
+	mlx_hook(m->win, DestroyNotify, ButtonPressMask, close_display, m);
+	mlx_hook(m->win, 2, 1L<<0, key_hooks, m);
 
-void	hooks(int code, t_map *m)
-{
-	return ;
 }

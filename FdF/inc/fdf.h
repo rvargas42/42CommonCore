@@ -13,11 +13,8 @@
 #ifndef FDF_H
 # define FDF_H
 
-# define CORRECT 0
-# define EMPTY 1
-# define INVALID 2
-
 # define KEY_ESC 65307
+# define MOUSE_LEFT 1
 
 # include <math.h>
 # include <stdlib.h>
@@ -59,23 +56,29 @@ typedef struct s_line
 }			t_line;
 
 
-typedef struct s_data
+typedef	struct	s_data
 {
-	void	*img;
+	void	*image;
 	char	*addr;
 	int		bit_per_pix;
 	int		len;
 	int		endian;
 }			t_data;
 
+typedef	enum	e_status {
+	CORRECT,
+	EMPTY,
+	INVALID,
+}	t_status;
+
 typedef struct s_map
 {
 	const char	*file_path;
-	int			status;
+	t_status	status;
 	int			file_desc;
 	char		***file_data;
 	void		*mlx;
-	void		*window;
+	void		*win;
 	char		*title;
 	int			size_x;
 	int			size_y;

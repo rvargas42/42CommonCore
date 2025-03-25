@@ -27,14 +27,6 @@ static void	check_args(int argn, char **args)
 		throw_error(22, "File should be .fdf extension type");
 }
 
-void	set_title(t_map *map, char **args)
-{
-	char	*title;
-	
-	title = ft_strtrim(args[1], ".fdf");
-	map->title = title;
-}
-
 int check_line_chars(char **line)
 {
 	int		i;
@@ -169,8 +161,8 @@ void	add_point(t_map *m, int y, int x)
 	}
 	else add_color_channels(&point, "0x00FF04");
 	point->z = (int) ft_atoi(ft_split(data, ',')[0]);
-	compute_x(m, point, x);
-	compute_y(m, point, y);
+	point->x = x;
+	point->y = y;
 	m->map[y][x] = point;
 }
 
@@ -208,7 +200,7 @@ void	set_point_data(t_map *m)
 		{
 			add_point(m, y, x);
 			normalize_point(m, x, y);
-			isometric(m, m->map[y][x], 0.9);
+			isometric(m, m->map[y][x], 0.5);
 			x++;
 		}
 		y++;
@@ -220,8 +212,8 @@ void	set_image(t_map *m)
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
-	data->img = mlx_new_image(m->mlx, m->size_x, m->size_y);
-	data->addr = mlx_get_data_addr(data->img, &data->bit_per_pix, &data->len,
+	data->image = mlx_new_image(m->mlx, m->size_x, m->size_y);
+	data->addr = mlx_get_data_addr(data->image, &data->bit_per_pix, &data->len,
 									&data->endian);
 	m->img = data;
 }
@@ -246,12 +238,14 @@ t_map	*init_map(int argn, char **args)
 	m->file_desc = open(args[1], O_RDONLY);
 	m->title = ft_strtrim(args[1], ".fdf");
 	check_map(m);
-	m->size_x = 960;
-	m->size_y = 540;
+	if (m->status == EMPTY || m->status == INVALID)
+		exit(EXIT_FAILURE);
+	m->size_x = 1920;
+	m->size_y = 1080;
 	m->scale_x = m->size_x / m->cols;
 	m->scale_y = m->size_y / m->rows;
 	m->mlx = mlx_init();
-	m->window = mlx_new_window(m->mlx, m->size_x, m->size_y,"Fil de Fer");
+	m->win = mlx_new_window(m->mlx, m->size_x, m->size_y, m->title);
 	set_file_data(args, m);
 	set_image(m);
 	set_point_data(m);
@@ -260,19 +254,19 @@ t_map	*init_map(int argn, char **args)
 
 int	main(int argn, char **args)
 {
-	t_map	*map;
+	t_map	*m;
 
 	check_args(argn, args);
-	map = init_map(argn, args);
-	if (!map)
+	m = init_map(argn, args);
+	if (!m)
 	{
 		ft_printf("Failed to allocate map\n");
 		return (1);
 	}
-	draw_map(map);
-	mlx_put_image_to_window(map->mlx, map->window, map->img->img, 0, 0);
-	register_hooks(map);
-	mlx_loop(map->mlx);
-	clean_program(map);
+	draw_map(m);
+	mlx_put_image_to_window(m->mlx, m->win, m->img->image, 0, 0);
+	register_hooks(m);
+	mlx_loop(m->mlx);
+	//clean_program(m);
 	return (0);
 }
