@@ -12,10 +12,13 @@
 
 #include "../inc/fdf.h"
 
-int	close_display(long int code, t_map *m)
+int	close_display(void *param)
 {
-	mlx_destroy_window(m->mlx, m->win);
-	exit(0);
+	t_map *m;
+
+	m = (t_map *) param;
+	mlx_loop_end(m->mlx);
+	return (0);
 }
 
 int	mouse_hooks(long int code, t_map *m)
@@ -26,7 +29,7 @@ int	mouse_hooks(long int code, t_map *m)
 int	key_hooks(long int code, t_map *m)
 {
 	if (code == KEY_ESC)
-		close_display(code, m);
+		close_display(m);
 	return (0);
 }
 
@@ -34,5 +37,4 @@ void	register_hooks(t_map *m)
 {
 	mlx_hook(m->win, DestroyNotify, ButtonPressMask, close_display, m);
 	mlx_hook(m->win, 2, 1L<<0, key_hooks, m);
-
 }

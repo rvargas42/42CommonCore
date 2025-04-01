@@ -12,50 +12,15 @@
 
 #include "../inc/fdf.h"
 
-int	get_max_z(t_map *m)
-{
-	int		i;
-	int		j;
-	int		max;
-
-	i = 0;
-	max = 0;
-	while (i + 1 < m->rows)
-	{
-		j = 0;
-		while (j + 1 < m->cols)
-		{
-			if (m->map[i][j]->z > max)
-				max = m->map[i][j]->z;
-			j += 1;
-		}
-		i += 1;
-	}
-	return (max);
-}
-
-void	scale_z(t_point *p, t_map *m)
-{
-	int		max_z;
-	double	scale_factor;
-	double	min_z;
-	double	scaled_z;
-
-	max_z = get_max_z(m);
-	scale_factor = ((double)m->size_y / (double)max_z);
-	//printf("scale factor :: %f\n", scale_factor);
-	// scaled_z = scale_factor * (double)p->sz;
-	// printf("scale factor :: %d\n", get_max_z(m));
-	// p->sz = scaled_z;
-}
-
 void	isometric(t_map *m, t_point *p, double deg)
 {
-	// p->isox = ((p->sx - p->sy) * cos(deg));
-	// p->isoy = ((p->sx + p->sy) * sin(deg) - p->z);
-	p->isox = p->sx * cos(0.50) + p->sy * cos(0.5 + 2) + p->sz * cos(0.50 - 2);
-	p->isoy = p->sx * sin(0.50) + p->sy * sin(0.5 + 2) + p->sz * sin(0.50 - 2);
+	float	clamp_y;
 
+	clamp_y = ((p->sx + p->sy) * sin(deg));
+	p->isox = ((p->sx - p->sy) * cos(deg));
+	p->isoy = clamp_y - fmin(clamp_y, p->sz);
+
+	printf("isox : %d \t isoy : %d\n", p->isox, p->isoy);
 }
 
 void	rotate_y(t_map *m, t_point *p, double deg)

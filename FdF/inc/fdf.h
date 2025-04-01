@@ -46,7 +46,7 @@ typedef struct s_point
 	int		z;
 	int		x;
 	int		y;
-	t_color	color;
+	t_color	*color;
 }			t_point;
 
 typedef struct s_line
@@ -71,32 +71,46 @@ typedef	enum	e_status {
 	INVALID,
 }	t_status;
 
+typedef struct s_scales {
+	float	scalef;
+	float	scalex;
+	float	scaley;
+	float	scalez;
+}		t_scales;
+
+typedef struct s_minmax {
+	int	min_x;
+	int	min_y;
+	int	min_z;
+	int	max_x;
+	int	max_y;
+	int	max_z;
+}		t_minmax;
+
 typedef struct s_map
 {
-	const char	*file_path;
-	t_status	status;
-	int			file_desc;
-	char		***file_data;
-	void		*mlx;
 	void		*win;
-	char		*title;
-	int			size_x;
-	int			size_y;
-	int			min_x;
-	int			min_y;
-	int			max_x;
-	int			max_y;
-	t_data		*img;
+	void		*mlx;
+	const char	*file_path;
 	int			rows;
 	int			cols;
-	int			scale_x;
-	int			scale_y;
+	int			size_x;
+	int			size_y;
+	int			file_desc;
+	char		***file_data;
+	char		*title;
+	t_status	status;
+	t_data		*img;
 	t_point		***map;
+	t_minmax	min_max;
+	t_scales	scale;
 }				t_map;
 
 void	register_hooks(t_map *m);
 void	clean_program(t_map *map);
 int		set_rows_cols(t_map *map);
+void	init_min_max(t_map *m);
+void	update_min_max(t_map *m, t_point *p);
 void	check_map(t_map *m);
 void	isometric(t_map *m, t_point *p, double deg);
 void	throw_error(int code, const char *message);
@@ -105,6 +119,7 @@ void	pixel_to_image(t_data *img, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 void	project_map(t_map *m, double deg);
 void	draw_map(t_map *m);
+void	set_min_max(t_map *m);
 void	rotate_y(t_map *m, t_point *p, double deg);
 void	rotate_z(t_map *m, t_point *p, double deg);
 void	rotate_x(t_map *m, t_point *p, double deg);

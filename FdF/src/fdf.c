@@ -117,39 +117,26 @@ void	set_file_data(char **args, t_map	*m)
 	m->file_data = data;
 }
 
-void	compute_x(t_map *m, t_point *p, int initial_x)
-{
-	p->x = initial_x;//x + m->size_x / 2;
-}
-
-void	compute_y(t_map *m, t_point *p, int initial_y)
-{
-	p->y = initial_y;
-}
-
 void	add_color_channels(t_point **point, char *color_data)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	color;
+	int		color;
+	t_color	*color_t;
 
 	if (point == NULL) return;
 	if (color_data == NULL) return;
+	color_t = malloc(sizeof(t_color));
 	color = ft_atoi_hex(color_data);
-	(*point)->color.r = (color >> 16) & 0xFF;
-	(*point)->color.g = (color >> 8) & 0xFF;
-	(*point)->color.b = color & 0xFF;
+	color_t->r = (color >> 16) & 0xFF;
+	color_t->g = (color >> 8) & 0xFF;
+	color_t->b = (color) & 0xFF;
+	(*point)->color = color_t;
 }
 
 void	add_point(t_map *m, int y, int x)
 {
 	char	*data;
-	char	*tmp;
-	char	*color;
 	t_point	*point;
 	int		sep;
-	int		z;
 
 	sep = 0;
 	data = m->file_data[y][x];
@@ -160,9 +147,9 @@ void	add_point(t_map *m, int y, int x)
 		if (data + sep + 1)	add_color_channels(&point, data + sep + 1);
 	}
 	else add_color_channels(&point, "0x00FF04");
-	point->z = (int) ft_atoi(ft_split(data, ',')[0]);
 	point->x = x;
 	point->y = y;
+	point->z = (int) ft_atoi(ft_split(data, ',')[0]);
 	m->map[y][x] = point;
 }
 
@@ -174,11 +161,33 @@ void	normalize_point(t_map *m, int x, int y)
 	float	z_scale;
 
 	p = m->map[y][x];
-	x_new = (float)x / (float)m->cols;
-	y_new = (float)y / (float)m->rows;
-	p->sx = (x_new * (m->size_x) * 0.30) + m->size_x / 2;
-	p->sy = y_new * (m->size_y) * 0.50;
-	p->sz = p->z;
+
+	p->sx = p->x * m->scale.scalef * 0.50 + (m->size_x / 2);
+	p->sy = p->y * m->scale.scalef * 0.50;
+	p->sz = p->z * m->scale.scalez;
+	p->isox = p->sx;
+	p->isoy = p->sy;
+
+	printf("sx : %d \t sy : %d \t sz : %d\n", p->sx, p->sy, p->sz);
+}
+
+void	normalize_and_project(t_map *m)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	while (m->map[y] != NULL)
+	{
+		x = 0;
+		while(m->map[y][x])
+		{
+			normalize_point(m, x, y);
+			isometric(m, m->map[y][x], 0.5);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	set_point_data(t_map *m)
@@ -199,12 +208,12 @@ void	set_point_data(t_map *m)
 		while(m->file_data[y][x])
 		{
 			add_point(m, y, x);
-			normalize_point(m, x, y);
-			isometric(m, m->map[y][x], 0.5);
 			x++;
 		}
+		m->map[y][x] = NULL;
 		y++;
 	}
+	m->map[y] = NULL;
 }
 
 void	set_image(t_map *m)
@@ -227,6 +236,15 @@ void	check_map(t_map *m)
 	else m->status = CORRECT;
 }
 
+void	set_scale_factor(t_map *m)
+{
+	set_min_max(m);
+	m->scale.scalex = m->size_x / (m->cols);
+	m->scale.scaley = m->size_y / (m->rows);
+	m->scale.scalez = (m->cols / m->rows);
+	m->scale.scalef = fmin(m->scale.scalex, m->scale.scaley);
+}
+
 t_map	*init_map(int argn, char **args)
 {
 	t_map	*m;
@@ -242,13 +260,12 @@ t_map	*init_map(int argn, char **args)
 		exit(EXIT_FAILURE);
 	m->size_x = 1920;
 	m->size_y = 1080;
-	m->scale_x = m->size_x / m->cols;
-	m->scale_y = m->size_y / m->rows;
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, m->size_x, m->size_y, m->title);
 	set_file_data(args, m);
 	set_image(m);
 	set_point_data(m);
+	set_scale_factor(m);
 	return (m);
 }
 
@@ -263,10 +280,11 @@ int	main(int argn, char **args)
 		ft_printf("Failed to allocate map\n");
 		return (1);
 	}
+	normalize_and_project(m);
 	draw_map(m);
 	mlx_put_image_to_window(m->mlx, m->win, m->img->image, 0, 0);
 	register_hooks(m);
 	mlx_loop(m->mlx);
-	//clean_program(m);
+	clean_program(m);
 	return (0);
 }

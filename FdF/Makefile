@@ -46,7 +46,7 @@ test_mem: fclean $(MYLIB)
 	@make -s verifyCompilation
 
 $(NAME): $(MYLIB) $(OBJs) $(MLX)
-	@gcc $(OBJs) $(INCLUDE) $(MYLIB) $(MLX_LIB) -o $(NAME)
+	@gcc $(OBJs) $(INCLUDE) $(MYLIB) $(MLX_LIB) -o $(NAME) $(FLAGS)
 	@make -s verifyCompilation
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)

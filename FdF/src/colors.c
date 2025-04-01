@@ -25,19 +25,11 @@ int	ft_atoi_hex(char *num)
 		result *= 16;
 		if (num[i] >= '0' && num[i] <= '9')
 			result += num[i] - '0';
+		if (num[i] >= 'a' && num[i] <= 'f')
+			result += num[i] - 'a' + 10;
 		if (num[i] >= 'A' && num[i] <= 'F')
 			result += num[i] - 'A' + 10;
 		i++;
 	}
 	return (result);
-}
-
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
-void	get_color(t_point *p)
-{
-	return ;
 }
