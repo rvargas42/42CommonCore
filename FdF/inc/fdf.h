@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:26 by ravargas          #+#    #+#             */
-/*   Updated: 2024/10/03 11:43:43 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:57:12 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,10 @@ typedef struct s_map
 	t_scales	scale;
 }				t_map;
 
+void	set_file_data(char **args, t_map	*m);
+t_map	*init_map(int argn, char **args);
+void	normalize_and_project(t_map *m);
+void	set_point_data(t_map *m);
 void	register_hooks(t_map *m);
 void	clean_program(t_map *map);
 void	exit_program_wo_error(t_map *map);
@@ -130,6 +134,7 @@ void	init_min_max(t_map *m);
 void	update_min_max(t_map *m, t_point *p);
 void	check_map(t_map *m);
 void	isometric(t_map *m, t_point *p, double deg);
+void	bresenham(t_map *m, t_point *p1, t_point *p2);
 void	draw_line(t_map *m, t_point *p1, t_point *p2);
 void	pixel_to_image(t_map *m, t_point *p1, t_point *p2);
 int		create_trgb(int t, int r, int g, int b);

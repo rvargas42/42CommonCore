@@ -19,7 +19,8 @@ int	ft_atoi_hex(char *num)
 
 	i = 2;
 	result = 0;
-	if (num == NULL || ft_strlen(num) <= 2) return (0);
+	if (num == NULL || ft_strlen(num) <= 2)
+		return (0);
 	while (num[i])
 	{
 		result *= 16;
