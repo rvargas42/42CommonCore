@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:26 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 16:57:12 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:33:45 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define KEY_ESC 65307
 # define MOUSE_LEFT 1
+# define ALLOWED "0123456789XABCDEF\n ,"
 
 # include <math.h>
 # include <stdlib.h>

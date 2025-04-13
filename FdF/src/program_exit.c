@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 12:09:13 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 16:42:58 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:13:03 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	throw_error(int code, const char *message)
 	exit(EXIT_FAILURE);
 }
 
-//free all data from the map and exit the program no error
 void	exit_program_wo_error(t_map *map)
 {
 	clean_program(map);

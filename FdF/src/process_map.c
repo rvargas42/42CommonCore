@@ -6,26 +6,25 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:33:03 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 16:44:38 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:32:59 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int check_line_chars(char **line)
+int	check_line_chars(char **line)
 {
 	int		i;
 	char	c;
 
 	i = 0;
-	while ((c = (*line)[i]))
+	while ((*line)[i])
 	{
-		if (ft_isalpha(c))
-			c = ft_toupper(c);
-		if ((c < '0' || c > '9') && (c < 'A' || c > 'F') && c != ' ')
+		c = ft_toupper((*line)[i]);
+		if (!ft_strchr((char const *) ALLOWED, c))
 		{
-			if (c != ',' && c != '+' && c != '-' && c != '\n')
-				return (-1);
+			printf("exited for char : %c \n", c);
+			return (-1);
 		}
 		i++;
 	}
@@ -34,7 +33,7 @@ int check_line_chars(char **line)
 
 char	*write_data(char **line)
 {
-	char 	*slot;
+	char	*slot;
 	int		len;
 	int		i;
 
@@ -90,8 +89,8 @@ void	set_file_data(char **args, t_map	*m)
 	{
 		if (line == NULL)
 			throw_error(errno, "Error reading file");
-        if (check_line_chars(&line) == -1)
-            exit_program_w_error(m, EINVAL);
+		if (check_line_chars(&line) == -1)
+			exit_program_w_error(m, EINVAL);
 		else
 		{
 			data[i] = write_line(&line, m);

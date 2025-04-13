@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 10:36:44 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/17 13:43:40 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:16:16 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,11 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || read(fd, &line, 0) < 0 || BUFFER_SIZE <= 0)
 	{
-		while(llist)
+		while (llist)
 		{
 			prev = llist->next;
 			free(llist->buffer);
-			free(llist); 
+			free(llist);
 			llist = prev;
 		}
 		return (NULL);

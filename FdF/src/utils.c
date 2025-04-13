@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:59:23 by ravargas          #+#    #+#             */
-/*   Updated: 2024/08/28 10:17:14 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:14:19 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,18 @@ void	init_min_max(t_map *m)
 
 void	update_min_max(t_map *m, t_point *p)
 {
-	if (p->x > m->min_max.max_x) m->min_max.max_x = p->x;
-	if (p->y > m->min_max.max_y) m->min_max.max_y = p->y;
-	if (p->z > m->min_max.max_z) m->min_max.max_z = p->z;
-	if (p->x < m->min_max.min_x) m->min_max.min_x = p->x;
-	if (p->y < m->min_max.min_y) m->min_max.min_y = p->y;
-	if (p->z < m->min_max.min_x) m->min_max.min_z = p->z;
+	if (p->x > m->min_max.max_x)
+		m->min_max.max_x = p->x;
+	if (p->y > m->min_max.max_y)
+		m->min_max.max_y = p->y;
+	if (p->z > m->min_max.max_z)
+		m->min_max.max_z = p->z;
+	if (p->x < m->min_max.min_x)
+		m->min_max.min_x = p->x;
+	if (p->y < m->min_max.min_y)
+		m->min_max.min_y = p->y;
+	if (p->z < m->min_max.min_x)
+		m->min_max.min_z = p->z;
 }
 
 void	set_min_max(t_map *m)
@@ -53,7 +59,6 @@ void	set_min_max(t_map *m)
 	}
 	return ;
 }
-
 
 int	set_cols(char *line, t_map *map)
 {
@@ -90,7 +95,8 @@ int	set_rows_cols(t_map *map)
 	{
 		map->rows++;
 		cols = set_cols(line, map);
-		if (cols == -1) return (-1);
+		if (cols == -1)
+			return (-1);
 		free(line);
 		line = get_next_line(map->file_desc);
 	}

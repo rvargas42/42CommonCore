@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:32:33 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 16:54:58 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:20:28 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	set_image(t_map *m)
 
 	data = malloc(sizeof(t_data));
 	data->image = mlx_new_image(m->mlx, m->size_x, m->size_y);
-	data->addr = mlx_get_data_addr(data->image, &data->bit_per_pix, &data->len,
-									&data->endian);
+	data->addr = mlx_get_data_addr(data->image, &data->bit_per_pix, \
+		&data->len, &data->endian);
 	m->img = data;
 }
 
