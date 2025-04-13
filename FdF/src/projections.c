@@ -19,8 +19,6 @@ void	isometric(t_map *m, t_point *p, double deg)
 	clamp_y = ((p->sx + p->sy) * sin(deg));
 	p->isox = ((p->sx - p->sy) * cos(deg));
 	p->isoy = clamp_y - fmin(clamp_y, p->sz);
-
-	printf("isox : %d \t isoy : %d\n", p->isox, p->isoy);
 }
 
 void	rotate_y(t_map *m, t_point *p, double deg)

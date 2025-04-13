@@ -20,19 +20,16 @@ void	throw_error(int code, const char *message)
 }
 
 //free all data from the map and exit the program no error
-void	exit_program_wo_error(t_map **map)
+void	exit_program_wo_error(t_map *map)
 {
-	return ;
+	clean_program(map);
+	exit(EXIT_SUCCESS);
 }
 
-void	exit_program_w_error(t_map **map)
+void	exit_program_w_error(t_map *map, int code)
 {
-	return ;
-}
-
-void	throw_exit_error(int code, const char *message)
-{
-	errno = code;
-	perror(message);
+	errno = ENODATA;
+	perror(NULL);
+	clean_program(map);
 	exit(EXIT_FAILURE);
 }

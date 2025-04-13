@@ -46,14 +46,15 @@ test_mem: fclean $(MYLIB)
 	@make -s verifyCompilation
 
 $(NAME): $(MYLIB) $(OBJs) $(MLX)
-	@gcc $(OBJs) $(INCLUDE) $(MYLIB) $(MLX_LIB) -o $(NAME) $(FLAGS)
-	@make -s verifyCompilation
+	gcc $(OBJs) $(INCLUDE) $(MYLIB) $(MLX_LIB) -o $(NAME) $(FLAGS)
+	make -s verifyCompilation
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
 	$(COMPILER) -c $< -o $@
 
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
+	@touch $(OBJF)
 
 $(MYLIB): $(LIBFT) $(FT_PRINTF) $(GNL)
 	@ar rcs $(MYLIB) $(LIBFT_OBJS) $(FT_PRINTF_OBJS) $(GNL_OBJS)
@@ -79,6 +80,7 @@ clean:
 	@make clean -sC $(FT_PRINTF_DIR)
 	@make clean -sC $(MLX_DIR)
 	@make clean -sC $(GNL_DIR)
+	@rm -f $(OBJF)
 	@rm -rf $(OBJ_DIR)
 	@rm -f inc/*.a inc/*.gch
 	@rm -f *.o *.tgz *.gen

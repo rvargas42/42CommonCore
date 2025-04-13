@@ -71,6 +71,19 @@ typedef	enum	e_status {
 	INVALID,
 }	t_status;
 
+typedef struct	s_draw {
+	t_point	*p1;
+	t_point	*p2;
+	int		color;
+	int		x;
+	int		y;
+	int		sx;
+	int		sy;
+	int		err;
+	int		dx;
+	int		dy;
+}			t_draw;
+
 typedef struct s_scales {
 	float	scalef;
 	float	scalex;
@@ -102,20 +115,23 @@ typedef struct s_map
 	t_status	status;
 	t_data		*img;
 	t_point		***map;
+	t_draw		*line;
 	t_minmax	min_max;
 	t_scales	scale;
 }				t_map;
 
 void	register_hooks(t_map *m);
 void	clean_program(t_map *map);
+void	exit_program_wo_error(t_map *map);
+void	exit_program_w_error(t_map *map, int code);
+void	throw_error(int code, const char *message);
 int		set_rows_cols(t_map *map);
 void	init_min_max(t_map *m);
 void	update_min_max(t_map *m, t_point *p);
 void	check_map(t_map *m);
 void	isometric(t_map *m, t_point *p, double deg);
-void	throw_error(int code, const char *message);
 void	draw_line(t_map *m, t_point *p1, t_point *p2);
-void	pixel_to_image(t_data *img, int x, int y, int color);
+void	pixel_to_image(t_map *m, t_point *p1, t_point *p2);
 int		create_trgb(int t, int r, int g, int b);
 void	project_map(t_map *m, double deg);
 void	draw_map(t_map *m);

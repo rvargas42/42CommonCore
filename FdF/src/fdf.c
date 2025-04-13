@@ -161,14 +161,11 @@ void	normalize_point(t_map *m, int x, int y)
 	float	z_scale;
 
 	p = m->map[y][x];
-
 	p->sx = p->x * m->scale.scalef * 0.50 + (m->size_x / 2);
 	p->sy = p->y * m->scale.scalef * 0.50;
 	p->sz = p->z * m->scale.scalez;
 	p->isox = p->sx;
 	p->isoy = p->sy;
-
-	printf("sx : %d \t sy : %d \t sz : %d\n", p->sx, p->sy, p->sz);
 }
 
 void	normalize_and_project(t_map *m)
@@ -226,13 +223,14 @@ void	set_image(t_map *m)
 									&data->endian);
 	m->img = data;
 }
+
 void	check_map(t_map *m)
 {
 	int	set_dims;
 
 	set_dims = set_rows_cols(m);
-	if (set_dims == -1) m->status = INVALID;
-	if (m->cols == 0 && m->rows == 0) m->status = EMPTY;
+	if (set_dims == -1) exit_program_w_error(m, EINVAL);
+	if (m->cols == 0 && m->rows == 0) exit_program_w_error(m, ENODATA);
 	else m->status = CORRECT;
 }
 
@@ -255,15 +253,13 @@ t_map	*init_map(int argn, char **args)
 	m->file_path = args[1];
 	m->file_desc = open(args[1], O_RDONLY);
 	m->title = ft_strtrim(args[1], ".fdf");
-	check_map(m);
-	if (m->status == EMPTY || m->status == INVALID)
-		exit(EXIT_FAILURE);
 	m->size_x = 1920;
 	m->size_y = 1080;
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, m->size_x, m->size_y, m->title);
-	set_file_data(args, m);
 	set_image(m);
+	check_map(m);
+	set_file_data(args, m);
 	set_point_data(m);
 	set_scale_factor(m);
 	return (m);
