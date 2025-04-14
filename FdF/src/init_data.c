@@ -32,6 +32,18 @@ void	set_scale_factor(t_map *m)
 	m->scale.scalef = fmin(m->scale.scalex, m->scale.scaley);
 }
 
+void	init_struct_pointers(t_map *m)
+{
+	m->win = NULL;
+	m->mlx = NULL;
+	m->file_path = NULL;
+	m->file_data = NULL;
+	m->title = NULL;
+	m->img = NULL;
+	m->map = NULL;
+	m->line = NULL;
+}
+
 t_map	*init_map(int argn, char **args)
 {
 	t_map	*m;
@@ -39,6 +51,7 @@ t_map	*init_map(int argn, char **args)
 	m = malloc(sizeof(t_map));
 	if (!m)
 		return (NULL);
+	init_struct_pointers(m);
 	m->file_path = args[1];
 	m->file_desc = open(args[1], O_RDONLY);
 	m->title = ft_strtrim(args[1], ".fdf");

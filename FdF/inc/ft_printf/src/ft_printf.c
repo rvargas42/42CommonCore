@@ -75,6 +75,7 @@ int	ft_iter_s(char const *s, t_print *p)
 int	ft_printf(char const *s, ...)
 {
 	t_print		*p;
+	size_t		len;
 
 	p = (t_print *)malloc(sizeof(t_print));
 	if (!p || !s)
@@ -86,6 +87,7 @@ int	ft_printf(char const *s, ...)
 	va_start(p->vars, s);
 	ft_iter_s(s, p);
 	va_end(p->vars);
+	len = p->tlen;
 	free(p);
-	return (p->tlen);
+	return (len);
 }
