@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:59:23 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 17:14:19 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:56:36 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	set_rows_cols(t_map *map)
 		line = get_next_line(map->file_desc);
 	}
 	close(map->file_desc);
+	free(line);
 	map->file_desc = open(map->file_path, O_RDONLY);
 	return (0);
 }

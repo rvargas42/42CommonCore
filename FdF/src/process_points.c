@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:37:59 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 17:12:29 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:37:27 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,14 @@ void	add_point(t_map *m, int y, int x)
 {
 	char	*data;
 	t_point	*point;
+	char	**split;
 	int		sep;
 
 	sep = 0;
 	data = m->file_data[y][x];
 	point = malloc(sizeof(t_point));
+	if (!point)
+		return ;
 	if (ft_strchr(data, ','))
 	{
 		sep = ft_strchr(data, ',') - data;
@@ -80,7 +83,12 @@ void	add_point(t_map *m, int y, int x)
 		add_color_channels(&point, "0x00FF04");
 	point->x = x;
 	point->y = y;
-	point->z = (int) ft_atoi(ft_split(data, ',')[0]);
+	split = ft_split(data, ',');
+	if (split)
+	{
+		point->z = (int) ft_atoi((const char *)split[0]);
+		free_split(split);
+	}
 	m->map[y][x] = point;
 }
 
@@ -88,17 +96,16 @@ void	set_point_data(t_map *m)
 {
 	int		y;
 	int		x;
-	t_point	**map;
 
 	y = 0;
 	x = 0;
-	m->map = malloc(sizeof(t_point *) * (m->rows));
-	if (!map)
+	m->map = malloc(sizeof(t_point *) * (m->rows + 1));
+	if (!m->map)
 		return ;
 	while (m->file_data[y] != NULL)
 	{
 		x = 0;
-		m->map[y] = malloc(sizeof(t_point) * (m->cols));
+		m->map[y] = malloc(sizeof(t_point *) * (m->cols + 1));
 		while (m->file_data[y][x])
 		{
 			add_point(m, y, x);

@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:32:33 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 17:20:28 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:00:49 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ t_map	*init_map(int argn, char **args)
 	m->size_y = 1080;
 	m->mlx = mlx_init();
 	m->win = mlx_new_window(m->mlx, m->size_x, m->size_y, m->title);
-	set_image(m);
 	check_map(m);
+	set_image(m);
 	set_file_data(args, m);
 	set_point_data(m);
 	set_scale_factor(m);

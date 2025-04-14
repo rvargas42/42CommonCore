@@ -6,12 +6,11 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:23:38 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 17:01:46 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:45:39 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
-
 
 void	free_program(t_map *m)
 {
@@ -24,26 +23,29 @@ void	free_program(t_map *m)
 		mlx_destroy_display(m->mlx);
 		free(m->mlx);
 	}
-	free(m->file_data);
+	free(m->line);
 	free(m->title);
 }
 
-
-void	free_img(t_map *m)
+void	free_split(char **split)
 {
-	if (m->img)
+	int	i;
+
+	i = 0;
+	while (split[i] != NULL)
 	{
-		if (m->img->image)
-			mlx_destroy_image(m->mlx, m->img->image);
-		free(m->img);
+		free(split[i]);
+		i++;
 	}
+	free(split);
+	return ;
 }
 
 void	free_map(t_map *m)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
 	if (!m->map)
 		return ;
@@ -59,13 +61,14 @@ void	free_map(t_map *m)
 		free(m->map[y]);
 		y++;
 	}
+	free(m->map);
 }
 
 void	free_file_data(t_map *m)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
 	if (!m->file_data)
 		return ;
@@ -80,6 +83,7 @@ void	free_file_data(t_map *m)
 		free(m->file_data[y]);
 		y++;
 	}
+	free(m->file_data);
 }
 
 void	clean_program(t_map *map)
@@ -88,7 +92,12 @@ void	clean_program(t_map *map)
 		return ;
 	free_file_data(map);
 	free_map(map);
-	free_img(map);
+	if (map->img)
+	{
+		if (map->img->image)
+			mlx_destroy_image(map->mlx, map->img->image);
+		free(map->img);
+	}
 	free_program(map);
 	free(map);
 	return ;

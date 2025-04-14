@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:53:26 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/13 17:50:48 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:20:06 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	normalize_and_project(t_map *m);
 void	set_point_data(t_map *m);
 void	register_hooks(t_map *m);
 void	clean_program(t_map *map);
+void	free_split(char **split);
 void	exit_program_wo_error(t_map *map);
 void	exit_program_w_error(t_map *map, int code);
 void	throw_error(int code, const char *message);
