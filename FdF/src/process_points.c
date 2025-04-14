@@ -6,7 +6,7 @@
 /*   By: ravargas <ravargas@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:37:59 by ravargas          #+#    #+#             */
-/*   Updated: 2025/04/14 18:37:27 by ravargas         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:03:48 by ravargas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	normalize_and_project(t_map *m)
 	}
 }
 
-void	add_color_channels(t_point **point, char *color_data)
+void	add_color_channels(t_point *point, char *color_data)
 {
 	int		color;
 	t_color	*color_t;
@@ -58,7 +58,7 @@ void	add_color_channels(t_point **point, char *color_data)
 	color_t->r = (color >> 16) & 0xFF;
 	color_t->g = (color >> 8) & 0xFF;
 	color_t->b = (color) & 0xFF;
-	(*point)->color = color_t;
+	point->color = color_t;
 }
 
 void	add_point(t_map *m, int y, int x)
@@ -68,28 +68,22 @@ void	add_point(t_map *m, int y, int x)
 	char	**split;
 	int		sep;
 
-	sep = 0;
 	data = m->file_data[y][x];
 	point = malloc(sizeof(t_point));
 	if (!point)
 		return ;
-	if (ft_strchr(data, ','))
-	{
-		sep = ft_strchr(data, ',') - data;
-		if (data + sep + 1)
-			add_color_channels(&point, data + sep + 1);
-	}
+	split = ft_split(data, ',');
+	if (!split)
+		return ;
+	if (split[1])
+		add_color_channels(point, split[1]);
 	else
-		add_color_channels(&point, "0x00FF04");
+		add_color_channels(point, "0x00FF04");
 	point->x = x;
 	point->y = y;
-	split = ft_split(data, ',');
-	if (split)
-	{
-		point->z = (int) ft_atoi((const char *)split[0]);
-		free_split(split);
-	}
+	point->z = ft_atoi(split[0]);
 	m->map[y][x] = point;
+	free_split(split);
 }
 
 void	set_point_data(t_map *m)
