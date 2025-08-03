@@ -7,7 +7,8 @@ Repo with all projects completed at 42
 - Born2BeRoot: instalation and management of a debian server machine
 - GNL: function that reads a line from a file descriptor
 - PUSH_SWAP: introduction to sorting algorithms. It sorts a stack of numbers with insertion sort.
+- FdF: Fil de Fer corresponds is my first graphics project. It implements a model to represent a 3D mesh from a 2D map.
 
 ## CURRENT PROJECTS
-- FdF: Fil de Fer corresponds is my first graphics project. It implements a model to represent a 3D mesh from a 2D map.
-- PIPEX:
+- Philosophers: learning to use the POSIX thread api
+
